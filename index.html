@@ -57,33 +57,47 @@
       document.getElementById('userId').textContent = id.substring(0,20)+'...';
     }
 
-    async function submitAbsence(){
-      const idToken = liff.getDecodedIDToken();
-      const data = {
-        userId:idToken.sub,
-        reason:document.getElementById('reason').value,
-        details:document.getElementById('details').value,
-        medical:document.getElementById('medical').value,
-        nextdate:document.getElementById('nextdate').value,
-        nexttime:document.getElementById('nextVisitTime').value,
-        nextvisit:document.getElementById('nextVisitDate').value
-      };
+async function submitAbsence() {
+  const idToken = liff.getDecodedIDToken();
+  const data = {
+    userId: idToken.sub,
+    reason: document.getElementById('reason').value,
+    details: document.getElementById('details').value,
+    medical: document.getElementById('medical').value,
+    nextdate: document.getElementById('nextdate').value,
+    nexttime: document.getElementById('nextVisitTime').value,
+    nextvisit: document.getElementById('nextVisitDate').value
+  };
 
-      const query = new URLSearchParams(data);
-      await fetch(GAS_URL + '?' + query.toString());  // GET送信
+  try {
+    const query = new URLSearchParams(data);
+    await fetch(GAS_URL + '?' + query.toString());
 
-      await liff.sendMessages([{type:'text',
-        text:`【欠席連絡】
+    await liff.sendMessages([{
+      type: 'text',
+      text: `【欠席連絡】
 理由: ${data.reason}
 詳細: ${data.details || '-'}
 通院: ${data.medical}
 欠席日: ${data.nextdate}
 次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
-      }]);
+    }]);
 
-      alert('✅ 送信しました。ご連絡ありがとうございます。');
+    alert('✅ 送信しました。ご連絡ありがとうございます。');
+
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('⚠️ 送信処理中にエラーが発生しました。');
+  } finally {
+    // 絶対に閉じる処理
+    if (liff.isInClient()) {
       liff.closeWindow();
+    } else {
+      // ブラウザアクセス時はメッセージ後リロード
+      location.href = 'https://line.me/R/nv/chat';
     }
+  }
+}
 
     initLiff();
   </script>
