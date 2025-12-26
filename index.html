@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- GAS_URL -->
+  <script>
+    const GAS_URL ='https://script.google.com/macros/s/AKfycbwkdvCHaN75qR3HgIRFlGLW_Y2c_ZuX-2KW6G8QsaQCtk-iJwxDMN7tAiPqB-PFIP9p/exec';
+  </script>
+  
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <title>欠席・遅刻連絡</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <h3>欠席・遅刻連絡フォーム</h3>
+  <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
+
+  <form id="absenceForm">
+    <label>欠席・遅刻日</label>
+    <input type="date" id="nextdate" required>
+
+    <label>欠席・遅刻理由</label>
+    <select id="reason">
+      <option value="体調不良">体調不良</option>
+      <option value="通院">通院</option>
+      <option value="家庭事情">家庭事情</option>
+      <option value="その他">その他</option>
+    </select>
+
+    <label>詳細（症状など）</label>
+    <textarea id="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
+
+    <label>通院有無・予定</label>
+    <select id="medical">
+      <option value="予定なし">予定なし</option>
+      <option value="受診予定あり">受診予定あり</option>
+      <option value="受診済み">受診済み</option>
+    </select>
+
+    <label>次回通所予定日</label>
+    <input type="date" id="nextVisitDate">
+
+    <label>遅刻予定（時刻が分かる場合）</label>
+    <input type="time" id="nextVisitTime">
+  </form>
+
+  <button id="sendBtn" onclick="submitAbsence()">送信</button>
+
+  <script>
+    async function initLiff(){
+      await liff.init({ liffId:'2008783538-yHgAa1tC' });
+      if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
+      const id = liff.getDecodedIDToken().sub;
+      document.getElementById('userId').textContent = id.substring(0,20)+'...';
+    }
+
+    async function submitAbsence(){
+      const idToken = liff.getDecodedIDToken();
+      const data = {
+        userId:idToken.sub,
+        reason:document.getElementById('reason').value,
+        details:document.getElementById('details').value,
+        medical:document.getElementById('medical').value,
+        nextdate:document.getElementById('nextdate').value,
+        nexttime:document.getElementById('nextVisitTime').value,
+        nextvisit:document.getElementById('nextVisitDate').value
+      };
+
+      const query = new URLSearchParams(data);
+      await fetch(GAS_URL + '?' + query.toString());  // GET送信
+
+      await liff.sendMessages([{type:'text',
+        text:`【欠席連絡】
+理由: ${data.reason}
+詳細: ${data.details || '-'}
+通院: ${data.medical}
+欠席日: ${data.nextdate}
+次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
+      }]);
+
+      alert('✅ 送信しました。ご連絡ありがとうございます。');
+      liff.closeWindow();
+    }
+
+    initLiff();
+  </script>
+</body>
+</html>
