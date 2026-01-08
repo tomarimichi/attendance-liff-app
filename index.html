@@ -196,6 +196,12 @@
           
           // LINE WORKS Botへ通知
           try {
+console.log('BotID:', BOT_ID);
+console.log('送信データ:', formData);
+console.log('送信開始...');
+
+const response = await fetch(`https://api.worksmobile.com/r/${BOT_ID}/notify`, {
+
             const response = await fetch(`https://api.worksmobile.com/r/${BOT_ID}/notify`, {
               method: 'POST',
               headers: {
