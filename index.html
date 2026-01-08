@@ -3,7 +3,7 @@
 <head>
   <!-- GAS_URL -->
   <script>
-    const GAS_URL ='https://script.google.com/macros/s/AKfycbzYQzsT1WGc9eHrT4_XrqXfjLdljIIMUH0uhU6mpYExjwvmwQkt_mOz7GF4UGySWFyI/exec';
+    const GAS_URL ='https://script.google.com/macros/s/AKfycbyi3t05r9G3TEY_bm43c9tDscXfbHRIOYrhWmWt00vwqIhw_z9HgzHnuGHyZV82bA/exec';
   </script>
   <script>
     // LIFF初期化を完全無効化 + Mockモード
@@ -68,7 +68,8 @@
     <!--
       <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
     -->
-    <form id="absenceForm">
+    <form id="absenceForm" onsubmit="submitAbsence(); return false;">
+
       <div class="form-field">
         <label>欠席・遅刻日</label>
         <input type="date" id="nextdate" name="nextdate" required>
@@ -102,7 +103,7 @@
       </div>
     </form>
 
-<button id="sendBtn" onclick="submitAbsence()">送信</button>
+<button type="submit" id="sendBtn" onclick="submitAbsence()">送信</button>
 
 <script>
 // GAS/LIFF用の既存関数（そのまま保持）
