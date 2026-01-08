@@ -208,7 +208,7 @@ button {
 input[type="date"],
 input[type="time"],
 input[type="datetime-local"] {
-  width: 88% !important;
+  width: 92% !important;
   max-width: 360px !important;
   margin: 0 auto !important;
   display: block !important;
@@ -222,7 +222,7 @@ input[type="datetime-local"] {
   box-sizing: border-box !important;
   
   @media (max-width: 414px) {
-    width: 88% !important;
+    width: 92% !important;
     max-width: 340px !important;
   }
 }
