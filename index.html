@@ -76,7 +76,7 @@
       </div>
 
       <label>欠席・遅刻理由</label>
-      <select id="reason">
+      <select id="reason" name="reason">
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="家庭事情">家庭事情</option>
@@ -84,10 +84,10 @@
       </select>
 
       <label>詳細（症状など）</label>
-      <textarea id="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
+      <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
 
       <label>通院有無・予定</label>
-      <select id="medical">
+      <select id="medical" name="medical">
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
         <option value="受診済み">受診済み</option>
@@ -153,30 +153,38 @@ async function submitAbsence() {
   }
 }
 */
-  async function submitAbsence() {
-    // ★ FormDataでname属性を自動取得 ★
-    const formData = new FormData(document.getElementById('absenceForm'));
-    const params = Object.fromEntries(formData.entries());
+async function submitAbsence() {
+  const idToken = liff.getDecodedIDToken();
+  
+  // ★ FormDataで全て自動取得 ★
+  const formData = new FormData(document.getElementById('absenceForm'));
+  const params = Object.fromEntries(formData.entries());
+  params.userId = idToken.sub; // LIFF userId追加
+  
+  console.log('送信パラメータ:', params);
+  
+  try {
+    const query = new URLSearchParams(params);
+    await fetch(GAS_URL + '?' + query.toString());
     
-    // userIdはLIFFから取得（必須）
-    const idToken = liff.getDecodedIDToken();
-    params.userId = idToken.sub;
+    // LINE通知（既存）
+    await liff.sendMessages([{
+      type: 'text',
+      text: `【欠席連絡】\n理由: ${params.reason || '未選択'}\n詳細: ${params.details || '-'}\n通院: ${params.medical || '未選択'}\n欠席日: ${params.nextdate}\n次回予定: ${params.nextvisit || '-'} ${params.nexttime || ''}`
+    }]);
     
-    console.log('送信パラメータ:', params); // デバッグ用
-    
-    try {
-      const query = new URLSearchParams(params);
-      await fetch(GAS_URL + '?' + query.toString());
-      
-      // 以降は既存処理そのまま
-      await liff.sendMessages([...]);
-      alert('✅ 送信しました。ご連絡ありがとうございます。');
-    } catch (error) {
-      // エラー処理
-    } finally {
-      // 閉じる処理
+    alert('✅ 送信しました。ご連絡ありがとうございます。');
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('⚠️ 送信処理中にエラーが発生しました。');
+  } finally {
+    if (liff.isInClient()) {
+      liff.closeWindow();
+    } else {
+      location.href = 'https://line.me/R/nv/chat';
     }
   }
+}
 
   
 
