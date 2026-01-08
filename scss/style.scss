@@ -101,7 +101,7 @@ label {
 
 // 入力フォーム
 input, select, textarea {
-  width: 92%;
+  width: 100%;
 //   max-width: 400px;
   margin: 0 auto;
   display: block;
@@ -252,22 +252,18 @@ input[type="datetime-local"] {
   }
 }
 
-
-/* 既存のform要素に直接適用 */
+/* 黄金比レイアウト（最優先） */
 form {
   max-width: 88vw;
   margin: 0 6vw;
   padding: 20px 16px;
   box-sizing: border-box;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
 }
 
-/* 入力フィールドも調整 */
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  box-sizing: border-box;
-  margin-bottom: 16px;
-}
+
 
 
 // バックアップ
