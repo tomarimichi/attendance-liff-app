@@ -63,7 +63,7 @@
 <body>
   <main class="container">
     <h1>本番環境</h1>
-    <p>16:14</p>
+    <p>更新時間・16:26</p>
     <h3>欠席・遅刻連絡フォーム</h3>
     <!--
       <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
@@ -154,23 +154,30 @@ async function submitAbsence() {
 }
 */
 async function submitAbsence() {
-  const idToken = liff.getDecodedIDToken();
-  
-  // ★ FormDataで全て自動取得 ★
-  const formData = new FormData(document.getElementById('absenceForm'));
-  const params = Object.fromEntries(formData.entries());
-  params.userId = idToken.sub; // LIFF userId追加
-  
-  console.log('送信パラメータ:', params);
-  
   try {
+    // ★ FormDataでname属性を自動取得 ★
+    const formData = new FormData(document.getElementById('absenceForm'));
+    const params = Object.fromEntries(formData.entries());
+    
+    // LIFF userId追加
+    const idToken = liff.getDecodedIDToken();
+    params.userId = idToken.sub;
+    
+    console.log('🔥 送信パラメータ:', params);
+    
+    // GAS送信
     const query = new URLSearchParams(params);
     await fetch(GAS_URL + '?' + query.toString());
     
-    // LINE通知（既存）
+    // LINE通知
     await liff.sendMessages([{
       type: 'text',
-      text: `【欠席連絡】\n理由: ${params.reason || '未選択'}\n詳細: ${params.details || '-'}\n通院: ${params.medical || '未選択'}\n欠席日: ${params.nextdate}\n次回予定: ${params.nextvisit || '-'} ${params.nexttime || ''}`
+      text: `【欠席連絡】
+理由: ${params.reason || '未選択'}
+詳細: ${params.details || '-'}
+通院: ${params.medical || '未選択'}
+欠席日: ${params.nextdate}
+次回予定: ${params.nextvisit || '-'} ${params.nexttime || ''}`
     }]);
     
     alert('✅ 送信しました。ご連絡ありがとうございます。');
@@ -185,6 +192,7 @@ async function submitAbsence() {
     }
   }
 }
+
 
   
 
