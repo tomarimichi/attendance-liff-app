@@ -253,6 +253,23 @@ input[type="datetime-local"] {
 }
 
 
+/* 既存のform要素に直接適用 */
+form {
+  max-width: 88vw;
+  margin: 0 6vw;
+  padding: 20px 16px;
+  box-sizing: border-box;
+}
+
+/* 入力フィールドも調整 */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+
 // バックアップ
 
 // 変数定義
