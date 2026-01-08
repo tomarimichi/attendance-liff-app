@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>欠席連絡フォーム - UI開発モード</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- LIFF SDK完全削除 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+</head>
+<body>
+    <!-- 既存のフォームHTMLをそのまま -->
+        <h3>欠席・遅刻連絡フォーム</h3>
+        <!--
+            <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
+        -->
+
+        <form id="absenceForm">
+          <div class="form-field">
+            <label>欠席・遅刻日</label>
+            <input type="date" id="nextdate" required class="date-input">
+          </div>
+
+            <label>欠席・遅刻理由</label>
+            <select id="reason">
+            <option value="体調不良">体調不良</option>
+            <option value="通院">通院</option>
+            <option value="家庭事情">家庭事情</option>
+            <option value="その他">その他</option>
+            </select>
+
+            <label>詳細（症状など）</label>
+            <textarea id="details" rows="2" placeholder="発熱・頭痛など詳しく教えてください"></textarea>
+
+            <label>通院有無・予定</label>
+            <select id="medical">
+            <option value="予定なし">予定なし</option>
+            <option value="受診予定あり">受診予定あり</option>
+            <option value="受診済み">受診済み</option>
+            </select>
+
+          <div class="form-field">
+            <label>次回通所予定日</label>
+            <input type="date" id="nextVisitDate" class="nextDate-input">
+          </div>
+          <div class="form-field">
+            <label>遅刻予定（時刻が分かる場合）</label>
+            <input type="time" id="nextVisitTime" class="time-input">
+          </div>
+        </form>
+
+        <button id="sendBtn" onclick="submitAbsence()">送信</button>
+
+        <script>
+            async function initLiff(){
+            await liff.init({ liffId:'2008783538-yHgAa1tC' });
+            if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
+            const id = liff.getDecodedIDToken().sub;
+            document.getElementById('userId').textContent = id.substring(0,20)+'...';
+            }
+
+        async function submitAbsence() {
+        const idToken = liff.getDecodedIDToken();
+        const data = {
+            userId: idToken.sub,
+            reason: document.getElementById('reason').value,
+            details: document.getElementById('details').value,
+            medical: document.getElementById('medical').value,
+            nextdate: document.getElementById('nextdate').value,
+            nexttime: document.getElementById('nextVisitTime').value,
+            nextvisit: document.getElementById('nextVisitDate').value
+        };
+
+        try {
+            const query = new URLSearchParams(data);
+            await fetch(GAS_URL + '?' + query.toString());
+
+            await liff.sendMessages([{
+            type: 'text',
+            text: `【欠席連絡】
+        理由: ${data.reason}
+        詳細: ${data.details || '-'}
+        通院: ${data.medical}
+        欠席日: ${data.nextdate}
+        次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
+            }]);
+
+            alert('✅ 送信しました。ご連絡ありがとうございます。');
+
+        } catch (error) {
+            console.error('送信エラー:', error);
+            alert('⚠️ 送信処理中にエラーが発生しました。');
+        } finally {
+            // 絶対に閉じる処理
+            if (liff.isInClient()) {
+            liff.closeWindow();
+            } else {
+            // ブラウザアクセス時はメッセージ後リロード
+            location.href = 'https://line.me/R/nv/chat';
+            }
+        }
+        }
+
+            initLiff();
+        </script>
+
+  <!-- UI開発モード用ヘッダー追加 -->
+  <div style="background:#00b900;color:white;padding:12px;text-align:center;font-weight:bold;">
+    🎨 UI開発モード（Live Server専用）
+  </div>
+  
+  <script>
+    // モックデータ自動入力
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('userId').value = 'U8f7d7d2a3e38979c0f5636ec968bacc9（自分）';
+      document.querySelector('button[type=submit]').onclick = function(e) {
+        e.preventDefault();
+        alert('✅ フォーム送信成功！\n\nスプレッドシート記録確認済み\n\nUI調整を続けてください');
+      };
+    });
+  </script>
+</body>
+</html>

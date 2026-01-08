@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+
+<script>
+// LIFF初期化を完全無効化 + Mockモード
+window.addEventListener('DOMContentLoaded', function() {
+  // LIFF SDK読み込みをブロック
+  if (location.port === '5500' || location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
+    console.log('🔧 Live Server 開発モード');
+    
+    // ステータス表示
+    const statusDiv = document.createElement('div');
+    statusDiv.id = 'dev-status';
+    statusDiv.style.cssText = 'background:#00b900;color:white;padding:12px;border-radius:6px;margin:16px 0;text-align:center;font-weight:bold;position:fixed;top:10px;right:10px;z-index:9999;';
+    statusDiv.textContent = '🔧 開発モード（Live Server）';
+    document.body.insertBefore(statusDiv, document.body.firstChild);
+    
+    // userIdモック
+    const userIdInput = document.getElementById('userId');
+    if (userIdInput) {
+      userIdInput.value = 'U8f7d7d2a3e38979c0f5636ec968bacc9（自分）';
+      userIdInput.disabled = true;
+    }
+    
+    // 送信ボタンモック
+    const submitBtn = document.querySelector('button[type="submit"], input[type="submit"], button');
+    if (submitBtn) {
+      submitBtn.style.background = '#ff6b35';
+      submitBtn.textContent = '✅ 送信テスト（モック）';
+      submitBtn.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        statusDiv.textContent = '🎉 送信成功！GASに記録されました';
+        statusDiv.style.background = '#00a300';
+        setTimeout(() => {
+          statusDiv.textContent = '🔧 開発モード（Live Server）';
+          statusDiv.style.background = '#00b900';
+        }, 3000);
+      };
+    }
+  }
+}, true); // trueでキャプチャフェーズ実行（LIFFより先に処理）
+</script>
+
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -11,17 +54,23 @@
   
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <title>欠席・遅刻連絡</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 </head>
 
 <body>
   <h1>本番環境</h1>
+  <p>test</p>
   <h3>欠席・遅刻連絡フォーム</h3>
   <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
 
   <form id="absenceForm">
-    <label>欠席・遅刻日</label>
-    <input type="date" id="nextdate" required>
+    <div class="form-field">
+      <label>欠席・遅刻日</label>
+      <input type="date" id="nextdate" required>
+    </div>
 
     <label>欠席・遅刻理由</label>
     <select id="reason">
@@ -41,11 +90,22 @@
       <option value="受診済み">受診済み</option>
     </select>
 
-    <label>次回通所予定日</label>
-    <input type="date" id="nextVisitDate">
-
-    <label>遅刻予定（時刻が分かる場合）</label>
-    <input type="time" id="nextVisitTime">
+    <!--
+    <div class="form-field">
+      <label>次回通所予定日</label>
+      <input type="date" id="nextVisitDate" class="nextDate-input">
+    </div>
+    -->
+    <label>test</label>
+    <input type="text" 
+          placeholder="YYYY-MM-DD" 
+          pattern="\d{4}-\d{2}-\d{2}" 
+          class="date-picker"
+          inputmode="numeric">
+    <div class="form-field">
+      <label>遅刻予定（時刻が分かる場合）</label>
+      <input type="time" id="nextVisitTime" class="time-input">
+    </div>
   </form>
 
   <button id="sendBtn" onclick="submitAbsence()">送信</button>
