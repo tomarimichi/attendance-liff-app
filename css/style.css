@@ -57,7 +57,6 @@ h3::after {
 }
 
 .form-container {
-  max-width: 480px;
   margin: 0 auto;
   background: white;
   padding: 24px;
@@ -79,7 +78,7 @@ label::after {
 }
 
 input, select, textarea {
-  width: 92%;
+  width: 100%;
   margin: 0 auto;
   display: block;
   padding: 16px;
@@ -103,7 +102,6 @@ input::placeholder, select::placeholder, textarea::placeholder {
 }
 
 textarea {
-  width: 92%;
   margin: 0 auto;
   display: block;
   padding: 16px;
@@ -173,4 +171,57 @@ button:active::before {
     padding: 16px;
     margin: 16px;
   }
+}
+input[type=date],
+input[type=time],
+input[type=datetime-local] {
+  width: 92% !important;
+  margin: 0 auto !important;
+  display: block !important;
+  padding: 18px 16px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  box-sizing: border-box !important;
+}
+@media (max-width: 414px) {
+  input[type=date],
+  input[type=time],
+  input[type=datetime-local] {
+    width: 92% !important;
+  }
+}
+
+.form-field input[type=date],
+.form-field input[type=time] {
+  width: 92% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.date-picker, .time-picker {
+  width: 92% !important;
+  margin: 0 auto !important;
+  display: block !important;
+  padding: 18px 16px !important;
+  font-size: 16px !important;
+  border: 2px solid #e1e5e9 !important;
+  border-radius: 8px !important;
+}
+.date-picker::-moz-placeholder, .time-picker::-moz-placeholder {
+  color: #999;
+}
+.date-picker::placeholder, .time-picker::placeholder {
+  color: #999;
+}
+
+/* 黄金比レイアウト（最優先） */
+form {
+  max-width: 92vw;
+  margin: 0 6vw;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }/*# sourceMappingURL=style.css.map */
