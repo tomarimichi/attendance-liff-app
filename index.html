@@ -113,7 +113,7 @@ async function initLiff(){
   const id = liff.getDecodedIDToken().sub;
   document.getElementById('userId').textContent = id.substring(0,20)+'...';
 }
-
+/* 一時退避
 async function submitAbsence() {
   const idToken = liff.getDecodedIDToken();
   const data = {
@@ -152,6 +152,33 @@ async function submitAbsence() {
     }
   }
 }
+*/
+  async function submitAbsence() {
+    // ★ FormDataでname属性を自動取得 ★
+    const formData = new FormData(document.getElementById('absenceForm'));
+    const params = Object.fromEntries(formData.entries());
+    
+    // userIdはLIFFから取得（必須）
+    const idToken = liff.getDecodedIDToken();
+    params.userId = idToken.sub;
+    
+    console.log('送信パラメータ:', params); // デバッグ用
+    
+    try {
+      const query = new URLSearchParams(params);
+      await fetch(GAS_URL + '?' + query.toString());
+      
+      // 以降は既存処理そのまま
+      await liff.sendMessages([...]);
+      alert('✅ 送信しました。ご連絡ありがとうございます。');
+    } catch (error) {
+      // エラー処理
+    } finally {
+      // 閉じる処理
+    }
+  }
+
+  
 
 // ★B型事業所LINE WORKS Bot用（修正版）★
 async function sendAbsence() {
