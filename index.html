@@ -63,6 +63,7 @@
 <body>
   <main class="container">
     <h1>本番環境</h1>
+    <p>14:41</p>
     <h3>欠席・遅刻連絡フォーム</h3>
     <!--
       <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
@@ -101,134 +102,97 @@
       </div>
     </form>
 
-    <button id="sendBtn" onclick="submitAbsence()">送信</button>
+<button id="sendBtn" onclick="submitAbsence()">送信</button>
 
-    <script>
-      async function initLiff(){
-        await liff.init({ liffId:'2008783538-yHgAa1tC' });
-        if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
-        const id = liff.getDecodedIDToken().sub;
-        document.getElementById('userId').textContent = id.substring(0,20)+'...';
-      }
+<script>
+// GAS/LIFF用の既存関数（そのまま保持）
+async function initLiff(){
+  await liff.init({ liffId:'2008783538-yHgAa1tC' });
+  if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
+  const id = liff.getDecodedIDToken().sub;
+  document.getElementById('userId').textContent = id.substring(0,20)+'...';
+}
 
-      async function submitAbsence() {
-        const idToken = liff.getDecodedIDToken();
-        const data = {
-          userId: idToken.sub,
-          reason: document.getElementById('reason').value,
-          details: document.getElementById('details').value,
-          medical: document.getElementById('medical').value,
-          nextdate: document.getElementById('nextdate').value,
-          nexttime: document.getElementById('nextVisitTime').value,
-          nextvisit: document.getElementById('nextVisitDate').value
-        };
+async function submitAbsence() {
+  const idToken = liff.getDecodedIDToken();
+  const data = {
+    userId: idToken.sub,
+    reason: document.getElementById('reason').value,
+    details: document.getElementById('details').value,
+    medical: document.getElementById('medical').value,
+    nextdate: document.getElementById('nextdate').value,
+    nexttime: document.getElementById('nextVisitTime').value,
+    nextvisit: document.getElementById('nextVisitDate').value
+  };
 
-        try {
-          const query = new URLSearchParams(data);
-          await fetch(GAS_URL + '?' + query.toString());
+  try {
+    const query = new URLSearchParams(data);
+    await fetch(GAS_URL + '?' + query.toString());
 
-          await liff.sendMessages([{
-            type: 'text',
-            text: `【欠席連絡】
-      理由: ${data.reason}
-      詳細: ${data.details || '-'}
-      通院: ${data.medical}
-      欠席日: ${data.nextdate}
-      次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
-          }]);
+    await liff.sendMessages([{
+      type: 'text',
+      text: `【欠席連絡】
+理由: ${data.reason}
+詳細: ${data.details || '-'}
+通院: ${data.medical}
+欠席日: ${data.nextdate}
+次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
+    }]);
 
-          alert('✅ 送信しました。ご連絡ありがとうございます。');
+    alert('✅ 送信しました。ご連絡ありがとうございます。');
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('⚠️ 送信処理中にエラーが発生しました。');
+  } finally {
+    if (liff.isInClient()) {
+      liff.closeWindow();
+    } else {
+      location.href = 'https://line.me/R/nv/chat';
+    }
+  }
+}
 
-        } catch (error) {
-          console.error('送信エラー:', error);
-          alert('⚠️ 送信処理中にエラーが発生しました。');
-        } finally {
-          // 絶対に閉じる処理
-          if (liff.isInClient()) {
-            liff.closeWindow();
-          } else {
-            // ブラウザアクセス時はメッセージ後リロード
-            location.href = 'https://line.me/R/nv/chat';
-          }
+// ★B型事業所LINE WORKS Bot用（修正版）★
+async function sendAbsence() {
+  const formData = {
+    name: document.querySelector('input[name="name"]').value || '未記入',
+    date: document.querySelector('input[type="date"]').value || '未記入',
+    reason: document.querySelector('textarea[name="reason"]').value || 'なし'
+  };
+  
+  console.log('Bot送信データ:', formData);
+  
+  try {
+    const response = await fetch('https://api.worksmobile.com/r/6811052/notify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Bot-Authorization': 'Bearer kd/Z77U9S6lcbsgmbsdovIBEKa0jbD'
+      },
+      body: JSON.stringify({
+        content: {
+          type: 'text',
+          text: `🔴欠席連絡\n👤${formData.name}\n📅${formData.date}\n📝${formData.reason}`
         }
-      }
+      })
+    });
+    
+    console.log('Botレスポンス:', response.status);
+    
+    if (response.ok) {
+      alert('✅ Botに欠席連絡を送信しました！');
+    } else {
+      alert(`❌ Bot送信エラー: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Botエラー:', error);
+    alert('❌ Bot送信でネットワークエラーが発生しました');
+  }
+}
 
-      // 送信ボタンクリック時
-      async function sendAbsence() {
-        const formData = {
-          name: document.querySelector('input[name="name"]').value,
-          date: document.querySelector('input[type="date"]').value,
-          reason: document.querySelector('textarea[name="reason"]').value
-        };
-        
-        // LINE WORKS BotへPOST
-        await fetch('https://api.worksmobile.com/r/6811052/postback', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Bot-Authorization': 'Bearer kd/Z77U9S6lcbsgmbsdovIBEKa0jbD'
-          },
-          body: JSON.stringify({
-            content: {
-              type: 'text',
-              text: `欠席連絡\n名前：${formData.name}\n日付：${formData.date}\n理由：${formData.reason}`
-            }
-          })
-        });
-      }
+initLiff();
+</script>
 
-
-          initLiff();
-        // B型事業所欠席連絡Bot設定
-        const BOT_ID = '6811052';
-        const BOT_SECRET = 'kd/Z77U9S6lcbsgmbsdovIBEKa0jbD';
-
-        // 送信ボタンクリック処理
-        document.querySelector('button[type="submit"]').addEventListener('click', async (e) => {
-          e.preventDefault();
-          
-          // フォームデータ取得
-          const formData = {
-            name: document.querySelector('input[name="name"]').value,
-            date: document.querySelector('input[type="date"]').value,
-            reason: document.querySelector('textarea[name="reason"]').value || 'なし'
-          };
-          
-          // LINE WORKS Botへ通知
-          try {
-console.log('BotID:', BOT_ID);
-console.log('送信データ:', formData);
-console.log('送信開始...');
-
-const response = await fetch(`https://api.worksmobile.com/r/${BOT_ID}/notify`, {
-
-            const response = await fetch(`https://api.worksmobile.com/r/${BOT_ID}/notify`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Bot-Authorization': `Bearer ${BOT_SECRET}`
-              },
-              body: JSON.stringify({
-                content: {
-                  type: 'text',
-                  text: `🔴欠席連絡\n👤${formData.name}\n📅${formData.date}\n📝${formData.reason}`
-                }
-              })
-            });
-            
-            if (response.ok) {
-              alert('✅欠席連絡を送信しました！');
-              document.querySelector('form').reset();
-            } else {
-              alert('❌送信エラーが発生しました');
-            }
-          } catch (error) {
-            alert('❌ネットワークエラーが発生しました');
-          }
-        });
-
-
-    </script>
   </main>
 </body>
 </html>
