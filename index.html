@@ -196,7 +196,7 @@
           
           // LINE WORKS Botへ通知
           try {
-            const response = await fetch(`https://api.worksmobile.com/r/${BOT_ID}/postback`, {
+            const response = await fetch(`https://api.worksmobile.com/r/${BOT_ID}/notify`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
