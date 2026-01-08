@@ -76,7 +76,7 @@ h3 {
 
 // フォームコンテナ
 .form-container {
-  max-width: 480px;
+  // max-width: 480px;
   margin: 0 auto;
   background: white;
   padding: $spacing-lg;
@@ -209,7 +209,7 @@ input[type="date"],
 input[type="time"],
 input[type="datetime-local"] {
   width: 92% !important;
-  max-width: 360px !important;
+  // max-width: 360px !important;
   margin: 0 auto !important;
   display: block !important;
   padding: 18px 16px !important;
@@ -223,7 +223,7 @@ input[type="datetime-local"] {
   
   @media (max-width: 414px) {
     width: 92% !important;
-    max-width: 340px !important;
+    // max-width: 340px !important;
   }
 }
 
@@ -239,7 +239,7 @@ input[type="datetime-local"] {
 // test
 .date-picker, .time-picker {
   width: 92% !important;
-  max-width: 360px !important;
+  // max-width: 360px !important;
   margin: 0 auto !important;
   display: block !important;
   padding: 18px 16px !important;
@@ -254,7 +254,7 @@ input[type="datetime-local"] {
 
 /* 黄金比レイアウト（最優先） */
 form {
-  max-width: 88vw;
+  max-width: 92vw;
   margin: 0 6vw;
   padding: 20px 16px;
   box-sizing: border-box;
