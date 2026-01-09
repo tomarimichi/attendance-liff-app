@@ -94,7 +94,6 @@
 
       <label>通院有無・予定</label>
       <select id="medical" name="medical">
-        <option value="" selected disabled>選択してください</option><!--初期値-->
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
         <option value="受診済み">受診済み</option>
@@ -102,7 +101,7 @@
 
       <div class="form-field">
         <label>次回通所予定日</label>
-        <input type="date" id="nextVisitDate" name="nextvisit" class="nextDate-input">
+        <input type="date" id="nextVisitDate" name="nextvisit" class="nextDate-input" required>
       </div>
       <div class="form-field">
         <label>遅刻予定（時刻が分かる場合）</label>
