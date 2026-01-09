@@ -2,11 +2,11 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/09 12:04">
+  <meta name="last-updated" content="2026/01/09 13:46">
 
   <!-- GAS_URL -->
   <script>
-    const GAS_URL ='https://script.google.com/macros/s/AKfycbwCiGn9MtshuvEbC8l5bi_9JcDkwzwLTeC1VWFctEVXOdZM7WlAEKHquZBvqjDuOiNd/exec';
+    const GAS_URL ='https://script.google.com/macros/s/AKfycbzTUtVsMUXPIoNPw92VwASaaOPcZLkoChi5Tjoz8LiQahwxa5HfnQtVwHMkD_JNmvZv/exec';
   </script>
   <script>
     // LIFF初期化を完全無効化 + Mockモード
@@ -82,6 +82,7 @@
 
       <label>欠席・遅刻理由</label>
       <select id="reason" name="reason">
+        <option value="">選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="家庭事情">家庭事情</option>
@@ -93,6 +94,7 @@
 
       <label>通院有無・予定</label>
       <select id="medical" name="medical">
+        <option value="">選択してください</option><!--初期値-->
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
         <option value="受診済み">受診済み</option>
