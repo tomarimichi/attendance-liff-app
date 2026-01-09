@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/09 14:07">
+  <meta name="last-updated" content="2026/01/09 14:47">
 
   <!-- GAS_URL -->
   <script>
@@ -201,6 +201,23 @@ async function submitAbsence() {
 }
 */
 async function submitAbsence() {
+  // ★必須項目チェック（LINE WORKS最適化）★
+  const required = {
+    nextdate: '欠席・遅刻日',
+    reason: '欠席・遅刻理由', 
+    nextvisit: '次回通所予定日'
+  };
+
+    for (let [id, label] of Object.entries(required)) {
+    const element = document.getElementById(id);
+    if (!element.value.trim()) {
+      alert(`${label}を選択/入力してください`);
+      element.focus();
+      element.scrollIntoView({behavior: 'smooth'});
+      return;
+    }
+  }
+  
   try {
     const formData = new FormData(document.getElementById('absenceForm'));
     const params = Object.fromEntries(formData.entries());
