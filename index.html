@@ -63,7 +63,9 @@
 <body>
   <main class="container">
     <h1>本番環境</h1>
-    <p>更新時間・10:41</p>
+    <!--テスト用　後で消す-->
+    <p id="update-time">更新時間・読み込み中...</p>
+
     <h3>欠席・遅刻連絡フォーム</h3>
     <!--
       <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
@@ -153,6 +155,7 @@ async function submitAbsence() {
   }
 }
 */
+/* 01091049
 async function submitAbsence() {
   try {
     // ★ FormDataでname属性を自動取得 ★
@@ -192,7 +195,43 @@ async function submitAbsence() {
     }
   }
 }
-
+*/
+async function submitAbsence() {
+  try {
+    const formData = new FormData(document.getElementById('absenceForm'));
+    const params = Object.fromEntries(formData.entries());
+    
+    // LIFF userId追加（安全取得）
+    let userId = 'web-user'; // デフォルト
+    try {
+      const idToken = liff.getDecodedIDToken();
+      params.userId = idToken.sub;
+    } catch(e) {
+      params.userId = userId; // LIFF外対応
+    }
+    
+    console.log('🔥 送信パラメータ:', params);
+    
+    // GAS送信のみ実行
+    const query = new URLSearchParams(params);
+    await fetch(GAS_URL + '?' + query.toString());
+    
+    // ★ LINE通知一時無効化 ★
+    /*
+    await liff.sendMessages([...]);
+    */
+    
+    alert('✅ GAS送信完了！\n（スプレッド＋LW Bot通知確認）');
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('❌ 送信エラー: ' + error.message);
+  } finally {
+    // LIFF判定あり
+    if (typeof liff !== 'undefined' && liff.isInClient()) {
+      liff.closeWindow();
+    }
+  }
+}
 
   
 
@@ -235,6 +274,22 @@ async function sendAbsence() {
 }
 
 initLiff();
+</script>
+
+    <!--テスト：時間表示用(後で消す)-->
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateTime = document.getElementById('update-time');
+    if (updateTime) {
+      const now = new Date();
+      const timeStr = now.toLocaleString('ja-JP', { 
+        timeZone: 'Asia/Tokyo',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit'
+      });
+      updateTime.textContent = `更新時間・${timeStr}`;
+    }
+  });
 </script>
 
   </main>
