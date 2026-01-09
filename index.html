@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/09 13:46">
+  <meta name="last-updated" content="2026/01/09 13:59">
 
   <!-- GAS_URL -->
   <script>
@@ -81,8 +81,8 @@
       </div>
 
       <label>欠席・遅刻理由</label>
-      <select id="reason" name="reason">
-        <option value="">選択してください</option><!--初期値-->
+      <select id="reason" name="reason" required>
+        <option value="" selected disabled選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="家庭事情">家庭事情</option>
@@ -94,7 +94,7 @@
 
       <label>通院有無・予定</label>
       <select id="medical" name="medical">
-        <option value="">選択してください</option><!--初期値-->
+        <option value="" selected disabled>選択してください</option><!--初期値-->
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
         <option value="受診済み">受診済み</option>
