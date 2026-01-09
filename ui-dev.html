@@ -11,18 +11,23 @@
 <body>
   <main class="container">
     <h1>本番環境</h1>
-    <p>test</p>
-    <h3>欠席・遅刻連絡フォーム</h3>
-    <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
+    <!--テスト用　後で消す-->
+    <p id="update-time">更新時間・読み込み中...</p>
 
-    <form id="absenceForm">
+    <h3>欠席・遅刻連絡フォーム</h3>
+    <!--
+      <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
+    -->
+    <form id="absenceForm" onsubmit="submitAbsence(); return false;">
+
       <div class="form-field">
-        <label>欠席・遅刻日</label>
-        <input type="date" id="nextdate" required>
+        <label class="required">欠席・遅刻日</label>
+        <input type="date" id="nextdate" name="nextdate" required>
       </div>
 
-      <label>欠席・遅刻理由</label>
-      <select id="reason">
+      <label class="required">欠席・遅刻理由</label>
+      <select id="reason" name="reason" required>
+        <option value="" selected disabled選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="家庭事情">家庭事情</option>
@@ -30,79 +35,216 @@
       </select>
 
       <label>詳細（症状など）</label>
-      <textarea id="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
+      <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
 
       <label>通院有無・予定</label>
-      <select id="medical">
+      <select id="medical" name="medical">
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
         <option value="受診済み">受診済み</option>
       </select>
 
       <div class="form-field">
-        <label>次回通所予定日</label>
-        <input type="date" id="nextVisitDate" class="nextDate-input">
+        <label class="required">次回通所予定日</label>
+        <input type="date" id="nextVisitDate" name="nextvisit" class="nextDate-input" required>
       </div>
       <div class="form-field">
         <label>遅刻予定（時刻が分かる場合）</label>
-        <input type="time" id="nextVisitTime" class="time-input">
+        <input type="time" id="nextVisitTime" name="nexttime" class="time-input">
       </div>
     </form>
 
-    <button id="sendBtn" onclick="submitAbsence()">送信</button>
+<button type="submit" id="sendBtn" onclick="submitAbsence()">送信</button>
 
-    <script>
-      async function initLiff(){
-        await liff.init({ liffId:'2008783538-yHgAa1tC' });
-        if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
-        const id = liff.getDecodedIDToken().sub;
-        document.getElementById('userId').textContent = id.substring(0,20)+'...';
-      }
+<script>
+// GAS/LIFF用の既存関数（そのまま保持）
+async function initLiff(){
+  await liff.init({ liffId:'2008783538-yHgAa1tC' });
+  if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
+  const id = liff.getDecodedIDToken().sub;
+  document.getElementById('userId').textContent = id.substring(0,20)+'...';
+}
+/* 一時退避
+async function submitAbsence() {
+  const idToken = liff.getDecodedIDToken();
+  const data = {
+    userId: idToken.sub,
+    reason: document.getElementById('reason').value,
+    details: document.getElementById('details').value,
+    medical: document.getElementById('medical').value,
+    nextdate: document.getElementById('nextdate').value,
+    nexttime: document.getElementById('nextVisitTime').value,
+    nextvisit: document.getElementById('nextVisitDate').value
+  };
 
-  async function submitAbsence() {
-    const idToken = liff.getDecodedIDToken();
-    const data = {
-      userId: idToken.sub,
-      reason: document.getElementById('reason').value,
-      details: document.getElementById('details').value,
-      medical: document.getElementById('medical').value,
-      nextdate: document.getElementById('nextdate').value,
-      nexttime: document.getElementById('nextVisitTime').value,
-      nextvisit: document.getElementById('nextVisitDate').value
-    };
+  try {
+    const query = new URLSearchParams(data);
+    await fetch(GAS_URL + '?' + query.toString());
 
-    try {
-      const query = new URLSearchParams(data);
-      await fetch(GAS_URL + '?' + query.toString());
+    await liff.sendMessages([{
+      type: 'text',
+      text: `【欠席連絡】
+理由: ${data.reason}
+詳細: ${data.details || '-'}
+通院: ${data.medical}
+欠席日: ${data.nextdate}
+次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
+    }]);
 
-      await liff.sendMessages([{
-        type: 'text',
-        text: `【欠席連絡】
-  理由: ${data.reason}
-  詳細: ${data.details || '-'}
-  通院: ${data.medical}
-  欠席日: ${data.nextdate}
-  次回予定: ${data.nextvisit || '-'} ${data.nexttime || ''}`
-      }]);
-
-      alert('✅ 送信しました。ご連絡ありがとうございます。');
-
-    } catch (error) {
-      console.error('送信エラー:', error);
-      alert('⚠️ 送信処理中にエラーが発生しました。');
-    } finally {
-      // 絶対に閉じる処理
-      if (liff.isInClient()) {
-        liff.closeWindow();
-      } else {
-        // ブラウザアクセス時はメッセージ後リロード
-        location.href = 'https://line.me/R/nv/chat';
-      }
+    alert('✅ 送信しました。ご連絡ありがとうございます。');
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('⚠️ 送信処理中にエラーが発生しました。');
+  } finally {
+    if (liff.isInClient()) {
+      liff.closeWindow();
+    } else {
+      location.href = 'https://line.me/R/nv/chat';
     }
   }
+}
+*/
+/* 01091049
+async function submitAbsence() {
+  try {
+    // ★ FormDataでname属性を自動取得 ★
+    const formData = new FormData(document.getElementById('absenceForm'));
+    const params = Object.fromEntries(formData.entries());
+    
+    // LIFF userId追加
+    const idToken = liff.getDecodedIDToken();
+    params.userId = idToken.sub;
+    
+    console.log('🔥 送信パラメータ:', params);
+    
+    // GAS送信
+    const query = new URLSearchParams(params);
+    await fetch(GAS_URL + '?' + query.toString());
+    
+    // LINE通知
+    await liff.sendMessages([{
+      type: 'text',
+      text: `【欠席連絡】
+理由: ${params.reason || '未選択'}
+詳細: ${params.details || '-'}
+通院: ${params.medical || '未選択'}
+欠席日: ${params.nextdate}
+次回予定: ${params.nextvisit || '-'} ${params.nexttime || ''}`
+    }]);
+    
+    alert('✅ 送信しました。ご連絡ありがとうございます。');
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('⚠️ 送信処理中にエラーが発生しました。');
+  } finally {
+    if (liff.isInClient()) {
+      liff.closeWindow();
+    } else {
+      location.href = 'https://line.me/R/nv/chat';
+    }
+  }
+}
+*/
+async function submitAbsence() {
+  // ★必須項目チェック（LINE WORKS最適化）★
+  const required = {
+    nextdate: '欠席・遅刻日',
+    reason: '欠席・遅刻理由', 
+    nextVisitDate: '次回通所予定日'
+  };
 
-      initLiff();
-    </script>
-  </main>
-</body>
+    for (let [id, label] of Object.entries(required)) {
+    const element = document.getElementById(id);
+    if (!element.value.trim()) {
+      alert(`${label}を選択/入力してください`);
+      element.focus();
+      element.scrollIntoView({behavior: 'smooth'});
+      return;
+    }
+  }
+  
+  try {
+    const formData = new FormData(document.getElementById('absenceForm'));
+    const params = Object.fromEntries(formData.entries());
+    
+    // LIFF userId追加（安全取得）
+    let userId = 'web-user'; // デフォルト
+    try {
+      const idToken = liff.getDecodedIDToken();
+      params.userId = idToken.sub;
+    } catch(e) {
+      params.userId = userId; // LIFF外対応
+    }
+    
+    console.log('🔥 送信パラメータ:', params);
+    
+    // GAS送信のみ実行
+    const query = new URLSearchParams(params);
+    await fetch(GAS_URL + '?' + query.toString());
+    
+    // ★ LINE通知一時無効化 ★
+    /*
+    await liff.sendMessages([...]);
+    */
+    
+    alert('✅ GAS送信完了！\n（スプレッド＋LW Bot通知確認）');
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('❌ 送信エラー: ' + error.message);
+  } finally {
+    // LIFF判定あり
+    if (typeof liff !== 'undefined' && liff.isInClient()) {
+      liff.closeWindow();
+    }
+  }
+}
+
+  
+
+// ★B型事業所LINE WORKS Bot用（修正版）★
+async function sendAbsence() {
+  const formData = {
+    name: document.querySelector('input[name="name"]').value || '未記入',
+    date: document.querySelector('input[type="date"]').value || '未記入',
+    reason: document.querySelector('textarea[name="reason"]').value || 'なし'
+  };
+  
+  console.log('Bot送信データ:', formData);
+  
+  try {
+    const response = await fetch('https://api.worksmobile.com/r/6811052/notify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Bot-Authorization': 'Bearer kd/Z77U9S6lcbsgmbsdovIBEKa0jbD'
+      },
+      body: JSON.stringify({
+        content: {
+          type: 'text',
+          text: `🔴欠席連絡\n👤${formData.name}\n📅${formData.date}\n📝${formData.reason}`
+        }
+      })
+    });
+    
+    console.log('Botレスポンス:', response.status);
+    
+    if (response.ok) {
+      alert('✅ Botに欠席連絡を送信しました！');
+    } else {
+      alert(`❌ Bot送信エラー: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Botエラー:', error);
+    alert('❌ Bot送信でネットワークエラーが発生しました');
+  }
+}
+
+initLiff();
+</script>
+
+    <!--テスト：時間表示用(後で消す)-->
+<script>
+  // GitHub Pages最終更新日自動取得
+  document.addEventListener('DOMContentLoaded', function() {
+    con
 </html>

@@ -91,13 +91,15 @@ label {
   font-weight: 600;
   color: #333;
   margin-bottom: 6px;
-  
-  &::after {
-    content: " *";
-    color: $red;
-    font-weight: 800;
+
+  &.required::after {
+      content: " *";
+      color: red;
+      font-weight: 800;
   }
 }
+
+
 
 // 入力フォーム
 input, select, textarea {

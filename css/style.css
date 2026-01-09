@@ -71,9 +71,9 @@ label {
   color: #333;
   margin-bottom: 6px;
 }
-label::after {
+label.required::after {
   content: " *";
-  color: #ff4444;
+  color: red;
   font-weight: 800;
 }
 

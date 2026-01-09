@@ -76,11 +76,11 @@
     <form id="absenceForm" onsubmit="submitAbsence(); return false;">
 
       <div class="form-field">
-        <label>欠席・遅刻日</label>
+        <label class="required">欠席・遅刻日</label>
         <input type="date" id="nextdate" name="nextdate" required>
       </div>
 
-      <label>欠席・遅刻理由</label>
+      <label class="required">欠席・遅刻理由</label>
       <select id="reason" name="reason" required>
         <option value="" selected disabled選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
@@ -100,7 +100,7 @@
       </select>
 
       <div class="form-field">
-        <label>次回通所予定日</label>
+        <label class="required">次回通所予定日</label>
         <input type="date" id="nextVisitDate" name="nextvisit" class="nextDate-input" required>
       </div>
       <div class="form-field">
