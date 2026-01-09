@@ -58,6 +58,9 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <!--テスト用　後で消す-->
+  <meta name="last-updated" content="2026/01/09 11:04">
+
 </head>
 
 <body>
@@ -277,20 +280,24 @@ initLiff();
 </script>
 
     <!--テスト：時間表示用(後で消す)-->
-    <script>
+<script>
+  // GitHub Pages最終更新日自動取得
   document.addEventListener('DOMContentLoaded', function() {
     const updateTime = document.getElementById('update-time');
     if (updateTime) {
-      const now = new Date();
-      const timeStr = now.toLocaleString('ja-JP', { 
-        timeZone: 'Asia/Tokyo',
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit'
-      });
-      updateTime.textContent = `更新時間・${timeStr}`;
+      // GitHub Pagesのメタタグから最終更新取得
+      const meta = document.querySelector('meta[name="last-updated"]');
+      if (meta && meta.content) {
+        updateTime.textContent = `最終更新・${meta.content}`;
+      } else {
+        // フォールバック：ビルド日時（手動更新不要）
+        const now = new Date(Date.UTC(2026, 0, 9, 11, 10)); // JST+9考慮
+        updateTime.textContent = `最終更新・${now.toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})}`;
+      }
     }
   });
 </script>
+
 
   </main>
 </body>
