@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/13 16:50">
+  <meta name="last-updated" content="2026/01/13 16:55">
 
   <!-- GAS_URL -->
   <script>
@@ -124,85 +124,77 @@ async function initLiff(){
 }
 
 
-  async function submitAbsence() {
-    // ボタンディスエーブル（連打防止）
-    const submitBtn = document.getElementById('sendBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = '送信中...';
+async function submitAbsence() {
+  // ボタンディスエーブル（連打防止）
+  const submitBtn = document.getElementById('sendBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = '送信中...';
 
-    // ★必須項目チェック
-    const required = {
-      nextdate: '欠席・遅刻日',
-      reason: '欠席・遅刻理由',
-      nextVisitDate: '次回通所予定日'
-    };
+  // ★必須項目チェック
+  const required = {
+    nextdate: '欠席・遅刻日',
+    reason: '欠席・遅刻理由',
+    nextVisitDate: '次回通所予定日'
+  };
 
-    for (let [id, label] of Object.entries(required)) {
-      const element = document.getElementById(id);
-      if (!element.value.trim()) {
-        alert(`${label}を選択/入力してください`);
-        submitBtn.disabled = false;
-        submitBtn.textContent = '送信';
-        element.focus();
-        element.scrollIntoView({
-          behavior: 'smooth'
-        });
-        return;
-      }
+  for (let [id, label] of Object.entries(required)) {
+    const element = document.getElementById(id);
+    if (!element.value.trim()) {
+      alert(`${label}を選択/入力してください`);
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送信';
+      element.focus();
+      element.scrollIntoView({behavior: 'smooth'});
+      return;
     }
-    try {
-      // GAS送信（6秒かかっても気にしない）
-      await fetch(GAS_URL + '?' + query.toString());
-      alert('✅ 送信完了！通知自動送信中...');
-    } finally {
-      liff.closeWindow(); // 即クローズで終了感
-    }
-    /*
-    try {
-      // 即時フィードバック（1秒）
-      setTimeout(() => {
-        submitBtn.textContent = '送信中...⏳';
-      }, 100);
-
-      const formData = new FormData(document.getElementById('absenceForm'));
-      const params = Object.fromEntries(formData.entries());
-
-      // LIFF userId追加（安全取得）
-      let userId = 'web-user';
-      try {
-        const idToken = liff.getDecodedIDToken();
-        params.userId = idToken.sub;
-      } catch (e) {
-        params.userId = userId;
-      }
-
-      console.log('🔥 送信パラメータ:', params);
-
-      // GAS送信
-      const query = new URLSearchParams(params);
-      const response = await fetch(GAS_URL + '?' + query.toString());
-
-      if (response.ok) {
-        alert('✅ GAS送信完了！\n（スプレッド＋LW Bot通知確認）');
-      } else {
-        alert('❌ 送信エラー（管理者に連絡）');
-      }
-    } catch (error) {
-      console.error('送信エラー:', error);
-      alert('❌ 送信エラー: ' + error.message);
-    } finally {
-      // 3秒後にボタン復活（GAS遅延考慮）
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = '送信';
-      }, 3000);
-
-      if (typeof liff !== 'undefined' && liff.isInClient()) {
-        liff.closeWindow();
-      }
-    }
-    */
   }
+
+  try {
+    // 即時フィードバック
+    setTimeout(() => {
+      submitBtn.textContent = '送信中...⏳';
+    }, 100);
+
+    const formData = new FormData(document.getElementById('absenceForm'));
+    const params = Object.fromEntries(formData.entries());
+
+    // LIFF userId追加（安全取得）
+    let userId = 'web-user';
+    try {
+      const idToken = liff.getDecodedIDToken();
+      params.userId = idToken.sub;
+    } catch(e) {
+      params.userId = userId;
+    }
+
+    console.log('🔥 送信パラメータ:', params);
+
+    // GAS送信（1回のみ）
+    const query = new URLSearchParams(params);
+    const response = await fetch(GAS_URL + '?' + query.toString());
+
+    if (response.ok) {
+      alert('✅ 送信完了！\n（スプレッド＋LW Bot通知確認）');
+    } else {
+      alert('❌ 送信エラー（管理者に連絡）');
+    }
+  } catch (error) {
+    console.error('送信エラー:', error);
+    alert('❌ 送信エラー: ' + error.message);
+  } finally {
+    // 3秒後にボタン復活
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '送信';
+    }, 3000);
+
+    // LIFF内ならクローズ
+    if (typeof liff !== 'undefined' && liff.isInClient()) {
+      liff.closeWindow();
+    }
+  }
+}
+
 
 
 
