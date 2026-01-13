@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/13 15:02">
+  <meta name="last-updated" content="2026/01/13 15:14">
 
   <!-- GAS_URL -->
   <script>
@@ -123,47 +123,7 @@ async function initLiff(){
   document.getElementById('userId').textContent = id.substring(0,20)+'...';
 }
 
-/*
-async function submitAbsence() {
-  try {
-    // ★ FormDataでname属性を自動取得 ★
-    const formData = new FormData(document.getElementById('absenceForm'));
-    const params = Object.fromEntries(formData.entries());
-    
-    // LIFF userId追加
-    const idToken = liff.getDecodedIDToken();
-    params.userId = idToken.sub;
-    
-    console.log('🔥 送信パラメータ:', params);
-    
-    // GAS送信
-    const query = new URLSearchParams(params);
-    await fetch(GAS_URL + '?' + query.toString());
-    
-    // LINE通知
-    await liff.sendMessages([{
-      type: 'text',
-      text: `【欠席連絡】
-理由: ${params.reason || '未選択'}
-詳細: ${params.details || '-'}
-通院: ${params.medical || '未選択'}
-欠席日: ${params.nextdate}
-次回予定: ${params.nextvisit || '-'} ${params.nexttime || ''}`
-    }]);
-    
-    alert('✅ 送信しました。ご連絡ありがとうございます。');
-  } catch (error) {
-    console.error('送信エラー:', error);
-    alert('⚠️ 送信処理中にエラーが発生しました。');
-  } finally {
-    if (liff.isInClient()) {
-      liff.closeWindow();
-    } else {
-      location.href = 'https://line.me/R/nv/chat';
-    }
-  }
-}
-*/
+
 async function submitAbsence() {
   // ★必須項目チェック（LINE WORKS最適化）★
   const required = {
@@ -254,9 +214,10 @@ async function sendAbsence() {
   }
 }
   */
-/*
-initLiff();
-*/
+document.addEventListener('DOMContentLoaded',function(){
+  initLiff();
+});
+
 </script>
 
   <!--テスト：時間表示用(後で消す)-->
