@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/09 17:01">
+  <meta name="last-updated" content="2026/01/13 14:02">
 
   <!-- GAS_URL -->
   <script>
@@ -76,11 +76,11 @@
     <form id="absenceForm" onsubmit="submitAbsence(); return false;">
 
       <div class="form-field">
-        <label class="required">欠席・遅刻日</label>
+        <label for="nextdate" class="required">欠席・遅刻日</label>
         <input type="date" id="nextdate" name="nextdate" required>
       </div>
 
-      <label class="required">欠席・遅刻理由</label>
+      <label for="reason" class="required">欠席・遅刻理由</label>
       <select id="reason" name="reason" required>
         <option value="" selected disabled選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
@@ -89,10 +89,10 @@
         <option value="その他">その他</option>
       </select>
 
-      <label>詳細（症状など）</label>
+      <label for="details">詳細（症状など）</label>
       <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
 
-      <label>通院有無・予定</label>
+      <label for="medical">通院有無・予定</label>
       <select id="medical" name="medical">
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
@@ -100,11 +100,11 @@
       </select>
 
       <div class="form-field">
-        <label class="required">次回通所予定日</label>
+        <label for="nextVisitDate" class="required">次回通所予定日</label>
         <input type="date" id="nextVisitDate" name="nextvisit" class="nextDate-input" required>
       </div>
       <div class="form-field">
-        <label>遅刻予定（時刻が分かる場合）</label>
+        <label for="nextVisitTime">遅刻予定（時刻が分かる場合）</label>
         <input type="time" id="nextVisitTime" name="nexttime" class="time-input">
       </div>
     </form>
