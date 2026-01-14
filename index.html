@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 10:14">
+  <meta name="last-updated" content="2026/01/14 10:18">
 
   <!-- GAS_URL -->
   <script>
@@ -113,9 +113,9 @@
       <button type="submit" id="sendBtn">>送信</button>
     </form>
     
-    <!--プログレスバー-->
+    <!--プログレスバー
     <div id="progress" style="width: 100%;height: 4px;"></div>
-
+-->
 
 <script>
 // GAS/LIFF用の既存関数（そのまま保持）
@@ -155,10 +155,11 @@ async function submitAbsence() {
     }
   }
 
-    // プログレスバー表示（CDN必須）
+    /* プログレスバー表示（CDN必須）
     const bar = new ProgressBar.Line('#progress', {color: '#007bff', duration: 6000});
     bar.animate(1.0);  // 6秒アニメ開始
-    
+    */
+
   try {
     // 即時フィードバック
     setTimeout(() => {
