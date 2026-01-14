@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 09:20">
+  <meta name="last-updated" content="2026/01/14 09:35">
 
   <!-- GAS_URL -->
   <script>
@@ -170,7 +170,6 @@ async function submitAbsence() {
     console.log('🔥 送信パラメータ:', params);
 
     // GAS送信（1回のみ）
-    /*
     const query = new URLSearchParams(params);
     const response = await fetch(GAS_URL + '?' + query.toString());
 
@@ -186,18 +185,9 @@ async function submitAbsence() {
     // 3秒後にボタン復活
     setTimeout(() => {
       submitBtn.disabled = false;
-      submitBtn.textContent = '送信';
+      submitBtn.textContent = '送信中...⌛';
     }, 3000);
-    */
-    // GAS送信（非同期、ユーザーは待たない）
-      fetch(GAS_URL + '?' + new URLSearchParams(formData));
-       } catch (e) {
-      console.error(e);
-        } finally {
-      // 即クローズ（LIFF内限定）
-      if (typeof liff !== 'undefined' && liff.isInClient()) {
-        liff.closeWindow();  // 成功/失敗問わず終了感
-      }
+
 
     // LIFF内ならクローズ
     if (typeof liff !== 'undefined' && liff.isInClient()) {
