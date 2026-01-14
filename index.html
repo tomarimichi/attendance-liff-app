@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 09:35">
+  <meta name="last-updated" content="2026/01/14 09:39">
 
   <!-- GAS_URL -->
   <script>
@@ -85,7 +85,7 @@
 
       <label for="reason" class="required">欠席・遅刻理由</label>
       <select id="reason" name="reason" required>
-        <option value="" selected disabled選択してください</option><!--初期値-->
+        <option value="" selected disabled>選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="家庭事情">家庭事情</option>
@@ -201,7 +201,7 @@ async function submitAbsence() {
 
   
 
-document.addEventListener('DOMContentLoaded',function(){
+  document.addEventListener('DOMContentLoaded',function(){
   initLiff();
 });
 
