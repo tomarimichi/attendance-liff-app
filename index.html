@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 12:21">
+  <meta name="last-updated" content="2026/01/14 13:11">
 
   <!-- GAS_URL -->
   <script>
@@ -179,7 +179,16 @@ async function submitAbsence() {
         const closeDelay = Math.min(Math.max(elapsed, 4000) + 300, 7000);
         console.log('クローズ時間:', closeDelay, 'ms');
         
-        setTimeout(() => liff?.closeWindow(), closeDelay);
+      setTimeout(() => {
+        const closeElapsed = performance.now() - startTime;
+        console.log(
+          'closeWindow実行:',
+          closeElapsed.toFixed(1),
+          'ms'
+        );
+        liff?.closeWindow();
+      }, closeDelay);
+
       })
       .catch(e => {
         const elapsed = performance.now() - startTime;
@@ -189,7 +198,16 @@ async function submitAbsence() {
         const closeDelay = Math.min(Math.max(elapsed + 1000, 4500), 7000);
         console.log('エラークローズ:', closeDelay, 'ms');
         
-        setTimeout(() => liff?.closeWindow(), closeDelay);
+      setTimeout(() => {
+        const closeElapsed = performance.now() - startTime;
+        console.log(
+          'closeWindow（エラー時）実行:',
+          closeElapsed.toFixed(1),
+          'ms'
+        );
+        liff?.closeWindow();
+      }, closeDelay);
+
       });
 
 }
