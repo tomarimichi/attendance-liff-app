@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 11:55">
+  <meta name="last-updated" content="2026/01/14 12:00">
 
   <!-- GAS_URL -->
   <script>
@@ -117,7 +117,7 @@
     </form>
     
     <!--プログレスバー-->
-    <div id="progress" style="width: 100%; height: 6px; background: #e0e0e0; margin: 10px 0; border-radius: 3px; overflow: hidden;">
+    <div id="progress" style="width: 0%; height: 6px; background: #e0e0e0; margin: 10px 0; border-radius: 3px; overflow: hidden;">
       <div style="height: 100%; width: 0%; background: linear-gradient(90deg, #007bff, #00d4ff); transition: width 4s linear;"></div>
     </div>
 
@@ -159,9 +159,12 @@ async function submitAbsence() {
   }
   console.log('送信データ:', params);
 
-// 新しいプログレス開始（子要素アニメ）
-const progressFill = document.querySelector('#progress div') || document.getElementById('progress-fill');
-progressFill.style.width = '100%';
+  // プログレス開始（親100%＋子アニメ）
+  const progress = document.getElementById('progress');
+  const progressFill = progress.querySelector('div');
+  progress.style.width = '100%';     // 親：即時表示
+  progressFill.style.width = '100%'; // 子：4秒アニメ
+
 
 
   // ★GAS送信（復旧）
