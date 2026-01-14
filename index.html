@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 11:17">
+  <meta name="last-updated" content="2026/01/14 11:23">
 
   <!-- GAS_URL -->
   <script>
@@ -135,7 +135,7 @@ async function submitAbsence() {
   submitBtn.disabled = true;
   submitBtn.textContent = '送信中...⏳';
 
-  // 必須チェック（既存）
+  // ★必須チェック
   const required = { nextdate: '欠席・遅刻日', reason: '欠席・遅刻理由', nextVisitDate: '次回通所予定日' };
   for (let [id, label] of Object.entries(required)) {
     const element = document.getElementById(id);
@@ -148,25 +148,35 @@ async function submitAbsence() {
     }
   }
 
-  // CSSプログレス開始（4秒想定）
+  // ★formData取得＋userId設定（これが抜けていた）
+  const formData = new FormData(document.getElementById('absenceForm'));
+  const params = Object.fromEntries(formData.entries());
+  try {
+    params.userId = liff.getDecodedIDToken().sub;
+  } catch(e) {
+    params.userId = 'web-user';
+  }
+  console.log('送信データ:', params);
+
+  // ★プログレスバー4秒（通知と連動）
   const progress = document.getElementById('progress');
   progress.style.transition = 'width 4s linear';
   progress.style.width = '100%';
 
+  // ★GAS送信（復旧）
   const startTime = performance.now();
-  
   fetch(GAS_URL + '?' + new URLSearchParams(params))
     .then(response => {
-      const elapsed = performance.now() - startTime;  // 実測時間
-      const closeDelay = Math.max(elapsed, 4000);  // 4秒以上保証
-      setTimeout(() => {
-        if (liff?.isInClient()) liff.closeWindow();
-      }, closeDelay + 300);  // +0.3秒余裕
+      console.log('GAS応答:', response.status);
+      const elapsed = performance.now() - startTime;
+      setTimeout(() => liff?.closeWindow(), Math.max(elapsed, 4000) + 300);
     })
-    .catch(() => {
-      setTimeout(() => liff.closeWindow(), 4500);  // エラー時4.5秒
+    .catch(e => {
+      console.error('GASエラー:', e);
+      setTimeout(() => liff?.closeWindow(), 4500);
     });
 }
+
 
 
 
