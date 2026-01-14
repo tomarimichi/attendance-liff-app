@@ -227,7 +227,6 @@ form {
 }
 
 #progress {
-  width: 0% !important;
   height: 4px;
   background: linear-gradient(90deg, #007bff, #00d4ff);
   border-radius: 2px;
