@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 10:18">
+  <meta name="last-updated" content="2026/01/14 10:23">
 
   <!-- GAS_URL -->
   <script>
@@ -184,7 +184,18 @@ async function submitAbsence() {
     // GAS送信（1回のみ）
     const query = new URLSearchParams(params);
     const response = await fetch(GAS_URL + '?' + query.toString());
+  }catch(error) {
+    console.error('送信エラー:',error)
+  }
 
+  // プログレス100%でクローズ（視覚完了感）
+  setTimeout(() => {
+    if (typeof liff !== 'undefined' && liff.isInClient()) {
+      liff.closeWindow();
+    }
+  }, 6000);  // GAS時間に同期
+
+    /*
     if (response.ok) {
       alert('✅ 送信完了！\n（スプレッド＋LW Bot通知確認）');
     } else {
@@ -199,20 +210,16 @@ async function submitAbsence() {
       submitBtn.disabled = false;
       submitBtn.textContent = '送信中...⌛';
     }, 3000);
-
-
+*/
+    /*
     // LIFF内ならクローズ
     if (typeof liff !== 'undefined' && liff.isInClient()) {
       liff.closeWindow();
     }
+    */
   }
 
-  // プログレス100%でクローズ（視覚完了感）
-  setTimeout(() => {
-    if (typeof liff !== 'undefined' && liff.isInClient()) {
-      liff.closeWindow();
-    }
-  }, 6000);  // GAS時間に同期
+
   
 }
 
