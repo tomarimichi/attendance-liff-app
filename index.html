@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 11:04">
+  <meta name="last-updated" content="2026/01/14 11:12">
 
   <!-- GAS_URL -->
   <script>
@@ -148,31 +148,23 @@ async function submitAbsence() {
     }
   }
 
-  // プログレス開始（最大7秒）
-  const bar = new ProgressBar.Line('#progress', {
-    strokeWidth: 4, color: '#007bff', duration: 7000
-  });
-  bar.animate(1.0);
+  // CSSプログレス開始（4秒想定）
+  const progress = document.getElementById('progress');
+  progress.style.transition = 'width 4s linear';
+  progress.style.width = '100%';
 
-  const startTime = Date.now();
-  const formData = new FormData(document.getElementById('absenceForm'));
-  const params = Object.fromEntries(formData);
+  const startTime = performance.now();
   
-  // userId設定（既存）
-  try {
-    params.userId = liff.getDecodedIDToken().sub;
-  } catch(e) { params.userId = 'web-user'; }
-
-  // GAS送信＋応答時間で動的クローズ
   fetch(GAS_URL + '?' + new URLSearchParams(params))
     .then(response => {
-      const elapsed = Date.now() - startTime;  // 実際の応答時間
-      const closeDelay = Math.min(elapsed + 500, 7000);  // +0.5秒余裕
-      setTimeout(() => liff.closeWindow(), closeDelay);
+      const elapsed = performance.now() - startTime;  // 実測時間
+      const closeDelay = Math.max(elapsed, 4000);  // 4秒以上保証
+      setTimeout(() => {
+        if (liff?.isInClient()) liff.closeWindow();
+      }, closeDelay + 300);  // +0.3秒余裕
     })
     .catch(() => {
-      // エラー時も7秒でクローズ
-      setTimeout(() => liff.closeWindow(), 7000);
+      setTimeout(() => liff.closeWindow(), 4500);  // エラー時4.5秒
     });
 }
 
