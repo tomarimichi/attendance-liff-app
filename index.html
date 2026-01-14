@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/13 16:55">
+  <meta name="last-updated" content="2026/01/14 09:20">
 
   <!-- GAS_URL -->
   <script>
@@ -10,46 +10,46 @@
   </script>
   
   <!--
-  <script>
-    // LIFF初期化を完全無効化 + Mockモード
-    window.addEventListener('DOMContentLoaded', function() {
-      // LIFF SDK読み込みをブロック
-      if (location.port === '5500' || location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
-        console.log('🔧 Live Server 開発モード');
-        
-        // ステータス表示
-        const statusDiv = document.createElement('div');
-        statusDiv.id = 'dev-status';
-        statusDiv.style.cssText = 'background:#00b900;color:white;padding:12px;border-radius:6px;margin:16px 0;text-align:center;font-weight:bold;position:fixed;top:10px;right:10px;z-index:9999;';
-        statusDiv.textContent = '🔧 開発モード（Live Server）';
-        document.body.insertBefore(statusDiv, document.body.firstChild);
-        
-        // userIdモック
-        const userIdInput = document.getElementById('userId');
-        if (userIdInput) {
-          userIdInput.value = 'U8f7d7d2a3e38979c0f5636ec968bacc9（自分）';
-          userIdInput.disabled = true;
+    <script>
+      // LIFF初期化を完全無効化 + Mockモード
+      window.addEventListener('DOMContentLoaded', function() {
+        // LIFF SDK読み込みをブロック
+        if (location.port === '5500' || location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
+          console.log('🔧 Live Server 開発モード');
+          
+          // ステータス表示
+          const statusDiv = document.createElement('div');
+          statusDiv.id = 'dev-status';
+          statusDiv.style.cssText = 'background:#00b900;color:white;padding:12px;border-radius:6px;margin:16px 0;text-align:center;font-weight:bold;position:fixed;top:10px;right:10px;z-index:9999;';
+          statusDiv.textContent = '🔧 開発モード（Live Server）';
+          document.body.insertBefore(statusDiv, document.body.firstChild);
+          
+          // userIdモック
+          const userIdInput = document.getElementById('userId');
+          if (userIdInput) {
+            userIdInput.value = 'U8f7d7d2a3e38979c0f5636ec968bacc9（自分）';
+            userIdInput.disabled = true;
+          }
+          
+          // 送信ボタンモック
+          const submitBtn = document.querySelector('button[type="submit"], input[type="submit"], button');
+          if (submitBtn) {
+            submitBtn.style.background = '#ff6b35';
+            submitBtn.textContent = '✅ 送信テスト（モック）';
+            submitBtn.onclick = function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              statusDiv.textContent = '🎉 送信成功！GASに記録されました';
+              statusDiv.style.background = '#00a300';
+              setTimeout(() => {
+                statusDiv.textContent = '🔧 開発モード（Live Server）';
+                statusDiv.style.background = '#00b900';
+              }, 3000);
+            };
+          }
         }
-        
-        // 送信ボタンモック
-        const submitBtn = document.querySelector('button[type="submit"], input[type="submit"], button');
-        if (submitBtn) {
-          submitBtn.style.background = '#ff6b35';
-          submitBtn.textContent = '✅ 送信テスト（モック）';
-          submitBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            statusDiv.textContent = '🎉 送信成功！GASに記録されました';
-            statusDiv.style.background = '#00a300';
-            setTimeout(() => {
-              statusDiv.textContent = '🔧 開発モード（Live Server）';
-              statusDiv.style.background = '#00b900';
-            }, 3000);
-          };
-        }
-      }
-    }, true); // trueでキャプチャフェーズ実行（LIFFより先に処理）
-  </script>
+      }, true); // trueでキャプチャフェーズ実行（LIFFより先に処理）
+    </script>
   -->
 
 
@@ -170,6 +170,7 @@ async function submitAbsence() {
     console.log('🔥 送信パラメータ:', params);
 
     // GAS送信（1回のみ）
+    /*
     const query = new URLSearchParams(params);
     const response = await fetch(GAS_URL + '?' + query.toString());
 
@@ -187,6 +188,16 @@ async function submitAbsence() {
       submitBtn.disabled = false;
       submitBtn.textContent = '送信';
     }, 3000);
+    */
+    // GAS送信（非同期、ユーザーは待たない）
+      fetch(GAS_URL + '?' + new URLSearchParams(formData));
+       } catch (e) {
+      console.error(e);
+        } finally {
+      // 即クローズ（LIFF内限定）
+      if (typeof liff !== 'undefined' && liff.isInClient()) {
+        liff.closeWindow();  // 成功/失敗問わず終了感
+      }
 
     // LIFF内ならクローズ
     if (typeof liff !== 'undefined' && liff.isInClient()) {
