@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 09:39">
+  <meta name="last-updated" content="2026/01/14 10:07">
 
   <!-- GAS_URL -->
   <script>
@@ -112,6 +112,9 @@
       </div>
       <button type="submit" id="sendBtn">>送信</button>
     </form>
+    
+    <!--プログレスバー-->
+    <div id="progress" style="width: 100%;height: 4px;"></div>
 
 
 <script>
@@ -128,7 +131,12 @@ async function submitAbsence() {
   // ボタンディスエーブル（連打防止）
   const submitBtn = document.getElementById('sendBtn');
   submitBtn.disabled = true;
-  submitBtn.textContent = '送信中...';
+  submitBtn.textContent = '送信中...⌛';
+
+  // プログレスバー表示（CDN必須）
+  const bar = new ProgressBar.Line('#progress', {color: '#007bff', duration: 6000});
+  bar.animate(1.0);  // 6秒アニメ開始
+
 
   // ★必須項目チェック
   const required = {
@@ -150,10 +158,11 @@ async function submitAbsence() {
   }
 
   try {
-    // 即時フィードバック
+    /* 即時フィードバック
     setTimeout(() => {
       submitBtn.textContent = '送信中...⏳';
     }, 100);
+    */
 
     const formData = new FormData(document.getElementById('absenceForm'));
     const params = Object.fromEntries(formData.entries());
@@ -194,6 +203,14 @@ async function submitAbsence() {
       liff.closeWindow();
     }
   }
+
+  // プログレス100%でクローズ（視覚完了感）
+  setTimeout(() => {
+    if (typeof liff !== 'undefined' && liff.isInClient()) {
+      liff.closeWindow();
+    }
+  }, 6000);  // GAS時間に同期
+  
 }
 
 
