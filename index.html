@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 10:07">
+  <meta name="last-updated" content="2026/01/14 10:14">
 
   <!-- GAS_URL -->
   <script>
@@ -133,9 +133,7 @@ async function submitAbsence() {
   submitBtn.disabled = true;
   submitBtn.textContent = '送信中...⌛';
 
-  // プログレスバー表示（CDN必須）
-  const bar = new ProgressBar.Line('#progress', {color: '#007bff', duration: 6000});
-  bar.animate(1.0);  // 6秒アニメ開始
+
 
 
   // ★必須項目チェック
@@ -157,12 +155,16 @@ async function submitAbsence() {
     }
   }
 
+    // プログレスバー表示（CDN必須）
+    const bar = new ProgressBar.Line('#progress', {color: '#007bff', duration: 6000});
+    bar.animate(1.0);  // 6秒アニメ開始
+    
   try {
-    /* 即時フィードバック
+    // 即時フィードバック
     setTimeout(() => {
       submitBtn.textContent = '送信中...⏳';
     }, 100);
-    */
+
 
     const formData = new FormData(document.getElementById('absenceForm'));
     const params = Object.fromEntries(formData.entries());
