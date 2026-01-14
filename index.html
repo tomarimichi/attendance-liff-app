@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 11:37">
+  <meta name="last-updated" content="2026/01/14 11:50">
 
   <!-- GAS_URL -->
   <script>
@@ -64,9 +64,9 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <!-- プログレスバー -->
+  <!-- プログレスバー
   <script src="https://cdn.jsdelivr.net/npm/progressbar.js@1.1.0/dist/progressbar.min.js"></script>
-
+   -->
 </head>
 
 <body>
@@ -117,8 +117,9 @@
     </form>
     
     <!--プログレスバー-->
-    <div id="progress" style="width: 0% !important ;height: 4px;background:transparent;"></div>
-
+    <div id="progress" style="width: 0%; height: 6px; background: #e0e0e0; margin: 10px 0; border-radius: 3px; overflow: hidden;">
+      <div style="height: 100%; width: 0%; background: linear-gradient(90deg, #007bff, #00d4ff); transition: width 4s linear;"></div>
+    </div>
 
 <script>
 // GAS/LIFF用の既存関数（そのまま保持）
@@ -158,10 +159,10 @@ async function submitAbsence() {
   }
   console.log('送信データ:', params);
 
-  // ★プログレスバー4秒（通知と連動）
-  const progress = document.getElementById('progress');
-  progress.style.transition = 'width 4s linear';
-  progress.style.width = '100%';
+// 新しいプログレス開始（子要素アニメ）
+const progressFill = document.querySelector('#progress div') || document.getElementById('progress-fill');
+progressFill.style.width = '100%';
+
 
   // ★GAS送信（復旧）
   const startTime = performance.now();
