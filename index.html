@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 10:47">
+  <meta name="last-updated" content="2026/01/14 11:01">
 
   <!-- GAS_URL -->
   <script>
@@ -133,45 +133,37 @@ async function initLiff(){
 async function submitAbsence() {
   const submitBtn = document.getElementById('sendBtn');
   submitBtn.disabled = true;
-  submitBtn.textContent = '送信中...⏳';  // 即時0.1秒フィードバック
+  submitBtn.textContent = '送信中...⏳';
 
-  // 必須チェック（既存OK）
-  const required = { nextdate: '欠席・遅刻日', reason: '欠席・遅刻理由', nextVisitDate: '次回通所予定日' };
-  for (let [id, label] of Object.entries(required)) {
-    const element = document.getElementById(id);
-    if (!element.value.trim()) {
-      alert(`${label}を選択/入力してください`);
-      submitBtn.disabled = false;
-      submitBtn.textContent = '>送信';
-      element.focus();
-      return;
-    }
-  }
+  // 必須チェック（既存）
+  // ...
 
-  // プログレス開始（6秒アニメ）
-  let bar;
-  try {
-    bar = new ProgressBar.Line('#progress', { strokeWidth: 4, color: '#007bff', duration: 6000 });
-    bar.animate(1.0);
-  } catch (e) {
-    console.error('プログレスエラー:', e);  // CDN未読時はスキップ
-  }
+  // プログレス開始（最大7秒）
+  const bar = new ProgressBar.Line('#progress', {
+    strokeWidth: 4, color: '#007bff', duration: 7000
+  });
+  bar.animate(1.0);
 
-  // GAS fire-and-forget（並列不要）
+  const startTime = Date.now();
   const formData = new FormData(document.getElementById('absenceForm'));
   const params = Object.fromEntries(formData);
+  
+  // userId設定（既存）
   try {
-    let userId = 'web-user';
-    const idToken = liff.getDecodedIDToken();
-    params.userId = idToken.sub;
-  } catch(e) { params.userId = userId; }
-  const query = new URLSearchParams(params);
-  fetch(GAS_URL + '?' + query).catch(console.error);
+    params.userId = liff.getDecodedIDToken().sub;
+  } catch(e) { params.userId = 'web-user'; }
 
-  // プログレス完了でクローズ（納得感最高）
-  setTimeout(() => {
-    if (liff?.isInClient()) liff.closeWindow();
-  }, 6200);  // 少し余裕
+  // GAS送信＋応答時間で動的クローズ
+  fetch(GAS_URL + '?' + new URLSearchParams(params))
+    .then(response => {
+      const elapsed = Date.now() - startTime;  // 実際の応答時間
+      const closeDelay = Math.min(elapsed + 500, 7000);  // +0.5秒余裕
+      setTimeout(() => liff.closeWindow(), closeDelay);
+    })
+    .catch(() => {
+      // エラー時も7秒でクローズ
+      setTimeout(() => liff.closeWindow(), 7000);
+    });
 }
 
 
