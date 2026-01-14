@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/14 12:00">
+  <meta name="last-updated" content="2026/01/14 12:10">
 
   <!-- GAS_URL -->
   <script>
@@ -168,17 +168,19 @@ async function submitAbsence() {
 
 
   // ★GAS送信（復旧）
-  const startTime = performance.now();
-  fetch(GAS_URL + '?' + new URLSearchParams(params))
-    .then(response => {
-      console.log('GAS応答:', response.status);
-      const elapsed = performance.now() - startTime;
-      setTimeout(() => liff?.closeWindow(), Math.max(elapsed, 4000) + 300);
-    })
-    .catch(e => {
-      console.error('GASエラー:', e);
-      setTimeout(() => liff?.closeWindow(), 4500);
-    });
+    const startTime = performance.now();  // 送信開始時刻
+
+    fetch(GAS_URL + '?' + new URLSearchParams(params))
+      .then(response => {
+        const elapsed = performance.now() - startTime;
+        console.log('GAS応答:', response.status, `${elapsed}ms`);
+        setTimeout(() => liff?.closeWindow(), Math.max(elapsed, 4000) + 300);
+      })
+      .catch(e => {
+        const elapsed = performance.now() - startTime;
+        console.error('GASエラー:', e, `${elapsed}ms`);
+        setTimeout(() => liff?.closeWindow(), Math.max(elapsed + 1000, 4500));
+      });
 }
 
 
