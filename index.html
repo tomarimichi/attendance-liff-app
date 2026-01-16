@@ -82,8 +82,8 @@
     <form id="absenceForm" onsubmit="submitAbsence(); return false;">
 
       <div class="form-field">
-        <label for="nextdate" class="required">欠席・遅刻日</label>
-        <input type="date" id="nextdate" name="nextdate" required>
+        <label for="absentDate" class="required">欠席・遅刻日</label>
+        <input type="date" id="absentDate" name="absentDate" required>
       </div>
 
       <label for="reason" class="required">欠席・遅刻理由</label>
@@ -106,12 +106,12 @@
       </select>
 
       <div class="form-field">
-        <label for="nextVisitDate" class="required">次回通所予定日</label>
-        <input type="date" id="nextVisitDate" name="nextvisit" class="nextDate-input" required>
+        <label for="nextDate" class="required">次回通所予定日</label>
+        <input type="date" id="nextDate" name="nextDate" class="absentDate-input" required>
       </div>
       <div class="form-field">
-        <label for="nextVisitTime">遅刻予定（時刻が分かる場合）</label>
-        <input type="time" id="nextVisitTime" name="nexttime" class="time-input">
+        <label for="nextTime">遅刻予定（時刻が分かる場合）</label>
+        <input type="time" id="nextTime" name="nextTime" class="time-input">
       </div>
       <button type="submit" id="sendBtn">>送信</button>
     </form>
@@ -137,7 +137,7 @@ async function submitAbsence() {
   submitBtn.textContent = '送信中...⏳';
 
   // ★必須チェック
-  const required = { nextdate: '欠席・遅刻日', reason: '欠席・遅刻理由', nextVisitDate: '次回通所予定日' };
+  const required = { absentDate: '欠席・遅刻日', reason: '欠席・遅刻理由', nextDate: '次回通所予定日' };
   for (let [id, label] of Object.entries(required)) {
     const element = document.getElementById(id);
     if (!element.value.trim()) {
