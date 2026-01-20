@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/20 11:55">
+  <meta name="last-updated" content="2026/01/20 16:09">
 
   <!-- GAS_URL -->
   <script>
@@ -91,15 +91,14 @@
         <option value="" selected disabled>選択してください</option><!--初期値-->
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
-        <option value="家庭事情">家庭事情</option>
-        <option value="その他">その他</option>
+        <option value="私用">私用</option>
       </select>
 
       <label for="details">詳細（症状など）</label>
       <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
 
-      <label for="medical">通院有無・予定</label>
-      <select id="medical" name="medical">
+      <label for="medical" class="required">通院有無・予定</label>
+      <select id="medical" name="medical" required>
         <option value="予定なし">予定なし</option>
         <option value="受診予定あり">受診予定あり</option>
         <option value="受診済み">受診済み</option>
