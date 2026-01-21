@@ -139,3 +139,61 @@ async function loadReasonMaster() {
   initLiff();
   loadReasonMaster();
 });
+
+// 選択肢表示制御
+document.addEventListener('DOMContentLoaded', () => {
+  const reason = document.getElementById('reason');
+  const visitStatus = document.getElementById('visitStatus');
+  const department = document.getElementById('department');
+
+  function hide(el) {
+    if (!el) return;
+    el.required = false;
+
+    // 単数 / 複数 両対応
+    if (el.multiple) {
+      el.selectedIndex = -1;
+    } else {
+      el.value = '';
+    }
+
+    el.style.display = 'none';
+  }
+
+  function show(el) {
+    if (!el) return;
+    el.required = true;
+    el.style.display = '';
+  }
+
+  function updateVisibility() {
+    hide(visitStatus);
+    hide(department);
+
+    if (!reason.value) return;
+
+    // 大項目：通院
+    if (reason.value === '通院') {
+      show(department);
+      return;
+    }
+
+    // 大項目：体調不良
+    if (reason.value === '体調不良') {
+      show(visitStatus);
+
+      if (
+        visitStatus.value === 'あり' ||
+        visitStatus.value === '済み'
+      ) {
+        show(department);
+      }
+    }
+  }
+
+  reason.addEventListener('change', updateVisibility);
+  visitStatus.addEventListener('change', updateVisibility);
+
+  // 初期化
+  updateVisibility();
+});

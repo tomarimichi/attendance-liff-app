@@ -2,11 +2,11 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/21 14:42">
+    <meta name="last-updated" content="2026/01/21 16:50">
 
   <!-- GAS_URL -->
   <script>
-    const GAS_URL ='https://script.google.com/macros/s/AKfycby-pUi9H2nrO1mFF7iu3Fl8C8vu4k_kw2xcKGF95RdZCltXd2HThJAtrlJXxoQfA4oM/exec';
+    const GAS_URL ='https://script.google.com/macros/s/AKfycbw3GJhdeVCi7WRnKVr3EeLArl2yU5nciv_HGeY4I_sCjH5IUKuQeJq2ZCG0atys3liJ/exec';
   </script>
   
 
@@ -40,15 +40,15 @@
       <label for="reason" class="required">欠席・遅刻理由</label>
       <select id="reason" name="reason" required>
         <option value="" selected disabled>選択してください</option><!--初期値-->
-        <!--
         <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="私用">私用</option>
-        -->
       </select>
 
       <label for="details">詳細（症状など）</label>
-      <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
+      <!--旧バージョン　自由記入型
+        <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
+      -->
 
       <label for="medical" class="required">通院有無・予定</label>
       <select id="medical" name="medical" required>
