@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/21 14:20">
+    <meta name="last-updated" content="2026/01/21 14:24">
 
   <!-- GAS_URL -->
   <script>
@@ -40,9 +40,11 @@
       <label for="reason" class="required">欠席・遅刻理由</label>
       <select id="reason" name="reason" required>
         <option value="" selected disabled>選択してください</option><!--初期値-->
-        <!--<option value="体調不良">体調不良</option>-->
+        <!--
+        <option value="体調不良">体調不良</option>
         <option value="通院">通院</option>
         <option value="私用">私用</option>
+        -->
       </select>
 
       <label for="details">詳細（症状など）</label>
@@ -95,11 +97,7 @@
         }
       });
     </script>
-    <script>
-      const list = await res.json();
-      console.log('reason_master raw:', list);
 
-    </script>
 
   <script src="js/app.js"></script>
 </body>

@@ -97,6 +97,10 @@ async function loadReasonMaster() {
     const res = await fetch(GAS_URL + '?action=reason_master');
     const list = await res.json();
 
+    // ★ここに追加
+    console.log('reason_master raw:', list);
+
+
     // 一旦すべてクリア
     select.innerHTML = '';
 
