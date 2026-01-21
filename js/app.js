@@ -2,9 +2,15 @@
 async function initLiff(){
   await liff.init({ liffId:'2008783538-yHgAa1tC' });
   if(!liff.isLoggedIn()) return liff.login({ redirectUri: location.href });
+
   const id = liff.getDecodedIDToken().sub;
-  document.getElementById('userId').textContent = id.substring(0,20)+'...';
+
+  const userIdEl = document.getElementById('userId');
+  if (userIdEl) {
+    userIdEl.textContent = id.substring(0,20)+'...';
+  }
 }
+
 
 
 async function submitAbsence() {
