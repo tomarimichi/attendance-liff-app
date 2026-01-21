@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/21 14:08">
+    <meta name="last-updated" content="2026/01/21 14:20">
 
   <!-- GAS_URL -->
   <script>
@@ -94,6 +94,11 @@
           }
         }
       });
+    </script>
+    <script>
+      const list = await res.json();
+      console.log('reason_master raw:', list);
+
     </script>
 
   <script src="js/app.js"></script>
