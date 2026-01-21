@@ -88,7 +88,38 @@ async function submitAbsence() {
 
 }
 
+// 選択肢用マスターデータ取得
+async function loadReasonMaster() {
+  const select = document.getElementById('reason');
+  if (!select) return;
 
+  try {
+    const res = await fetch(GAS_URL + '?action=reason_master');
+    const list = await res.json();
+
+    // 一旦すべてクリア
+    select.innerHTML = '';
+
+    // ★ 初期表示用 option
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '選択してください';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
+
+    // マスタ反映
+    list.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item.code;        // 送信値
+      opt.textContent = item.label; // 表示名
+      select.appendChild(opt);
+    });
+
+  } catch (e) {
+    console.error('reason_master 取得失敗', e);
+  }
+}
 
 
 
@@ -96,4 +127,5 @@ async function submitAbsence() {
 
   document.addEventListener('DOMContentLoaded',function(){
   initLiff();
+  loadReasonMaster();
 });

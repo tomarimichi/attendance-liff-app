@@ -2,83 +2,34 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-  <meta name="last-updated" content="2026/01/21 09:08">
+    <meta name="last-updated" content="2026/01/21 13:57">
 
   <!-- GAS_URL -->
   <script>
-    const GAS_URL ='https://script.google.com/macros/s/AKfycbyf7-WA5kM8JmAzzJhp9We8iKodCvmwwhoCq8lqhyn01vpMsBrx3KPhlMYwPPoCROur/exec';
+    const GAS_URL ='https://script.google.com/macros/s/AKfycbxiHiaKEC0t9pnx1OZY0K5jh4z2gMQt1JIj6zZU_O3RjF2Ig9DzIcPZnqbWNs--NDBE/exec';
   </script>
   
-  <!--
-    <script>
-      // LIFF初期化を完全無効化 + Mockモード
-      window.addEventListener('DOMContentLoaded', function() {
-        // LIFF SDK読み込みをブロック
-        if (location.port === '5500' || location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
-          console.log('🔧 Live Server 開発モード');
-          
-          // ステータス表示
-          const statusDiv = document.createElement('div');
-          statusDiv.id = 'dev-status';
-          statusDiv.style.cssText = 'background:#00b900;color:white;padding:12px;border-radius:6px;margin:16px 0;text-align:center;font-weight:bold;position:fixed;top:10px;right:10px;z-index:9999;';
-          statusDiv.textContent = '🔧 開発モード（Live Server）';
-          document.body.insertBefore(statusDiv, document.body.firstChild);
-          
-          // userIdモック
-          const userIdInput = document.getElementById('userId');
-          if (userIdInput) {
-            userIdInput.value = 'U8f7d7d2a3e38979c0f5636ec968bacc9（自分）';
-            userIdInput.disabled = true;
-          }
-          
-          // 送信ボタンモック
-          const submitBtn = document.querySelector('button[type="submit"], input[type="submit"], button');
-          if (submitBtn) {
-            submitBtn.style.background = '#ff6b35';
-            submitBtn.textContent = '✅ 送信テスト（モック）';
-            submitBtn.onclick = function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              statusDiv.textContent = '🎉 送信成功！GASに記録されました';
-              statusDiv.style.background = '#00a300';
-              setTimeout(() => {
-                statusDiv.textContent = '🔧 開発モード（Live Server）';
-                statusDiv.style.background = '#00b900';
-              }, 3000);
-            };
-          }
-        }
-      }, true); // trueでキャプチャフェーズ実行（LIFFより先に処理）
-    </script>
-  -->
 
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-
-  
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <title>欠席・遅刻連絡</title>
   <link rel="stylesheet" href="css/style.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <!-- プログレスバー
-  <script src="https://cdn.jsdelivr.net/npm/progressbar.js@1.1.0/dist/progressbar.min.js"></script>
-   -->
+
 </head>
 
 <body>
   <main class="container">
-    <h1>本番環境</h1>
     <!--テスト用　後で消す-->
-    <p id="update-time">更新時間・読み込み中...</p>
+      <h1>本番環境</h1>
+      <p id="update-time">更新時間・読み込み中...</p>
 
     <h3>欠席・遅刻連絡フォーム</h3>
-    <!--
-      <div style="font-size:13px;color:#555;">ユーザーID: <span id="userId">読み込み中...</span></div>
-    -->
+
     <form id="absenceForm" onsubmit="submitAbsence(); return false;">
 
       <div class="form-field">
@@ -122,6 +73,10 @@
 
 
 
+
+
+  </main>
+
   <!--テスト：時間表示用(後で消す)-->
     <script>
       // GitHub Pages最終更新日自動取得
@@ -141,8 +96,6 @@
       });
     </script>
 
-
-  </main>
   <script src="js/app.js"></script>
 </body>
 </html>
