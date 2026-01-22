@@ -42,7 +42,7 @@ function populateReasonSelect() {
   const placeholder = document.createElement('option');
   placeholder.value = '';
   placeholder.textContent = '選択してください';
-  placeholder.disabled = true;
+  // placeholder.disabled = true;
   placeholder.selected = true;
   reasonEl.appendChild(placeholder);
 
