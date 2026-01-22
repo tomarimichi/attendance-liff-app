@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/22 09:09">
+    <meta name="last-updated" content="2026/01/22 10:54">
 
   <!-- GAS_URL -->
   <script>
@@ -45,17 +45,32 @@
         <option value="私用">私用</option>
       </select>
 
+      <!--
       <label for="details">詳細（症状など）</label>
-      <!--旧バージョン　自由記入型
+      旧バージョン　自由記入型
         <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
       -->
 
-      <label for="medical" class="required">通院有無・予定</label>
-      <select id="medical" name="medical" required>
-        <option value="予定なし">予定なし</option>
-        <option value="受診予定あり">受診予定あり</option>
-        <option value="受診済み">受診済み</option>
-      </select>
+      <div id="visitStatusBlok">
+        <label for="visitStatus" class="required">通院有無・予定</label>
+        <select id="visitStatus" name="visitStatus">
+          <option value="" selected disabled>選択してください</option>
+          <option value="なし">予定なし</option>
+          <option value="あり">受診予定あり</option>
+          <option value="済み">受診済み</option>
+        </select>
+      </div>
+
+      <div id="departmentBlock">
+        <label for="department" class="required">受診科</label>
+        <select id="department" name="department" multiple>
+          <option value="内科">内科</option>
+          <option value="外科">外科</option>
+          <option value="心療内科">心療内科</option>
+          <!-- 仮でOK -->
+        </select>
+      </div>
+
 
       <div class="form-field">
         <label for="nextDate" class="required">次回通所予定日</label>
