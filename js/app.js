@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ================================
 // 表示制御
 // ================================
+/*
 function updateVisibility() {
   console.log('[updateVisibility]', {
     reason: reason.value,
@@ -210,51 +211,49 @@ function updateVisibility() {
     }
   }
 }
+*/
 
 
-/* bak
-  function updateVisibility() {
-    console.log('[updateVisibility]', {
-      reason: reason.value,
-      visitStatus: visitStatus.value,
-      visitStatusDisabled: visitStatus.disabled
-    });
+function updateVisibility() {
+  console.log('[updateVisibility]', {
+    reason: reason.value,
+    detail: detail?.value
+  });
 
-    // 初期：全部非表示
-    visitStatusBlock.style.display = 'none';
-    departmentBlock.style.display = 'none';
+  // 初期化
+  detailBlock.style.display = 'none';
+  visitStatusBlock.style.display = 'none';
+  departmentBlock.style.display = 'none';
 
-    visitStatus.required = false;
-    department.required = false;
+  detail.required = false;
+  visitStatus.required = false;
+  department.required = false;
 
-    // 大項目未選択
-    if (!reason.value) {
-      visitStatus.disabled = true;
-      department.disabled = true;
-      return;
-    }
+  if (!reason.value) return;
 
-    // 通院
-    if (reason.value === '通院') {
+  // 中項目生成
+  populateDetailSelect(reason.value);
+  detail.required = true;
+
+  // 選択中の detail を取得
+  const selected = reasonMaster.find(r =>
+    r.reason === reason.value &&
+    r.detail_code === detail.value
+  );
+
+  if (!selected) return;
+
+  // require_visit = TRUE の場合
+  if (selected.require_visit) {
+    visitStatusBlock.style.display = '';
+    visitStatus.required = true;
+
+    if (
+      visitStatus.value === 'あり' ||
+      visitStatus.value === '済み'
+    ) {
       departmentBlock.style.display = '';
-      department.disabled = false;
       department.required = true;
-      return;
-    }
-
-    // 体調不良
-    if (reason.value === '体調不良') {
-      visitStatusBlock.style.display = '';
-      visitStatus.disabled = false;
-      visitStatus.required = true;
-
-      if (visitStatus.value === 'あり' || visitStatus.value === '済み') {
-        departmentBlock.style.display = '';
-        department.disabled = false;
-        department.required = true;
-      } else {
-        department.disabled = true;
-      }
     }
   }
-*/
+}
