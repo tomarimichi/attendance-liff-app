@@ -58,7 +58,7 @@ function populateReasonSelect() {
     reasonEl.appendChild(opt);
   });
 
-  updateVisibility();
+  // updateVisibility();
 }
 
 // ================================
@@ -233,7 +233,8 @@ function updateVisibility() {
 
   console.log('[updateVisibility]', {
     reason: reason.value,
-    detail: detail?.value
+    detail: detail?.value,
+    visitStatus:visitstatus?.value
   });
 
   // 初期化
@@ -251,8 +252,9 @@ function updateVisibility() {
   populateDetailSelect(reason.value);
   detail.required = true;
 
-  // 選択中の detail を取得
-  const selected = reasonMaster.find(r =>
+  if(!detail.value) return;
+    // 選択中の detail を取得
+    const selected = reasonMaster.find(r =>
     r.reason === reason.value &&
     r.detail_code === detail.value
   );
