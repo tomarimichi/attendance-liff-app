@@ -31,6 +31,8 @@ async function loadReasonMaster() {
     r.detail_code
   );
 
+  console.log('[master filtered]', reasonMaster);
+
   populateReasonSelect();
 }
 
@@ -72,8 +74,21 @@ document.addEventListener('DOMContentLoaded', () => {
   visitStatusBlock  = document.getElementById('visitStatusBlock');
   departmentBlock   = document.getElementById('departmentBlock');
 
-  reason.addEventListener('change', updateVisibility);
-  visitStatus.addEventListener('change', updateVisibility);
+  console.log('[init elements]', {
+    reason,
+    visitStatus,
+    department
+  });
+
+  reason.addEventListener('change', () => {
+    console.log('[change] reason:', reason.value);
+    updateVisibility();
+  });
+
+  visitStatus.addEventListener('change', () => {
+    console.log('[change] visitStatus:', visitStatus.value);
+    updateVisibility();
+  });
 
   updateVisibility();
 });
@@ -150,6 +165,12 @@ function show(block, el) {
 }
 
 function updateVisibility() {
+  console.log('[updateVisibility]', {
+    reason: reason.value,
+    visitStatus: visitStatus.value,
+    visitStatusDisabled: visitStatus.disabled
+  });
+
   hide(visitStatusBlock, visitStatus);
   hide(departmentBlock, department);
 
