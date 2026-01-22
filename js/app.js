@@ -234,7 +234,7 @@ function updateVisibility() {
   console.log('[updateVisibility]', {
     reason: reason.value,
     detail: detail?.value,
-    visitStatus:visitstatus?.value
+    visitStatus: visitStatus?.value
   });
 
   // 初期化
