@@ -166,16 +166,19 @@ function updateVisibility() {
   visitStatusBlock.style.display = 'none';
   departmentBlock.style.display = 'none';
 
-  symptom.disabled = true;
-  visitStatus.disabled = true;
-  department.disabled = true;
 
   symptom.required = false;
   visitStatus.required = false;
   department.required = false;
 
   // ===== 大項目未選択 =====
-  if (!reason.value) return;
+  if (!reason.value) {
+    symptom.disabled = true;
+    visitStatus.disabled = true;
+    department.disabled = true;
+    return;    
+  }
+
 
   // ===== 通院 =====
   if (reason.value === '通院') {
@@ -202,6 +205,8 @@ function updateVisibility() {
       departmentBlock.style.display = '';
       department.disabled = false;
       department.required = true;
+    } else {
+      department.disabled = true;
     }
   }
 }
