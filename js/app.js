@@ -55,6 +55,8 @@ function populateReasonSelect() {
     opt.textContent = reason;
     reasonEl.appendChild(opt);
   });
+
+  updateVisibility();
 }
 
 // ================================
