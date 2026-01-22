@@ -64,18 +64,22 @@ function populateReasonSelect() {
 // ================================
 // DOM参照（グローバル）
 // ================================
-let reason, symptom, visitStatus, department;
-let symptomBlock, visitStatusBlock, departmentBlock;
+let reason, detail, symptom, visitStatus, department;
+let detailBlock, symptomBlock, visitStatusBlock, departmentBlock;
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  reason            = document.getElementById('reason');
-  symptom           = document.getElementById('symptom');
-  visitStatus       = document.getElementById('visitStatus');
-  department        = document.getElementById('department');
+reason            = document.getElementById('reason');
+detail            = document.getElementById('detail');
+symptom           = document.getElementById('symptom');
+visitStatus       = document.getElementById('visitStatus');
+department        = document.getElementById('department');
 
-  symptomBlock      = document.getElementById('symptomBlock');
-  visitStatusBlock  = document.getElementById('visitStatusBlock');
-  departmentBlock   = document.getElementById('departmentBlock');
+detailBlock       = document.getElementById('detailBlock');
+symptomBlock      = document.getElementById('symptomBlock');
+visitStatusBlock  = document.getElementById('visitStatusBlock');
+departmentBlock   = document.getElementById('departmentBlock');
+
 
   console.log('[init elements]', {
     reason,
@@ -85,6 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   reason.addEventListener('change', () => {
     console.log('[change] reason:', reason.value);
+    updateVisibility();
+  });
+
+  detail.addEventListener('change', () =>{
+    console.cog('[change] detail:',detail.value);
     updateVisibility();
   });
 
@@ -215,6 +224,13 @@ function updateVisibility() {
 
 
 function updateVisibility() {
+  console.log('[elements]', {
+    reason,
+    detail,
+    detailBlock
+  });
+
+
   console.log('[updateVisibility]', {
     reason: reason.value,
     detail: detail?.value
@@ -256,4 +272,32 @@ function updateVisibility() {
       department.required = true;
     }
   }
+}
+
+
+function getDetailsByReason(reasonValue) {
+  return reasonMaster
+    .filter(r => r.reason === reasonValue)
+    .sort((a, b) => a.sort - b.sort);
+}
+
+function populateDetailSelect(reasonValue) {
+  const details = getDetailsByReason(reasonValue);
+
+  detail.innerHTML = '';
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択してください';
+  placeholder.selected = true;
+  detail.appendChild(placeholder);
+
+  details.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d.detail_code;
+    opt.textContent = d.detail_label;
+    detail.appendChild(opt);
+  });
+
+  detailBlock.style.display = '';
 }

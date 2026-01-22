@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/22 15:10">
+    <meta name="last-updated" content="2026/01/22 15:23">
 
   <meta charset="utf-8">
 
@@ -43,6 +43,12 @@
       旧バージョン　自由記入型
         <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
       -->
+
+      <div id="detailBlock" style="display:none;">
+        <label for="detail" class="required">詳細</label>
+        <select id="detail" name="detail"></select>
+      </div>
+
 
       <div id="symptomBlock" style="display:none;">
         <label for="symptom" class="required">症状（複数選択可）</label>
