@@ -2,7 +2,7 @@
 // 設定
 // ================================
 const GAS_URL = 'YOUR_GAS_URL_HERE';
-const LIFF_ID = '2008783538-yHgAa1tC';
+const LIFF_ID = 'https://script.google.com/macros/s/AKfycbw3GJhdeVCi7WRnKVr3EeLArl2yU5nciv_HGeY4I_sCjH5IUKuQeJq2ZCG0atys3liJ/exec';
 
 // ================================
 // LIFF 初期化
