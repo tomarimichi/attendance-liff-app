@@ -93,7 +93,7 @@ departmentBlock   = document.getElementById('departmentBlock');
   });
 
   detail.addEventListener('change', () =>{
-    console.cog('[change] detail:',detail.value);
+    console.log('[change] detail:',detail.value);
     updateVisibility();
   });
 
