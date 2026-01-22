@@ -64,13 +64,16 @@ function populateReasonSelect() {
 // ================================
 // DOM参照（グローバル）
 // ================================
-let reason, visitStatus, department;
-let visitStatusBlock, departmentBlock;
+let reason, symptom, visitStatus, department;
+let symptomBlock, visitStatusBlock, departmentBlock;
 
 document.addEventListener('DOMContentLoaded', () => {
   reason            = document.getElementById('reason');
+  symptom           = document.getElementById('sympton');
   visitStatus       = document.getElementById('visitStatus');
   department        = document.getElementById('department');
+
+  symptomBlock      = document.getElementById('symptomBlock');
   visitStatusBlock  = document.getElementById('visitStatusBlock');
   departmentBlock   = document.getElementById('departmentBlock');
 
@@ -154,25 +157,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 function updateVisibility() {
   console.log('[updateVisibility]', {
     reason: reason.value,
-    visitStatus: visitStatus.value,
-    visitStatusDisabled: visitStatus.disabled
+    symptom: symptom?.value,
+    visitStatus: visitStatus.value
   });
 
-  // 初期：全部非表示
+  // ===== 初期化：全部非表示・無効 =====
+  symptomBlock.style.display = 'none';
   visitStatusBlock.style.display = 'none';
   departmentBlock.style.display = 'none';
 
+  symptom.disabled = true;
+  visitStatus.disabled = true;
+  department.disabled = true;
+
+  symptom.required = false;
   visitStatus.required = false;
   department.required = false;
 
-  // 大項目未選択
-  if (!reason.value) {
-    visitStatus.disabled = true;
-    department.disabled = true;
-    return;
-  }
+  // ===== 大項目未選択 =====
+  if (!reason.value) return;
 
-  // 通院
+  // ===== 通院 =====
   if (reason.value === '通院') {
     departmentBlock.style.display = '';
     department.disabled = false;
@@ -180,18 +185,71 @@ function updateVisibility() {
     return;
   }
 
-  // 体調不良
+  // ===== 体調不良 =====
   if (reason.value === '体調不良') {
+    // 中項目A：症状
+    symptomBlock.style.display = '';
+    symptom.disabled = false;
+    // ※ この段階では required にしない
+
+    // 中項目B：通院有無
     visitStatusBlock.style.display = '';
     visitStatus.disabled = false;
     visitStatus.required = true;
 
+    // 小項目：受診科
     if (visitStatus.value === 'あり' || visitStatus.value === '済み') {
       departmentBlock.style.display = '';
       department.disabled = false;
       department.required = true;
-    } else {
-      department.disabled = true;
     }
   }
 }
+
+
+/* bak
+  function updateVisibility() {
+    console.log('[updateVisibility]', {
+      reason: reason.value,
+      visitStatus: visitStatus.value,
+      visitStatusDisabled: visitStatus.disabled
+    });
+
+    // 初期：全部非表示
+    visitStatusBlock.style.display = 'none';
+    departmentBlock.style.display = 'none';
+
+    visitStatus.required = false;
+    department.required = false;
+
+    // 大項目未選択
+    if (!reason.value) {
+      visitStatus.disabled = true;
+      department.disabled = true;
+      return;
+    }
+
+    // 通院
+    if (reason.value === '通院') {
+      departmentBlock.style.display = '';
+      department.disabled = false;
+      department.required = true;
+      return;
+    }
+
+    // 体調不良
+    if (reason.value === '体調不良') {
+      visitStatusBlock.style.display = '';
+      visitStatus.disabled = false;
+      visitStatus.required = true;
+
+      if (visitStatus.value === 'あり' || visitStatus.value === '済み') {
+        departmentBlock.style.display = '';
+        department.disabled = false;
+        department.required = true;
+      } else {
+        department.disabled = true;
+      }
+    }
+  }
+*/
