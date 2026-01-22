@@ -150,18 +150,19 @@ function hide(block, el) {
   if (block) block.style.display = 'none';
   if (el) {
     el.required = false;
-    if (el.multiple) {
-      [...el.options].forEach(o => o.selected = false);
-    } else {
-      el.value = '';
-    }
+    el.disabled = true;   // ← 明示的に無効化
+    el.value = '';
   }
 }
 
 function show(block, el) {
   if (block) block.style.display = '';
-  if (el) el.required = true;
+  if (el) {
+    el.disabled = false;  // ← 必ず有効化
+    el.required = true;
+  }
 }
+
 
 function updateVisibility() {
   hide(visitStatusBlock, visitStatus);
