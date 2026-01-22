@@ -88,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
   visitStatus.addEventListener('change', updateVisibility);
 
   updateVisibility();
+
+  console.log('[check] visitStatusEl:', document.getElementById('visitStatus'));
+
 });
 
 // ================================
