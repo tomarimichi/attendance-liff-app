@@ -58,39 +58,22 @@ function populateReasonSelect() {
 }
 
 // ================================
-// 表示制御（段階①の核）
+// DOM参照（グローバル）
 // ================================
+let reason, visitStatus, department;
+let visitStatusBlock, departmentBlock;
+
 document.addEventListener('DOMContentLoaded', () => {
-  const visitStatusBlock = document.getElementById('visitStatusBlock');
-  const visitStatus      = document.getElementById('visitStatus');
-  const departmentBlock  = document.getElementById('departmentBlock');
-  const department       = document.getElementById('department');
-
-  function hide(el) {
-    el.required = false;
-    el.style.display = 'none';
-
-    if (el.multiple) {
-      [...el.options].forEach(o => o.selected = false);
-    } else {
-      el.value = '';
-    }
-  }
-
-  function show(el) {
-    el.required = true;
-    el.style.display = '';
-  }
-
-
+  reason            = document.getElementById('reason');
+  visitStatus       = document.getElementById('visitStatus');
+  department        = document.getElementById('department');
+  visitStatusBlock  = document.getElementById('visitStatusBlock');
+  departmentBlock   = document.getElementById('departmentBlock');
 
   reason.addEventListener('change', updateVisibility);
   visitStatus.addEventListener('change', updateVisibility);
 
   updateVisibility();
-
-  console.log('[check] visitStatusEl:', document.getElementById('visitStatus'));
-
 });
 
 // ================================
@@ -148,24 +131,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadReasonMaster();
 });
 
-// hide / show（block を消す）
+// ================================
+// 表示制御
+// ================================
 function hide(block, el) {
-  if (block) block.style.display = 'none';
-  if (el) {
-    el.required = false;
-    el.disabled = true;   // ← 明示的に無効化
-    el.value = '';
-  }
+  block.style.display = 'none';
+  el.required = false;
+  el.disabled = true;
+  el.value = '';
 }
 
 function show(block, el) {
-  if (block) block.style.display = '';
-  if (el) {
-    el.disabled = false;  // ← 必ず有効化
-    el.required = true;
-  }
+  block.style.display = '';
+  el.disabled = false;
+  el.required = true;
 }
-
 
 function updateVisibility() {
   hide(visitStatusBlock, visitStatus);
@@ -173,13 +153,11 @@ function updateVisibility() {
 
   if (!reason.value) return;
 
-  // 通院 → 直接 小項目
   if (reason.value === '通院') {
     show(departmentBlock, department);
     return;
   }
 
-  // 体調不良 → 中項目 → 条件付き小項目
   if (reason.value === '体調不良') {
     show(visitStatusBlock, visitStatus);
 
@@ -191,30 +169,3 @@ function updateVisibility() {
     }
   }
 }
-
-/*
-  function updateVisibility() {
-    hide(visitStatus);
-    hide(department);
-
-    if (!reason.value) return;
-
-    // 通院 → 直接 小項目
-    if (reason.value === '通院') {
-      show(department);
-      return;
-    }
-
-    // 体調不良 → 中項目 → 条件付き小項目
-    if (reason.value === '体調不良') {
-      show(visitStatus);
-
-      if (
-        visitStatus.value === 'あり' ||
-        visitStatus.value === '済み'
-      ) {
-        show(department);
-      }
-    }
-  }
-*/
