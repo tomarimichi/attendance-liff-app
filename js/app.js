@@ -69,7 +69,7 @@ let symptomBlock, visitStatusBlock, departmentBlock;
 
 document.addEventListener('DOMContentLoaded', () => {
   reason            = document.getElementById('reason');
-  symptom           = document.getElementById('sympton');
+  symptom           = document.getElementById('symptom');
   visitStatus       = document.getElementById('visitStatus');
   department        = document.getElementById('department');
 
