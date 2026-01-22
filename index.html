@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/22 10:55">
+    <meta name="last-updated" content="2026/01/22 11:02">
 
   <!-- GAS_URL -->
   <script>
@@ -51,7 +51,7 @@
         <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
       -->
 
-      <div id="visitStatusBlock">
+      <div id="visitStatusBlock" style="display: none;">
         <label for="visitStatus" class="required">通院有無・予定</label>
         <select id="visitStatus" name="visitStatus">
           <option value="" selected disabled>選択してください</option>
@@ -61,7 +61,7 @@
         </select>
       </div>
 
-      <div id="departmentBlock">
+      <div id="departmentBlock" style="display: none;">
         <label for="department" class="required">受診科</label>
         <select id="department" name="department" multiple>
           <option value="内科">内科</option>
