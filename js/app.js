@@ -151,19 +151,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ================================
 // 表示制御
 // ================================
-function hide(block, el) {
-  block.style.display = 'none';
-  el.required = false;
-  el.disabled = true;
-  el.value = '';
-}
-
-function show(block, el) {
-  block.style.display = '';
-  el.disabled = false;
-  el.required = true;
-}
-
 function updateVisibility() {
   console.log('[updateVisibility]', {
     reason: reason.value,
@@ -171,24 +158,40 @@ function updateVisibility() {
     visitStatusDisabled: visitStatus.disabled
   });
 
-  hide(visitStatusBlock, visitStatus);
-  hide(departmentBlock, department);
+  // 初期：全部非表示
+  visitStatusBlock.style.display = 'none';
+  departmentBlock.style.display = 'none';
 
-  if (!reason.value) return;
+  visitStatus.required = false;
+  department.required = false;
 
-  if (reason.value === '通院') {
-    show(departmentBlock, department);
+  // 大項目未選択
+  if (!reason.value) {
+    visitStatus.disabled = true;
+    department.disabled = true;
     return;
   }
 
-  if (reason.value === '体調不良') {
-    show(visitStatusBlock, visitStatus);
+  // 通院
+  if (reason.value === '通院') {
+    departmentBlock.style.display = '';
+    department.disabled = false;
+    department.required = true;
+    return;
+  }
 
-    if (
-      visitStatus.value === 'あり' ||
-      visitStatus.value === '済み'
-    ) {
-      show(departmentBlock, department);
+  // 体調不良
+  if (reason.value === '体調不良') {
+    visitStatusBlock.style.display = '';
+    visitStatus.disabled = false;
+    visitStatus.required = true;
+
+    if (visitStatus.value === 'あり' || visitStatus.value === '済み') {
+      departmentBlock.style.display = '';
+      department.disabled = false;
+      department.required = true;
+    } else {
+      department.disabled = true;
     }
   }
 }
