@@ -222,7 +222,9 @@ function updateVisibility() {
 }
 */
 
-
+// ================================
+// 01/22 最終段階調整 start
+/* bak
 function updateVisibility() {
   console.log('[elements]', {
     reason,
@@ -275,6 +277,49 @@ function updateVisibility() {
     }
   }
 }
+*/
+function updateVisibility() {
+  console.log('[updateVisibility]', {
+    reason: reason.value,
+    detail: detail?.value,
+    visitStatus: visitStatus?.value
+  });
+
+  detailBlock.style.display = 'none';
+  visitStatusBlock.style.display = 'none';
+  departmentBlock.style.display = 'none';
+
+  detail.required = false;
+  visitStatus.required = false;
+  department.required = false;
+
+  if (!reason.value) return;
+
+  populateDetailSelect(reason.value);
+  detail.required = true;
+
+  if (!detail.value) return;
+
+  const selected = reasonMaster.find(r =>
+    r.reason === reason.value &&
+    r.detail_code === detail.value
+  );
+
+  if (!selected) return;
+
+  if (selected.require_visit) {
+    visitStatusBlock.style.display = '';
+    visitStatus.required = true;
+
+    if (visitStatus.value === 'あり' || visitStatus.value === '済み') {
+      departmentBlock.style.display = '';
+      department.required = true;
+    }
+  }
+}
+
+// 01/22 最終段階調整 end
+// ================================
 
 
 function getDetailsByReason(reasonValue) {
