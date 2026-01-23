@@ -206,3 +206,42 @@ async function submitAbsence() {
   await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
   liff.closeWindow();
 }
+
+
+// 症状selectの生成
+function populateSymptomSelect(reasonValue) {
+  const list = reasonMaster
+    .filter(r => r.reason === reasonValue && r.symptom_code)
+    .sort((a, b) => a.sort - b.sort);
+
+  symptom.innerHTML = '';
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択してください';
+  placeholder.selected = true;
+  symptom.appendChild(placeholder);
+
+  const seen = new Set();
+
+  list.forEach(r => {
+    if (seen.has(r.symptom_code)) return;
+    seen.add(r.symptom_code);
+
+    const opt = document.createElement('option');
+    opt.value = r.symptom_code;
+    opt.textContent = r.symptom_label;
+    symptom.appendChild(opt);
+  });
+}
+
+
+
+// イベント連携
+reason.addEventListener('change', () => {
+  populateSymptomSelect(reason.value);
+  updateVisibility();
+});
+
+symptom.addEventListener('change', updateVisibility);
+visitStatus.addEventListener('change', updateVisibility);
