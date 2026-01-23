@@ -4,16 +4,6 @@
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyMrRXBq-J2qheks2yV92qTUWm-rqboap4BEt3WNOI9yV8h-NtpPV-49X0CdE3dBXME/exec';
 const LIFF_ID = '2008783538-yHgAa1tC';
 
-// ================================
-// LIFF 初期化
-// ================================
-async function initLiff() {
-  await liff.init({ liffId: LIFF_ID });
-  if (!liff.isLoggedIn()) {
-    liff.login({ redirectUri: location.href });
-    return;
-  }
-}
 
 // ================================
 // DOM参照
@@ -22,7 +12,7 @@ let reason, symptom, visitStatus, department;
 let symptomBlock, visitStatusBlock, departmentBlock;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await liff.init({ liffId: 'xxxxx'});
+  await liff.init({ liffId: LIFF_ID});
 
   // DOM取得
   reason           = document.getElementById('reason');
@@ -253,14 +243,6 @@ function populateSymptomSelect(reasonValue) {
 
 
 
-// イベント連携
-reason.addEventListener('change', () => {
-  populateSymptomSelect(reason.value);
-  updateVisibility();
-});
-
-symptom.addEventListener('change', updateVisibility);
-visitStatus.addEventListener('change', updateVisibility);
 
 
 // 理由selectの生成
