@@ -1,8 +1,11 @@
 // ================================
 // 設定
 // ================================
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyMrRXBq-J2qheks2yV92qTUWm-rqboap4BEt3WNOI9yV8h-NtpPV-49X0CdE3dBXME/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5FOW7TDahCd9W2_6RSxO2RSyy_T1ejbwKXlPi05cy-IOf9GRSEq5oZFN645JcNdDp/exec';
 const LIFF_ID = '2008783538-yHgAa1tC';
+
+const res = await fetch(`${GAS_URL}?type=reason_master`);
+reasonMaster = await res.json();
 
 
 // ================================
