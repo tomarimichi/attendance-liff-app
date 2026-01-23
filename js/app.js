@@ -89,6 +89,7 @@ departmentBlock   = document.getElementById('departmentBlock');
 
   reason.addEventListener('change', () => {
     console.log('[change] reason:', reason.value);
+    populateDetailSelect(reason.value);
     updateVisibility();
   });
 
@@ -295,7 +296,7 @@ function updateVisibility() {
 
   if (!reason.value) return;
 
-  populateDetailSelect(reason.value);
+  // populateDetailSelect(reason.value);
   detail.required = true;
 
   if (!detail.value) return;
