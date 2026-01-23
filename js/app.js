@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // マスター取得
   const res = await fetch(`${GAS_URL}?type=reason_master`);
   reasonMaster = await res.json();
-  
+
   console.log('[reasonMaster]', reasonMaster);
 
   initReasonSelect();
@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   updateVisibility();
 
-  await initLiff();
 });
 
 // ================================
