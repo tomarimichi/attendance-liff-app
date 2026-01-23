@@ -1,7 +1,7 @@
 // ================================
 // 設定
 // ================================
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbw3GJhdeVCi7WRnKVr3EeLArl2yU5nciv_HGeY4I_sCjH5IUKuQeJq2ZCG0atys3liJ/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyMrRXBq-J2qheks2yV92qTUWm-rqboap4BEt3WNOI9yV8h-NtpPV-49X0CdE3dBXME/exec';
 const LIFF_ID = '2008783538-yHgAa1tC';
 
 // ================================
@@ -66,6 +66,53 @@ function updateVisibility() {
   console.log('[updateVisibility]', {
     reason: reason.value,
     symptom: symptom?.value,
+    visitStatus: visitStatus?.value
+  });
+
+  // ===== 初期化 =====
+  symptomBlock.style.display = 'none';
+  visitStatusBlock.style.display = 'none';
+  departmentBlock.style.display = 'none';
+
+  symptom.required = false;
+  visitStatus.required = false;
+  department.required = false;
+
+  if (!reason.value) return;
+
+  // reason 単位で該当レコードを取得
+  const records = reasonMaster.filter(r => r.reason === reason.value);
+  if (records.length === 0) return;
+
+  const config = records[0];
+
+  // ===== 症状 =====
+  if (config.symptom_required) {
+    symptomBlock.style.display = '';
+    symptom.required = true;
+  }
+
+  // ===== 通院有無 =====
+  if (config.visit_required) {
+    visitStatusBlock.style.display = '';
+    visitStatus.required = true;
+  }
+
+  // ===== 受診科 =====
+  if (
+    config.department_required_when_visit &&
+    (visitStatus.value === 'あり' || visitStatus.value === '済み')
+  ) {
+    departmentBlock.style.display = '';
+    department.required = true;
+  }
+}
+
+/* 20260123 GAS改修前最終版
+function updateVisibility() {
+  console.log('[updateVisibility]', {
+    reason: reason.value,
+    symptom: symptom?.value,
     visitStatus: visitStatus?.value,
     department: department?.value
   });
@@ -106,7 +153,7 @@ function updateVisibility() {
   // ===== 私用 =====
   // 何も表示しない
 }
-
+*/
 // ================================
 // 送信処理
 // ================================
