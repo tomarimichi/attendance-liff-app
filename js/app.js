@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log('[reasonMaster]', reasonMaster);
 
   initReasonSelect();
+  initDepartmentSelect();
   updateVisibility();
+
 
   // イベント
   reason.addEventListener('change', () => {
@@ -261,6 +263,15 @@ function initReasonSelect() {
     return;
   }
 
+  reason.innerHTML = '';
+
+  const placeholder =document.createElement('option');
+  placeholder.value ='';
+  placeholder.textContent = '選択してください';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  reason.appendChild(placeholder);
+
   // reason の重複を除外して並び順を維持
   const list = [];
   const seen = new Set();
@@ -271,7 +282,14 @@ function initReasonSelect() {
       if (seen.has(r.reason)) return;
       seen.add(r.reason);
       list.push(r);
+
+      const opt = document.createElement('option');
+      opt.value = r.reason;
+      opt.textContent = r.reason;
+      reason.appendChild(opt);
     });
+  
+  console.log('[initReasonSelect] option:',[...seen]);
 
   // 初期化
   reason.innerHTML = '';
@@ -290,4 +308,31 @@ function initReasonSelect() {
   });
 
   console.log('[initReasonSelect] options:', list.map(r => r.reason));
+}
+
+
+function initDepartmentSelect() {
+  department.innerHTML = '';
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択してください';
+  placeholder.selected = true;
+  department.appendChild(placeholder);
+
+  const list = reasonMaster
+    .filter(r => r.department_code)
+    .sort((a, b) => a.sort - b.sort);
+
+  const seen = new Set();
+
+  list.forEach(r => {
+    if (seen.has(r.department_code)) return;
+    seen.add(r.department_code);
+
+    const opt = document.createElement('option');
+    opt.value = r.department_code;
+    opt.textContent = r.department_label;
+    department.appendChild(opt);
+  });
 }
