@@ -109,8 +109,14 @@ function updateVisibility() {
 
   // ===== 受診科 =====
   if (
-    config.department_required_when_visit &&
-    (visitStatus.value === 'あり' || visitStatus.value === '済み')
+    // 通院は常に受診科が必要
+    reason.value === '通院' ||
+
+    // 体調不良で通院あり／済み
+    (
+      config.department_required_when_visit &&
+      (visitStatus.value === 'あり' || visitStatus.value === '済み')
+    )
   ) {
     departmentBlock.style.display = '';
     department.required = true;
