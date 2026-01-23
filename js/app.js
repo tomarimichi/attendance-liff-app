@@ -4,8 +4,7 @@
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5FOW7TDahCd9W2_6RSxO2RSyy_T1ejbwKXlPi05cy-IOf9GRSEq5oZFN645JcNdDp/exec';
 const LIFF_ID = '2008783538-yHgAa1tC';
 
-const res = await fetch(`${GAS_URL}?type=reason_master`);
-reasonMaster = await res.json();
+
 
 
 // ================================
@@ -35,8 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // マスター取得
-  const res = await fetch(GAS_URL);
+  const res = await fetch(`${GAS_URL}?type=reason_master`);
   reasonMaster = await res.json();
+  
+  console.log('[reasonMaster]', reasonMaster);
 
   initReasonSelect();
   updateVisibility();
