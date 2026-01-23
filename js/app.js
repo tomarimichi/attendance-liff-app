@@ -22,6 +22,9 @@ let reason, symptom, visitStatus, department;
 let symptomBlock, visitStatusBlock, departmentBlock;
 
 document.addEventListener('DOMContentLoaded', async () => {
+  await liff.init({ liffId: 'xxxxx'});
+
+  // DOM取得
   reason           = document.getElementById('reason');
   symptom          = document.getElementById('symptom');
   visitStatus      = document.getElementById('visitStatus');
@@ -38,9 +41,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     department
   });
 
+  // マスター取得
+  const res = await fetch(GAS_URL);
+  reasonMaster = await res.json();
+
+  initReasonSelect();
+  updateVisibility();
+
   // イベント
   reason.addEventListener('change', () => {
     console.log('[change] reason:', reason.value);
+    populateSymptomSelect(reason.value);
     updateVisibility();
   });
 
@@ -63,6 +74,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 表示制御（②-B-2 確定版）
 // ================================
 function updateVisibility() {
+  if (!Array.isArray(reasonMaster) || reasonMaster.length === 0) {
+    console.warn('reasonMaster not ready');
+    return;
+  }
+
   console.log('[updateVisibility]', {
     reason: reason.value,
     symptom: symptom?.value,
@@ -245,3 +261,42 @@ reason.addEventListener('change', () => {
 
 symptom.addEventListener('change', updateVisibility);
 visitStatus.addEventListener('change', updateVisibility);
+
+
+// 理由selectの生成
+function initReasonSelect() {
+  if (!Array.isArray(reasonMaster) || reasonMaster.length === 0) {
+    console.warn('initReasonSelect: reasonMaster empty');
+    return;
+  }
+
+  // reason の重複を除外して並び順を維持
+  const list = [];
+  const seen = new Set();
+
+  reasonMaster
+    .sort((a, b) => a.sort - b.sort)
+    .forEach(r => {
+      if (seen.has(r.reason)) return;
+      seen.add(r.reason);
+      list.push(r);
+    });
+
+  // 初期化
+  reason.innerHTML = '';
+
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択してください';
+  placeholder.selected = true;
+  reason.appendChild(placeholder);
+
+  list.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.reason;
+    opt.textContent = r.reason;
+    reason.appendChild(opt);
+  });
+
+  console.log('[initReasonSelect] options:', list.map(r => r.reason));
+}
