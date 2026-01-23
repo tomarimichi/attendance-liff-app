@@ -296,9 +296,9 @@ function updateVisibility() {
 
   if (!reason.value) return;
 
-  // populateDetailSelect(reason.value);
-  detail.required = true;
-
+    detailBlock.style.display = '';
+    detail.required = true;
+  
   if (!detail.value) return;
 
   const selected = reasonMaster.find(r =>
