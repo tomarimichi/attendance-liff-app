@@ -265,12 +265,6 @@ function initReasonSelect() {
 
   reason.innerHTML = '';
 
-  const placeholder =document.createElement('option');
-  placeholder.value ='';
-  placeholder.textContent = '選択してください';
-  placeholder.disabled = true;
-  placeholder.selected = true;
-  reason.appendChild(placeholder);
 
   // reason の重複を除外して並び順を維持
   const list = [];
@@ -297,6 +291,7 @@ function initReasonSelect() {
   const placeholder = document.createElement('option');
   placeholder.value = '';
   placeholder.textContent = '選択してください';
+  placeholder.disabled = true;
   placeholder.selected = true;
   reason.appendChild(placeholder);
 
