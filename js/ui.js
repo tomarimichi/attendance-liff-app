@@ -64,23 +64,31 @@ function initDepartmentSelect() {
 
 function updateVisibility() {
   const reason = document.getElementById('reason');
-  const reasonCode = reason?.value;
+  const symptomArea = document.getElementById('symptomBlock');
+  const visitArea = document.getElementById('visitBlock');
+  const departmentArea = document.getElementById('departmentBlock');
 
-  // 安全ガード
+  const reasonCode = reason?.value;
   if (!reasonCode) return;
 
   hide(symptomArea);
   hide(visitArea);
   hide(departmentArea);
 
+  // --- 体調不良 ---
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
   }
 
+  // --- 通院 ---
   if (reasonCode === 'VISIT') {
     show(departmentArea);
   }
+
+  // --- 私用 ---
+  // PRIVATE は何も表示しない
 }
+
 
 
 
