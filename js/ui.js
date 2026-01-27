@@ -64,31 +64,20 @@ function initDepartmentSelect() {
 
 function updateVisibility() {
   const reasonCode = reason.value;
-  const visitValue = visitStatus.value;
 
-  // いったん全部隠す
   hide(symptomArea);
   hide(visitArea);
   hide(departmentArea);
 
-  // --- 体調不良 ---
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
-    show(visitArea);
-
-    if (visitValue === 'PLAN' || visitValue === 'DONE') {
-      show(departmentArea);
-    }
   }
 
-  // --- 通院 ---
   if (reasonCode === 'VISIT') {
     show(departmentArea);
   }
-
-  // --- 私用 ---
-  // PRIVATE は何もしない（全部非表示のまま）
 }
+
 
 
 // ================================

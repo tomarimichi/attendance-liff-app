@@ -16,11 +16,13 @@ function bindDom() {
 }
 
 function bindEvents() {
-  reason.addEventListener('change', () => {
-    populateSymptomSelect();
-    updateVisibility();
-  });
+  const reason = document.getElementById('reason');
+  if (reason) {
+    reason.addEventListener('change', updateVisibility);
+  }
 
-  symptom.addEventListener('change', updateVisibility);
-  visitStatus.addEventListener('change', updateVisibility);
+  // visitStatus はまだ UI 未完成なので触らない
+  // const visitStatus = document.getElementById('visitStatus');
+
+  // symptom も今は不要なら触らない
 }
