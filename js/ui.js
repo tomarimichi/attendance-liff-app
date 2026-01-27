@@ -63,7 +63,11 @@ function initDepartmentSelect() {
 
 
 function updateVisibility() {
-  const reasonCode = reason.value;
+  const reason = document.getElementById('reason');
+  const reasonCode = reason?.value;
+
+  // 安全ガード
+  if (!reasonCode) return;
 
   hide(symptomArea);
   hide(visitArea);
@@ -77,6 +81,7 @@ function updateVisibility() {
     show(departmentArea);
   }
 }
+
 
 
 
