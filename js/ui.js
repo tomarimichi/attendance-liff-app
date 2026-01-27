@@ -1,7 +1,8 @@
 // ================================
 // ui
 // ================================
-function initReasonSelect() {
+function initReasonSelect(reasonList) {
+  const reason = document.getElementById('reason');
   reason.innerHTML = '';
 
   const placeholder = document.createElement('option');
