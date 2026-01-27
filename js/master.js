@@ -55,26 +55,3 @@ const visitStatusList = [
   }
 ];
 
-// ================================
-// department master
-// ================================
-const departmentList = [
-  {
-    department_code: 'INT',
-    label: '内科',
-    active: true,
-    sort: 1
-  },
-  {
-    department_code: 'ENT',
-    label: '耳鼻科',
-    active: true,
-    sort: 2
-  },
-  {
-    department_code: 'ORTHO',
-    label: '整形外科',
-    active: true,
-    sort: 3
-  }
-];
