@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/27 09:23">
+    <meta name="last-updated" content="2026/01/27 11:38">
 
   <meta charset="utf-8">
 
@@ -34,11 +34,6 @@
       <select id="reason" name="reason" required>
       </select>
 
-      <!--
-      <label for="details">詳細（症状など）</label>
-      旧バージョン　自由記入型
-        <textarea id="details" name="details" rows="2" placeholder="発熱・頭痛など自由記入"></textarea>
-      -->
 
       <div id="detailBlock" style="display:none;">
         <label for="detail" class="required">詳細</label>
@@ -115,6 +110,12 @@
     </script>
 
 
+  <script src="js/config.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/master.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/submit.js"></script>
   <script src="js/app.js"></script>
+
 </body>
 </html>

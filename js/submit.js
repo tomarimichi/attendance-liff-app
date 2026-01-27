@@ -1,0 +1,78 @@
+// ================================
+// submit
+// ================================
+async function submitAbsence() {
+  const form = document.getElementById('absenceForm');
+  const formData = new FormData(form);
+  const params = Object.fromEntries(formData.entries());
+
+  // department（複数選択）
+  if (form.department) {
+    params.department = [...form.department.selectedOptions]
+      .map(o => o.value)
+      .join(',');
+  }
+
+  // userId
+  try {
+    params.userId = liff.getDecodedIDToken().sub;
+  } catch {
+    params.userId = 'web-user';
+  }
+
+  // ===== reason 必須 =====
+  if (!params.reason) {
+    alert('大項目を選択してください');
+    return;
+  }
+
+  const reasonConfig = reasonList.find(
+    r => r.reason_code === params.reason
+  );
+
+  if (!reasonConfig) {
+    alert('不正な理由が選択されています');
+    return;
+  }
+
+  // ===== symptom =====
+  if (reasonConfig.symptom_required && !params.symptom) {
+    alert('症状を選択してください');
+    return;
+  }
+
+  // visitStatus 必須
+  if (reasonConfig.visit_required && !params.visitStatus) {
+    alert('通院有無を選択してください');
+    return;
+  }
+
+  const visitConfig = visitStatusList.find(
+    v => v.visit_code === params.visitStatus
+  );
+
+  if (params.visitStatus && !visitConfig) {
+    alert('不正な通院有無が選択されています');
+    return;
+  }
+
+  // department 必須判定
+  const needDepartment =
+    visitConfig?.requires_department &&
+    reasonConfig.department_required_when_visit;
+
+  if (needDepartment && !params.department) {
+    alert('受診科を選択してください');
+    return;
+  }
+
+
+  if (needDepartment && !params.department) {
+    alert('受診科を選択してください');
+    return;
+  }
+
+  // ===== 送信 =====
+  await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
+  liff.closeWindow();
+}
