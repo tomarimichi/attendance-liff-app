@@ -3,6 +3,18 @@
 // ================================
 function initReasonSelect(reasonList) {
   const reason = document.getElementById('reason');
+  console.log('[initReasonSelect] reason element:', reason);
+  console.log('[initReasonSelect] reasonList:', reasonList);
+
+  if (!reason) {
+    console.error('reason element not found');
+    return;
+  }
+
+  if (!Array.isArray(reasonList)) {
+    console.error('reasonList is invalid', reasonList);
+    return;
+  }
   reason.innerHTML = '';
 
   const placeholder = document.createElement('option');
