@@ -7,11 +7,33 @@ let reasonList = [];
 let symptomList = [];
 let departmentList = [];
 
+// master.js
 async function fetchMasters() {
-  const res = await fetch(`${GAS_URL}?type=reason_master`);
-  masterRaw = await res.json();
-  buildViewMasters(masterRaw);
+  const loading = document.getElementById('loading');
+  const error = document.getElementById('error');
+
+  loading.style.display = '';
+  error.style.display = 'none';
+
+  try {
+    const res = await fetch(`${GAS_URL}?type=reason_master`);
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
+    const json = await res.json();
+
+    return json; // 正常系
+  } catch (err) {
+    console.error('[fetchMasters error]', err);
+    error.style.display = '';
+    return null; // ← 重要
+  } finally {
+    loading.style.display = 'none';
+  }
 }
+
 
 // 整形レイヤー本体
 function buildViewMasters(master) {

@@ -20,21 +20,16 @@ function initReasonSelect() {
 }
 
 function populateSymptomSelect() {
-  symptom.innerHTML = '';
+  symptom.innerHTML = '<option value="">選択してください</option>';
 
-  const placeholder = document.createElement('option');
-  placeholder.value = '';
-  placeholder.textContent = '選択してください';
-  placeholder.selected = true;
-  symptom.appendChild(placeholder);
-
-  symptomList.forEach(s => {
+  viewMasters.symptoms.forEach(s => {
     const opt = document.createElement('option');
     opt.value = s.symptom_code;
     opt.textContent = s.symptom_label;
     symptom.appendChild(opt);
   });
 }
+
 
 function initDepartmentSelect() {
   department.innerHTML = '';
@@ -54,39 +49,33 @@ function initDepartmentSelect() {
 }
 
 function updateVisibility() {
-  symptomBlock.style.display = 'none';
-  visitStatusBlock.style.display = 'none';
-  departmentBlock.style.display = 'none';
+  const reasonCode = reason.value;
+  const visitValue = visitStatus.value;
 
-  symptom.required = false;
-  visitStatus.required = false;
-  department.required = false;
+  // いったん全部隠す
+  hide(symptomArea);
+  hide(visitArea);
+  hide(departmentArea);
 
-  if (!reason.value) return;
+  // --- 体調不良 ---
+  if (reasonCode === 'ILLNESS') {
+    show(symptomArea);
+    show(visitArea);
 
-  const cfg = reasonList.find(r => r.reason_code === reason.value);
-  if (!cfg) return;
-
-  if (cfg.symptom_required) {
-    symptomBlock.style.display = '';
-    symptom.required = true;
+    if (visitValue === 'PLAN' || visitValue === 'DONE') {
+      show(departmentArea);
+    }
   }
 
-  if (cfg.visit_required) {
-    visitStatusBlock.style.display = '';
-    visitStatus.required = true;
+  // --- 通院 ---
+  if (reasonCode === 'VISIT') {
+    show(departmentArea);
   }
 
-  if (
-    cfg.department_required_when_visit &&
-    (reason.value === 'VISIT' ||
-     visitStatus.value === 'あり' ||
-     visitStatus.value === '済み')
-  ) {
-    departmentBlock.style.display = '';
-    department.required = true;
-  }
+  // --- 私用 ---
+  // PRIVATE は何もしない（全部非表示のまま）
 }
+
 
 // ================================
 // visit status UI
@@ -153,4 +142,13 @@ function getSortedActive(list) {
   return [...list]
     .filter(i => i.active !== false)
     .sort(sortBySort);
+}
+
+
+function show(el) {
+  el.style.display = '';
+}
+
+function hide(el) {
+  el.style.display = 'none';
 }

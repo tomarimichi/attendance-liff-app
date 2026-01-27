@@ -76,3 +76,56 @@ async function submitAbsence() {
   await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
   liff.closeWindow();
 }
+
+
+function validateForm() {
+  const reasonCode = reason.value;
+  const symptomValue = symptom.value;
+  const visitValue = visitStatus.value;
+  const departmentValue = department.value;
+
+  // 欠席理由未選択
+  if (!reasonCode) {
+    return '欠席理由を選択してください。';
+  }
+
+  // --- 体調不良 ---
+  if (reasonCode === 'ILLNESS') {
+    if (!symptomValue) {
+      return '症状を選択してください。';
+    }
+
+    if (!visitValue) {
+      return '受診有無を選択してください。';
+    }
+
+    if (
+      (visitValue === 'PLAN' || visitValue === 'DONE') &&
+      !departmentValue
+    ) {
+      return '受診科を選択してください。';
+    }
+  }
+
+  // --- 通院 ---
+  if (reasonCode === 'VISIT') {
+    if (!departmentValue) {
+      return '受診科を選択してください。';
+    }
+  }
+
+  return null; // OK
+}
+
+
+submitButton.addEventListener('click', async () => {
+  const errorMessage = validateForm();
+
+  if (errorMessage) {
+    alert(errorMessage);
+    return;
+  }
+
+  // ここから送信処理
+  await submitForm();
+});
