@@ -229,7 +229,9 @@ async function submitAbsence() {
 function populateSymptomSelect(reasonValue) {
   const list = reasonMaster
     .filter(r => r.reason === reasonValue && r.symptom_code)
-    .sort((a, b) => a.sort - b.sort);
+    .slice() // ← これを入れる
+    .sort((a, b) => Number(a.sort) - Number(b.sort));
+
 
   symptom.innerHTML = '';
 
@@ -265,29 +267,21 @@ function initReasonSelect() {
 
   reason.innerHTML = '';
 
+  // 表示用コピーを作成してソート（★ここが重要）
+  const sorted = [...reasonMaster].sort(
+    (a, b) => Number(a.sort) - Number(b.sort)
+  );
 
-  // reason の重複を除外して並び順を維持
-  const list = [];
   const seen = new Set();
+  const list = [];
 
-  reasonMaster
-    .sort((a, b) => a.sort - b.sort)
-    .forEach(r => {
-      if (seen.has(r.reason)) return;
-      seen.add(r.reason);
-      list.push(r);
+  sorted.forEach(r => {
+    if (seen.has(r.reason)) return;
+    seen.add(r.reason);
+    list.push(r);
+  });
 
-      const opt = document.createElement('option');
-      opt.value = r.reason;
-      opt.textContent = r.reason;
-      reason.appendChild(opt);
-    });
-  
-  console.log('[initReasonSelect] option:',[...seen]);
-
-  // 初期化
-  reason.innerHTML = '';
-
+  // デフォルト option
   const placeholder = document.createElement('option');
   placeholder.value = '';
   placeholder.textContent = '選択してください';
@@ -295,6 +289,7 @@ function initReasonSelect() {
   placeholder.selected = true;
   reason.appendChild(placeholder);
 
+  // option 生成
   list.forEach(r => {
     const opt = document.createElement('option');
     opt.value = r.reason;
@@ -304,6 +299,7 @@ function initReasonSelect() {
 
   console.log('[initReasonSelect] options:', list.map(r => r.reason));
 }
+
 
 
 function initDepartmentSelect() {
@@ -317,7 +313,9 @@ function initDepartmentSelect() {
 
   const list = reasonMaster
     .filter(r => r.department_code)
-    .sort((a, b) => a.sort - b.sort);
+    .slice()
+    .sort((a, b) => Number(a.sort) - Number(b.sort));
+
 
   const seen = new Set();
 
