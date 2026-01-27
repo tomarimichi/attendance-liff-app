@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   buildViewMasters(masterRaw);
 
   // 初期化
-  initReasonSelect(master.reasonList);
+  initReasonSelect(viewMasters.reasonList);
   initDepartmentSelect();
 
   bindEvents();

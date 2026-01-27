@@ -41,13 +41,14 @@ function initDepartmentSelect() {
   placeholder.selected = true;
   department.appendChild(placeholder);
 
-  departmentList.forEach(d => {
+  viewMasters.departmentList.forEach(d => {
     const opt = document.createElement('option');
     opt.value = d.department_code;
     opt.textContent = d.department_label;
     department.appendChild(opt);
   });
 }
+
 
 function updateVisibility() {
   const reasonCode = reason.value;
