@@ -77,3 +77,19 @@ const visitStatusList = [
   }
 ];
 
+// ================================
+// view masters（UI用）
+// ================================
+let viewMasters = {
+  reasonList: [],
+  symptomList: [],
+  departmentList: []
+};
+
+function buildViewMasters(master) {
+  viewMasters.reasonList = [...master.reasons].sort((a, b) => a.sort - b.sort);
+  viewMasters.symptomList = [...master.symptoms].sort((a, b) => a.sort - b.sort);
+  viewMasters.departmentList = [...master.departments].sort((a, b) => a.sort - b.sort);
+
+  console.log('[view masters]', viewMasters);
+}
