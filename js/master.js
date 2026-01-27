@@ -1,3 +1,12 @@
+const res = await fetch(url);
+console.log('status', res.status);
+console.log('content-type', res.headers.get('content-type'));
+
+const text = await res.text();
+console.log('raw response', text);
+
+
+
 // ================================
 // DOM参照
 // ================================
