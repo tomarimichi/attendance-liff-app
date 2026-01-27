@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 初期化
   initReasonSelect(viewMasters.reasonList);
-  initDepartmentSelect();
+  // initDepartmentSelect();
 
   bindEvents();
   updateVisibility();
