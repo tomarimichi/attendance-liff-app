@@ -210,7 +210,7 @@ function initViewMasters(viewMasters) {
     console.log('[initViewMasters] type =', typeof symptoms);
     console.log('[initViewMasters] isArray =', Array.isArray(symptoms));
   */
- 
+
   console.log(
     '[initViewMasters] symptoms length',
     viewMasters.symptoms?.length
@@ -218,7 +218,7 @@ function initViewMasters(viewMasters) {
 
   console.log('[initViewMasters] called', viewMasters);
   buildSymptomOptions(viewMasters.symptoms);
-  buildDepartmentOptions(viewMasters.departmentList);
+  buildDepartmentOptions(viewMasters.departments);
   console.log(
     document.getElementById('symptom').innerHTML
   );
