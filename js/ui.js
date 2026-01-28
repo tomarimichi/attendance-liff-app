@@ -85,7 +85,10 @@ function updateVisibility() {
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
     show(visitArea);
-  console.log(viewMasters.symptomList);
+
+    if (visitStatus === 'あり' || visitStatus === '済み') {
+      show(departmentArea);
+    }
 
   }
 

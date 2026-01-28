@@ -21,8 +21,8 @@ function bindEvents() {
     reason.addEventListener('change', updateVisibility);
   }
 
-  // visitStatus はまだ UI 未完成なので触らない
-  // const visitStatus = document.getElementById('visitStatus');
-
-  // symptom も今は不要なら触らない
+  const visitStatus = document.getElementById('visitStatus');
+  if (visitStatus) {
+    visitStatus.addEventListener('change', updateVisibility);
+  }
 }
