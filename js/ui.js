@@ -188,6 +188,7 @@ function show(el) {
 
 
 // selectにoptionを流し込む
+/*
 function buildOptions(selectId, list) {
   const select = document.getElementById(selectId);
   if (!select) return;
@@ -202,8 +203,39 @@ function buildOptions(selectId, list) {
     select.appendChild(option);
   });
 }
+*/
 
 function initViewMasters(viewMasters) {
-  buildOptions('symptom', viewMasters.symptomList);
-  buildOptions('department', viewMasters.departmentList);
+  // buildOptions('symptom', viewMasters.symptomList);
+  // buildOptions('department', viewMasters.departmentList);
+  buildSymptomOptions(viewMasters.symptomList);
+  buildDepartmentOptions(viewMasters.departmentList);
+}
+
+function buildSymptomOptions(list) {
+  const select = document.getElementById('symptom');
+  if (!select) return;
+
+  select.innerHTML = '<option value="">選択してください</option>';
+
+  list.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.symptom_code;
+    option.textContent = item.symptom_label;
+    select.appendChild(option);
+  });
+}
+
+function buildDepartmentOptions(list) {
+  const select = document.getElementById('department');
+  if (!select) return;
+
+  select.innerHTML = '<option value="">選択してください</option>';
+
+  list.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.department_code;
+    option.textContent = item.department_label;
+    select.appendChild(option);
+  });
 }
