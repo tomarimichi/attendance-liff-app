@@ -3,6 +3,20 @@
 // ================================
 async function submitAbsence() {
   const form = document.getElementById('absenceForm');
+
+  form.addEventListener('submit',async(e) => {
+    e.preventDefault();
+
+    const errorMessage = validateForm();
+    if(errorMessage) {
+      alert(errorMessage);
+      return;
+    }
+
+    await submitForm();
+  });
+
+
   const formData = new FormData(form);
   const params = Object.fromEntries(formData.entries());
 
