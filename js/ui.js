@@ -86,8 +86,19 @@ function updateVisibility() {
     show(symptomArea);
     show(visitArea);
 
+      console.log('[updateVisibility]', {
+        reason,
+        visitStatus
+        }
+      );    
+
     if (visitStatus === 'あり' || visitStatus === '済み') {
       show(departmentArea);
+      console.log('[updateVisibility]', {
+        reason,
+        visitStatus
+        }
+      );
     }
 
   }
