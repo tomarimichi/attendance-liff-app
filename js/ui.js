@@ -84,10 +84,8 @@ function updateVisibility() {
   // --- 体調不良 ---
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
-    show(departmentArea);
-
+    show(visitArea);
   console.log(viewMasters.symptomList);
-  console.log(viewMasters.departmentList);
 
   }
 
@@ -205,11 +203,16 @@ function buildOptions(selectId, list) {
 }
 */
 
+
 function initViewMasters(viewMasters) {
   // buildOptions('symptom', viewMasters.symptomList);
   // buildOptions('department', viewMasters.departmentList);
   buildSymptomOptions(viewMasters.symptomList);
   buildDepartmentOptions(viewMasters.departmentList);
+  console.log(
+    document.getElementById('symptom').innerHTML
+  );
+
 }
 
 function buildSymptomOptions(list) {
