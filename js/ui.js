@@ -197,32 +197,7 @@ function show(el) {
 }
 
 
-// selectにoptionを流し込む
-/*
-function buildOptions(selectId, list) {
-  const select = document.getElementById(selectId);
-  if (!select) return;
-
-  // 初期化
-  select.innerHTML = '<option value="">選択してください</option>';
-
-  list.forEach(item => {
-    const option = document.createElement('option');
-    option.value = item.code;
-    option.textContent = item.label;
-    select.appendChild(option);
-  });
-}
-*/
-
-
 function initViewMasters(viewMasters) {
-  /*
-    console.log('[initViewMasters] symptomList =', symptoms);
-    console.log('[initViewMasters] type =', typeof symptoms);
-    console.log('[initViewMasters] isArray =', Array.isArray(symptoms));
-  */
-
   console.log(
     '[initViewMasters] symptoms length',
     viewMasters.symptoms?.length

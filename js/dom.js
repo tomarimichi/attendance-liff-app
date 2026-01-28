@@ -15,20 +15,6 @@ function bindDom() {
   departmentBlock  = document.getElementById('departmentBlock');
 }
 
-/*
-function bindEvents() {
-  const reason = document.getElementById('reason');
-  if (reason) {
-    reason.addEventListener('change', updateVisibility);
-  }
-
-  const visitStatus = document.getElementById('visitStatus');
-  if (visitStatus) {
-    visitStatus.addEventListener('change', updateVisibility);
-  }
-}
-*/
-
 function bindEvents() {
   const reason = document.getElementById('reason');
   console.log('[bindEvents] reason found:', !!reason);

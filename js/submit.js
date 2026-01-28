@@ -129,3 +129,27 @@ submitButton.addEventListener('click', async () => {
   // ここから送信処理
   await submitForm();
 });
+
+
+
+async function submitForm() {
+  const absenceData = {
+    reasonCode: document.getElementById('reason')?.value || '',
+    symptomCodes: Array.from(
+      document.querySelectorAll('input[name="symptom"]:checked')
+    ).map(el => el.value),
+    visitStatus: document.getElementById('visitStatus')?.value || '',
+    departmentCodes: Array.from(
+      document.querySelectorAll('input[name="department"]:checked')
+    ).map(el => el.value),
+    date: document.getElementById('date')?.value || ''
+  };
+
+  console.log('[submitForm] send data', absenceData);
+
+  await fetch(GAS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(absenceData)
+  });
+}
