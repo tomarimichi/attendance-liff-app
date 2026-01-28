@@ -71,9 +71,9 @@ function updateVisibility() {
 
   const reasonCode = reason?.value;
 
-  console.log('symptomBlock:', symptomBlock);
-  console.log('visitBlock:', visitBlock);
-  console.log('departmentBlock:', departmentBlock);
+  console.log('symptomBlock:', symptomArea);
+  console.log('visitBlock:', visitArea);
+  console.log('departmentBlock:', departmentArea);
 
   if (!reasonCode) return;
 
