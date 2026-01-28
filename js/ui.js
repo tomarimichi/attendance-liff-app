@@ -80,6 +80,7 @@ function updateVisibility() {
 
   if (!reasonCode) return;
 
+  console.log('if(!reasonCode)に入ったよ')
   hide(symptomArea);
   hide(visitArea);
   hide(departmentArea);
