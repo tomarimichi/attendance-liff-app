@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   viewMasters = await fetchMasters();
   initViewMasters(viewMasters);
 
-  // DOM取得（省略：現状のままでOK）
-
   // マスター取得
   const master = await fetchMasters();
   initViewMasters(viewMasters)
