@@ -85,11 +85,19 @@ function updateVisibility() {
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
     show(departmentArea);
+
+  console.log(viewMasters.symptomList);
+  console.log(viewMasters.departmentList);
+
   }
 
   // --- 通院 ---
   if (reasonCode === 'VISIT') {
     show(departmentArea);
+
+  console.log(viewMasters.symptomList);
+  console.log(viewMasters.departmentList);
+
   }
 
   // --- 私用 ---
