@@ -64,11 +64,17 @@ function initDepartmentSelect() {
 
 function updateVisibility() {
   const reason = document.getElementById('reason');
+  
   const symptomArea = document.getElementById('symptomBlock');
   const visitArea = document.getElementById('visitBlock');
   const departmentArea = document.getElementById('departmentBlock');
 
   const reasonCode = reason?.value;
+
+  console.log('symptomBlock:', symptomBlock);
+  console.log('visitBlock:', visitBlock);
+  console.log('departmentBlock:', departmentBlock);
+
   if (!reasonCode) return;
 
   hide(symptomArea);
@@ -161,10 +167,13 @@ function getSortedActive(list) {
 }
 
 
+function hide(el) {
+  if (!el) return;
+  el.style.display = 'none';
+}
+
 function show(el) {
+  if (!el) return;
   el.style.display = '';
 }
 
-function hide(el) {
-  el.style.display = 'none';
-}
