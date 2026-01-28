@@ -80,6 +80,7 @@ async function submitAbsence() {
 
 function validateForm() {
   const reasonCode = reason.value;
+    console.log('[validateForm] reasonCode =', reasonCode);
   const symptomValue = symptom.value;
   const visitValue = visitStatus.value;
   const departmentValue = department.value;
