@@ -4,6 +4,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
   await liff.init({ liffId: LIFF_ID });
 
+  viewMasters = await fetchMasters();
+  initViewMasters(viewMasters);
+
   // DOM取得（省略：現状のままでOK）
 
   // マスター取得

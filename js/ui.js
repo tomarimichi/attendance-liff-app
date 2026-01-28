@@ -205,6 +205,11 @@ function buildOptions(selectId, list) {
 
 
 function initViewMasters(viewMasters) {
+  console.log(
+    '[initViewMasters] symptomList length',
+    viewMasters.symptomList?.length
+  );
+
   console.log('[initViewMasters] called', viewMasters);
   // buildOptions('symptom', viewMasters.symptomList);
   // buildOptions('department', viewMasters.departmentList);
