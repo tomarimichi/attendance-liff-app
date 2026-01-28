@@ -205,10 +205,12 @@ function buildOptions(selectId, list) {
 
 
 function initViewMasters(viewMasters) {
-console.log('[initViewMasters] symptomList =', symptoms);
-console.log('[initViewMasters] type =', typeof symptoms);
-console.log('[initViewMasters] isArray =', Array.isArray(symptoms));
-
+  /*
+    console.log('[initViewMasters] symptomList =', symptoms);
+    console.log('[initViewMasters] type =', typeof symptoms);
+    console.log('[initViewMasters] isArray =', Array.isArray(symptoms));
+  */
+ 
   console.log(
     '[initViewMasters] symptoms length',
     viewMasters.symptoms?.length
