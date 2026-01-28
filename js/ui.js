@@ -63,7 +63,10 @@ function initDepartmentSelect() {
 
 
 function updateVisibility() {
-  const reason = document.getElementById('reason');
+  const reason = document.getElementById('reason')?.value;
+  const visitStatus = document.getElementById('visitStatus')?.value;
+
+  console.log('[updateVisibility]', {reason, visitStatus});
 
   const symptomArea = document.getElementById('symptomBlock');
   const visitArea = document.getElementById('visitStatusBlock');
@@ -84,13 +87,7 @@ function updateVisibility() {
   // --- 体調不良 ---
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
-    show(visitArea);
-
-      console.log('[updateVisibility]', {
-        reason,
-        visitStatus
-        }
-      );    
+    show(visitArea); 
 
     if (visitStatus === 'あり' || visitStatus === '済み') {
       show(departmentArea);
