@@ -141,8 +141,7 @@ async function submitForm() {
     visitStatus: document.getElementById('visitStatus')?.value || '',
     departmentCodes: Array.from(
       document.querySelectorAll('input[name="department"]:checked')
-    ).map(el => el.value),
-    date: document.getElementById('date')?.value || ''
+    ).map(el => el.value)
   };
 
   console.log('[submitForm] send data', absenceData);
