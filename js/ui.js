@@ -63,7 +63,7 @@ function initDepartmentSelect() {
 
 
 function updateVisibility() {
-  const reason = document.getElementById('reason')?.value;
+  const reasonCode = document.getElementById('reason')?.value;
   const visitStatus = document.getElementById('visitStatus')?.value;
 
   console.log('[updateVisibility]', {reason, visitStatus});
@@ -72,7 +72,6 @@ function updateVisibility() {
   const visitArea = document.getElementById('visitStatusBlock');
   const departmentArea = document.getElementById('departmentBlock');
 
-  const reasonCode = reason?.value;
 
   console.log('symptomBlock:', symptomArea);
   console.log('visitBlock:', visitArea);
