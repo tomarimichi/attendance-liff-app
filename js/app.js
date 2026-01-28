@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // マスター取得
   const master = await fetchMasters();
   initViewMasters(viewMasters)
+  console.log('testですよ')
   if (!master) {
     // 取得失敗時はここで止める
     return;
