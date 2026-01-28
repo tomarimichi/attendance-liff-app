@@ -205,19 +205,17 @@ function buildOptions(selectId, list) {
 
 
 function initViewMasters(viewMasters) {
-console.log('[initViewMasters] symptomList =', symptomList);
-console.log('[initViewMasters] type =', typeof symptomList);
-console.log('[initViewMasters] isArray =', Array.isArray(symptomList));
+console.log('[initViewMasters] symptomList =', symptoms);
+console.log('[initViewMasters] type =', typeof symptoms);
+console.log('[initViewMasters] isArray =', Array.isArray(symptoms));
 
   console.log(
-    '[initViewMasters] symptomList length',
-    viewMasters.symptomList?.length
+    '[initViewMasters] symptoms length',
+    viewMasters.symptoms?.length
   );
 
   console.log('[initViewMasters] called', viewMasters);
-  // buildOptions('symptom', viewMasters.symptomList);
-  // buildOptions('department', viewMasters.departmentList);
-  buildSymptomOptions(viewMasters.symptomList);
+  buildSymptomOptions(viewMasters.symptoms);
   buildDepartmentOptions(viewMasters.departmentList);
   console.log(
     document.getElementById('symptom').innerHTML
