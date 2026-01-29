@@ -1,5 +1,9 @@
 // ================================
 // 設定
 // ================================
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbz4g5f0gXXnZpp2bLI4EHUkJ9PPCAIC8bat29Upw5JO5leHFZI8NPMVeHpmiNHbfXWF/exec';
+const GAS_ID = 
+'AKfycbzN46n7edYFy-HeZJmKBEa9FggBc66m8X0l0K-Dhavp5f0p7NC3JFpgCnH_oKelx1-g';
+
+const GAS_URL = `https://script.google.com/macros/s/${GAS_ID}/exec`;
+
 const LIFF_ID = '2008783538-yHgAa1tC';
