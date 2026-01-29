@@ -165,7 +165,7 @@ form.addEventListener('submit', async (e) => {
 async function submitForm() {
   const absenceData = {
     // LINE User data
-    lineUserID: document.getElementById('lineUserId').value,
+    lineUserId: document.getElementById('lineUserId').value,
     DisplayName: document.getElementById('displayName').value,
 
     // HTML入力
@@ -189,10 +189,16 @@ async function submitForm() {
   try {
     await fetch(GAS_URL, {
       method: 'POST',
-      body: new URLSearchParams(absenceData)
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: params
     });
 
+    // ここに来た＝「送信は完了した」とみなす
     alert('送信しました');
+    liff.closeWindow();
+
   } catch (e) {
     alert('通信エラーが発生しました');
   }
