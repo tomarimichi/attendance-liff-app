@@ -166,7 +166,7 @@ async function submitForm() {
   const absenceData = {
     // LINE User data
     lineUserId: document.getElementById('lineUserId').value,
-    DisplayName: document.getElementById('displayName').value,
+    displayName: document.getElementById('displayName').value,
 
     // HTML入力
     absentDate: document.getElementById('absentDate').value,
@@ -187,7 +187,7 @@ async function submitForm() {
   console.log('[submitForm] send data', absenceData);
 
   try {
-    await fetch(GAS_URL, {
+    fetch(GAS_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -197,13 +197,13 @@ async function submitForm() {
 
     // ここに来た＝「送信は完了した」とみなす
     alert('送信しました');
-    liff.closeWindow();
+    if (liff.isInClient()) {
+      liff.closeWindow();
+    }
 
   } catch (e) {
     alert('通信エラーが発生しました');
   }
 
-  alert('欠席連絡を送信しました');
-  liff.closeWindow();
 }
 
