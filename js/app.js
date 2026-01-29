@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const profile = await liff.getProfile();
   console.log(profile);
 
-  document.getElementById('lineUserID').value = profile.userID;
+  document.getElementById('lineUserId').value = profile.userId;
   document.getElementById('displayName').value = profile.displayName;
 
   viewMasters = await fetchMasters();
