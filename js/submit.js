@@ -186,10 +186,16 @@ async function submitForm() {
 
   console.log('[submitForm] send data', absenceData);
 
-  await fetch(GAS_URL, {
-    method: 'POST',
-    body: new URLSearchParams(absenceData)
-  });
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST',
+      body: new URLSearchParams(absenceData)
+    });
+
+    alert('送信しました');
+  } catch (e) {
+    alert('通信エラーが発生しました');
+  }
 
   alert('欠席連絡を送信しました');
   liff.closeWindow();
