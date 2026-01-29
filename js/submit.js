@@ -188,9 +188,18 @@ async function submitForm() {
 
   console.log('[submitForm] send data', absenceData);
 
+  /*
+    await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(absenceData)
+    });
+  */
+  const params = new URLSearchParams(absenceData);
+
   await fetch(GAS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(absenceData)
+    body: params
   });
+
 }
