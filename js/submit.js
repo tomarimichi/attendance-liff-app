@@ -142,19 +142,7 @@ function validateForm() {
   return null; // OK
 }
 
-/*
-submitButton.addEventListener('click', async () => {
-  const errorMessage = validateForm();
 
-  if (errorMessage) {
-    alert(errorMessage);
-    return;
-  }
-
-  // ここから送信処理
-  await submitForm();s
-});
-*/
 
 const form = document.getElementById('absenceForm');
 
@@ -175,7 +163,19 @@ form.addEventListener('submit', async (e) => {
 
 
 async function submitForm() {
+  const profile = await liff.getProfile();
+
   const absenceData = {
+    // LIFF
+    lineUserId: profile.userId,
+    displayName: profile.displayName,
+
+    // HTML入力
+    absentDate: document.getElementById('absentDate').value,
+    nextDate: document.getElementById('nextDate').value,
+    nextTime: document.getElementById('nextTime').value,
+
+    // 既存
     reasonCode: document.getElementById('reason')?.value || '',
     symptomCodes: Array.from(
       document.querySelectorAll('input[name="symptom"]:checked')
@@ -188,21 +188,12 @@ async function submitForm() {
 
   console.log('[submitForm] send data', absenceData);
 
-  /*
-    await fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(absenceData)
-    });
-  */
-  const params = new URLSearchParams(absenceData);
-
   await fetch(GAS_URL, {
     method: 'POST',
-    mode: 'no-cors',
     body: new URLSearchParams(absenceData)
   });
 
-  alert('送信しました')
-
+  alert('欠席連絡を送信しました');
+  liff.closeWindow();
 }
+
