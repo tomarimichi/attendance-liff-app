@@ -142,7 +142,7 @@ function validateForm() {
   return null; // OK
 }
 
-
+/*
 submitButton.addEventListener('click', async () => {
   const errorMessage = validateForm();
 
@@ -152,6 +152,23 @@ submitButton.addEventListener('click', async () => {
   }
 
   // ここから送信処理
+  await submitForm();s
+});
+*/
+
+const form = document.getElementById('absenceForm');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  console.log('[form submit]');
+
+  const errorMessage = validateForm();
+  if (errorMessage) {
+    alert(errorMessage);
+    return;
+  }
+
   await submitForm();
 });
 
