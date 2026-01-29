@@ -186,13 +186,26 @@ async function submitForm() {
 
   console.log('[submitForm] send data', absenceData);
 
+  const params = new URLSearchParams();
+
+  // 単純な値
+  params.append('lineUserId', absenceData.lineUserId);
+  params.append('displayName', absenceData.displayName);
+  params.append('absentDate', absenceData.absentDate);
+  params.append('nextDate', absenceData.nextDate);
+  params.append('nextTime', absenceData.nextTime);
+  params.append('reasonCode', absenceData.reasonCode);
+  params.append('visitStatus', absenceData.visitStatus);
+
+  // 配列は join
+  params.append('symptomCodes', absenceData.symptomCodes.join(','));
+  params.append('departmentCodes', absenceData.departmentCodes.join(','));
+
+
   try {
-    fetch(GAS_URL, {
+    await fetch(GAS_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
       body: params
     });
 
