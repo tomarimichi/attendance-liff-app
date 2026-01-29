@@ -199,7 +199,10 @@ async function submitForm() {
 
   await fetch(GAS_URL, {
     method: 'POST',
-    body: params
+    mode: 'no-cors',
+    body: new URLSearchParams(absenceData)
   });
+
+  alert('送信しました')
 
 }
