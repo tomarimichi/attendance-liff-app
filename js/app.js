@@ -1,8 +1,21 @@
 // ================================
 // app
 // ================================
+
 document.addEventListener('DOMContentLoaded', async () => {
   await liff.init({ liffId: LIFF_ID });
+
+    if (!liff.isLoggedIn()) {
+    liff.login(); // ← ここで一度リダイレクトされる
+    return;
+  }
+
+  // LIFF
+  const profile = await liff.getProfile();
+  console.log(profile);
+
+  document.getElementById('lineUserID').value = profile.userID;
+  document.getElementById('displayName').value = profile.displayName;
 
   viewMasters = await fetchMasters();
   initViewMasters(viewMasters);

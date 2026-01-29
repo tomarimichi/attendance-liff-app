@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/01/29 11:24">
+    <meta name="last-updated" content="2026/01/29 12:21">
 
   <meta charset="utf-8">
 
@@ -88,6 +88,14 @@
         <label for="nextTime">遅刻予定（時刻が分かる場合）</label>
         <input type="time" id="nextTime" name="nextTime" class="time-input">
       </div>
+
+      <div class="HiddenDiv">
+        <input type="hidden" id="lineUserId" name="lineUserId">
+        <input type="hidden" id="displayName" name="displayName">
+
+        <input type="hidden" id="liffVersion" name="liffVersion">
+      </div>
+
 
       <button type="submit" id="sendBtn">>送信</button>
     </form>

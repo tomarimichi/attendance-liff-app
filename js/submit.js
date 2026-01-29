@@ -163,12 +163,10 @@ form.addEventListener('submit', async (e) => {
 
 
 async function submitForm() {
-  const profile = await liff.getProfile();
-
   const absenceData = {
-    // LIFF
-    lineUserId: profile.userId,
-    displayName: profile.displayName,
+    // LINE User data
+    lineUserID: document.getElementById('lineUserId').value,
+    DisplayName: document.getElementById('displayName').value,
 
     // HTML入力
     absentDate: document.getElementById('absentDate').value,
