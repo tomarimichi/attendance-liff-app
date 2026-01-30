@@ -163,6 +163,9 @@ form.addEventListener('submit', async (e) => {
 
 
 async function submitForm() {
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+
   const absenceData = {
     // LINE User data
     lineUserId: document.getElementById('lineUserId').value,
@@ -215,6 +218,7 @@ async function submitForm() {
     }
 
   } catch (e) {
+    btn.disabled = false;
     alert('通信エラーが発生しました');
   }
 

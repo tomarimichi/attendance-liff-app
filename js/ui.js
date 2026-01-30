@@ -91,7 +91,7 @@ function updateVisibility() {
     show(symptomArea);
     show(visitArea); 
 
-    if (visitStatus === 'あり' || visitStatus === '済み') {
+    if (visitStatus === 'PLAN' || visitStatus === 'DONE') {
       show(departmentArea);
       console.log('[updateVisibility]', {
         reason,
