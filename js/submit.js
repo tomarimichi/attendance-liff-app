@@ -205,11 +205,15 @@ async function submitForm() {
 
 
   try {
+    btn.disabled = true;
+    btn.textContent = '送信中...';
+
     await fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: params
-    });
+    method: 'POST',
+    mode: 'no-cors',
+    body: params
+  });
+
 
     // ここに来た＝「送信は完了した」とみなす
     alert('送信しました');
@@ -219,7 +223,15 @@ async function submitForm() {
 
   } catch (e) {
     btn.disabled = false;
-    alert('通信エラーが発生しました');
+    alert(
+      '送信できませんでした。\n\n' +
+      'お手数ですが、LINEのトークで\n' +
+      '直接ご連絡ください。'
+    );
+
+    if (liff.isInClient()) {
+      liff.closeWindow();
+    }
   }
 
 }
