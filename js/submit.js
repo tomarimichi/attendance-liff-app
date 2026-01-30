@@ -176,11 +176,10 @@ async function submitForm() {
     // 既存
     reasonCode: document.getElementById('reason')?.value || '',
     symptomCodes: Array.from(
-      document.querySelectorAll('input[name="symptom"]:checked')
-    ).map(el => el.value),
+      document.getElementById('symptom')?.selectedOptions || []).map(opt => opt.value),
     visitStatus: document.getElementById('visitStatus')?.value || '',
     departmentCodes: Array.from(
-      document.querySelectorAll('input[name="department"]:checked')
+      document.getElementById('department')?.selectedOptions || []
     ).map(el => el.value)
   };
 

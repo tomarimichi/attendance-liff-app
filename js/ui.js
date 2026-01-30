@@ -51,6 +51,7 @@ function initDepartmentSelect() {
   placeholder.value = '';
   placeholder.textContent = '選択してください';
   placeholder.selected = true;
+  placeholder.disabled =true; //★★
   department.appendChild(placeholder);
 
   viewMasters.departmentList.forEach(d => {
