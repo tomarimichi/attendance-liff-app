@@ -44,6 +44,10 @@ async function loadMasters() {
   // ① GAS の最新 version
   const latestVersion = await fetchMasterVersion();
 
+  console.log('latestVersion:', latestVersion);
+  console.log('typeof latestVersion:', typeof latestVersion);
+
+
   // ② ローカル確認
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
