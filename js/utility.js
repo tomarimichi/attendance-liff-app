@@ -49,8 +49,18 @@ async function loadMasters() {
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
   if (localVersion === latestVersion && localMasters) {
-    console.log('[masters] from localStorage');
+    console.log('[masters] use cache', {
+        serverVersion: latestVersion,
+        localVersion: localVersion,
+        hasLocal: true
+    });
     return JSON.parse(localMasters);
+  } else {
+    console.log('[masters] fetch from GAS', {
+        serverVersion: latestVersion,
+        localVersion: localVersion,
+        hasLocal: !!localMasters
+        });
   }
 
   // ③ 不一致 → 再取得
