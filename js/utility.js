@@ -32,3 +32,33 @@ async function fetchMastersWithCache() {
 
   return json;
 }
+
+async function fetchMasterVersion() {
+  const res = await fetch(`${GAS_URL}?type=master_version`);
+  if (!res.ok) throw new Error('master_version fetch failed');
+  const json = await res.json();
+  return json.masterVersion;
+}
+
+async function loadMasters() {
+  // ① GAS の最新 version
+  const latestVersion = await fetchMasterVersion();
+
+  // ② ローカル確認
+  const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
+  const localMasters = localStorage.getItem(MASTER_DATA_KEY);
+
+  if (localVersion === latestVersion && localMasters) {
+    console.log('[masters] from localStorage');
+    return JSON.parse(localMasters);
+  }
+
+  // ③ 不一致 → 再取得
+  console.log('[masters] from GAS');
+  const masters = await fetchMasters();
+
+  localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
+  localStorage.setItem(MASTER_DATA_KEY, JSON.stringify(masters));
+
+  return masters;
+}

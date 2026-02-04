@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // マスター取得（★1回だけ）
     showLoading('画面を準備しています...')
-    const master = await fetchMastersWithCache();
+    const master = await loadMasters();
     if (!master) {
       // fetchMasters 側でエラー表示済み
       return;
