@@ -1,6 +1,54 @@
 // ================================
 // app
 // ================================
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    showLoading('LINEに接続しています...');
+
+    // LIFF初期化
+    await liff.init({ liffId: LIFF_ID });
+
+    if (!liff.isLoggedIn()) {
+      liff.login();
+      return;
+    }
+
+    // プロフィール取得
+    showLoading('ユーザー情報を取得しています...');
+    const profile = await liff.getProfile();
+    document.getElementById('lineUserId').value = profile.userId;
+    document.getElementById('displayName').value = profile.displayName;
+
+    // マスター取得（★1回だけ）
+    showLoading('入力項目を準備しています...')
+    const master = await fetchMasters();
+    if (!master) {
+      // fetchMasters 側でエラー表示済み
+      return;
+    }
+
+    masterRaw = master;
+
+    // 整形
+    buildViewMasters(masterRaw);
+
+    // UI初期化
+    initReasonSelect(viewMasters.reasonList);
+    buildSymptomOptions(viewMasters.symptomList);
+    buildDepartmentOptions(viewMasters.departmentList);
+
+    // イベント系
+    bindEvents();
+    updateVisibility();
+
+  } catch (e) {
+    console.error('[LIFF init error]', e);
+  } finally {
+    hideLoading();
+  }
+});
+
+/*
 
 document.addEventListener('DOMContentLoaded', async () => {
   await liff.init({ liffId: LIFF_ID });
@@ -17,12 +65,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('lineUserId').value = profile.userId;
   document.getElementById('displayName').value = profile.displayName;
 
-  viewMasters = await fetchMasters();
-  initViewMasters(viewMasters);
-
   // マスター取得
   const master = await fetchMasters();
-  initViewMasters(viewMasters)
+  // ★廃止★　initViewMasters(viewMasters);
   console.log('testですよ')
   if (!master) {
     // 取得失敗時はここで止める
@@ -43,3 +88,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // イベント登録（現状のままでOK）
 });
+
+*/
+

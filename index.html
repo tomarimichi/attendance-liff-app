@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/02/04 13:01">
+    <meta name="last-updated" content="2026/02/04 14:29">
 /
   <meta charset="utf-8">
 
@@ -18,89 +18,93 @@
 <body>
   <main class="container">
     <!--テスト用　後で消す-->
-      <h1>本番環境</h1>
-      <p id="update-time">更新時間・読み込み中...</p>
+      <div class="test">
+        <h1>本番環境</h1>
+        <p id="update-time">更新時間・読み込み中...</p>
+      </div>
 
     <h3>欠席・遅刻連絡フォーム</h3>
+      <!-- ローディング表示 -->
+       <div class="load_message">
+        <div id="loading" style="display:none;">
+          <p id="loading-text">読み込み中…</p>
+        </div>
 
-    <!-- ローディング表示 -->
-    <div id="loading" style="display:none;">
-      マスターを読み込んでいます…
+        <!-- エラー表示 -->
+        <div id="error" style="display:none; color:red;">
+          <p>データの取得に失敗しました。<br>時間をおいて再度お試しください。</p>
+        </div>
+      </div>
+
+
+    <div class="main-form">
+      <form id="absenceForm">
+
+        <div class="form-field">
+          <label for="absentDate" class="required">欠席・遅刻日</label>
+          <input type="date" id="absentDate" name="absentDate" required>
+        </div>
+
+        <label for="reason" class="required">欠席・遅刻理由</label>
+        <select id="reason" name="reason" required>
+        </select>
+
+
+        <div id="detailBlock" style="display:none;">
+          <label for="detail" class="required">詳細</label>
+          <select id="detail" name="detail"></select>
+        </div>
+
+
+        <div id="symptomBlock" style="display:none;">
+          <label for="symptom" class="required">症状（複数選択可）</label>
+          <select id="symptom" name="symptom" multiple>
+          </select>
+        </div>
+
+        <div id="visitStatusBlock" style="display: none;">
+          <label for="visitStatus" class="required">通院有無・予定</label>
+          <select id="visitStatus" name="visitStatus">
+            <option value="">選択してください</option>
+            <option value="NONE">予定なし</option>
+            <option value="PLAN">受診予定あり</option>
+            <option value="DONE">受診済み</option>
+          </select>
+        </div>
+
+        <div id="departmentBlock" style="display: none;">
+          <label for="department" class="required">受診科（複数選択可）</label>
+          <select id="department" name="department" multiple>
+          </select>
+        </div>
+
+
+        <div class="form-field">
+          <label for="nextDate" class="required">次回通所予定日</label>
+          <input type="date" id="nextDate" name="nextDate" class="absentDate-input" required>
+        </div>
+
+        <div class="form-field">
+          <label for="nextTime">遅刻予定（時刻が分かる場合）</label>
+          <input type="time" id="nextTime" name="nextTime" class="time-input">
+        </div>
+
+        <div class="HiddenDiv">
+          <input type="hidden" id="lineUserId" name="lineUserId">
+          <input type="hidden" id="displayName" name="displayName">
+
+          <input type="hidden" id="liffVersion" name="liffVersion">
+        </div>
+
+
+        <button type="submit" id="sendBtn">>送信</button>
+      </form>
     </div>
-
-    <!-- エラー表示 -->
-    <div id="error" style="display:none; color:red;">
-      マスターの取得に失敗しました。時間をおいて再度お試しください。
-    </div>
-
-
-    <form id="absenceForm">
-
-      <div class="form-field">
-        <label for="absentDate" class="required">欠席・遅刻日</label>
-        <input type="date" id="absentDate" name="absentDate" required>
-      </div>
-
-      <label for="reason" class="required">欠席・遅刻理由</label>
-      <select id="reason" name="reason" required>
-      </select>
-
-
-      <div id="detailBlock" style="display:none;">
-        <label for="detail" class="required">詳細</label>
-        <select id="detail" name="detail"></select>
-      </div>
-
-
-      <div id="symptomBlock" style="display:none;">
-        <label for="symptom" class="required">症状（複数選択可）</label>
-        <select id="symptom" name="symptom" multiple>
-        </select>
-      </div>
-
-      <div id="visitStatusBlock" style="display: none;">
-        <label for="visitStatus" class="required">通院有無・予定</label>
-        <select id="visitStatus" name="visitStatus">
-          <option value="">選択してください</option>
-          <option value="NONE">予定なし</option>
-          <option value="PLAN">受診予定あり</option>
-          <option value="DONE">受診済み</option>
-        </select>
-      </div>
-
-      <div id="departmentBlock" style="display: none;">
-        <label for="department" class="required">受診科（複数選択可）</label>
-        <select id="department" name="department" multiple>
-        </select>
-      </div>
-
-
-      <div class="form-field">
-        <label for="nextDate" class="required">次回通所予定日</label>
-        <input type="date" id="nextDate" name="nextDate" class="absentDate-input" required>
-      </div>
-
-      <div class="form-field">
-        <label for="nextTime">遅刻予定（時刻が分かる場合）</label>
-        <input type="time" id="nextTime" name="nextTime" class="time-input">
-      </div>
-
-      <div class="HiddenDiv">
-        <input type="hidden" id="lineUserId" name="lineUserId">
-        <input type="hidden" id="displayName" name="displayName">
-
-        <input type="hidden" id="liffVersion" name="liffVersion">
-      </div>
-
-
-      <button type="submit" id="sendBtn">>送信</button>
-    </form>
     
     <!--プログレスバー-->
     <div id="progress" style="width: 0%; height: 6px; background: #e0e0e0; margin: 10px 0; border-radius: 3px; overflow: hidden;">
       <div style="height: 100%; width: 0%; background: linear-gradient(90deg, #007bff, #00d4ff); transition: width 4s linear;"></div>
     </div>
-
 
 
 
@@ -128,6 +132,7 @@
 
 
   <script src="js/config.js"></script>
+  <script src="js/utility.js"></script>
   <script src="js/dom.js"></script>
   <script src="js/master.js"></script>
   <script src="js/ui.js"></script>

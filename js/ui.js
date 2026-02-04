@@ -197,21 +197,22 @@ function show(el) {
   el.style.display = '';
 }
 
+/*
+  function initViewMasters(viewMasters) {
+    console.log(
+      '[initViewMasters] symptoms length',
+      viewMasters.symptoms?.length
+    );
 
-function initViewMasters(viewMasters) {
-  console.log(
-    '[initViewMasters] symptoms length',
-    viewMasters.symptoms?.length
-  );
+    console.log('[initViewMasters] called', viewMasters);
+    buildSymptomOptions(viewMasters.symptoms);
+    buildDepartmentOptions(viewMasters.departments);
+    console.log(
+      document.getElementById('symptom').innerHTML
+    );
 
-  console.log('[initViewMasters] called', viewMasters);
-  buildSymptomOptions(viewMasters.symptoms);
-  buildDepartmentOptions(viewMasters.departments);
-  console.log(
-    document.getElementById('symptom').innerHTML
-  );
-
-}
+  }
+*/
 
 function buildSymptomOptions(list) {
   const select = document.getElementById('symptom');
