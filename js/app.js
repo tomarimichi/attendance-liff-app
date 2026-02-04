@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('displayName').value = profile.displayName;
 
     // マスター取得（★1回だけ）
-    showLoading('入力項目を準備しています...')
-    const master = await fetchMasters();
+    showLoading('画面を準備しています...')
+    const master = await fetchMastersWithCache();
     if (!master) {
       // fetchMasters 側でエラー表示済み
       return;
