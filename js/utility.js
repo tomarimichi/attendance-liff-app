@@ -25,19 +25,23 @@ async function withLoading(task, options = {}) {
   }
 }
 
-function showLoading() {
-  // const loading = document.getElementById('loading');
+function showLoading(text = '読み込み中…') {
   const loadingText = document.getElementById('loading-text');
-  loadingText.textContent = text;
-  // loading.style.display = '';
+  if (loadingText) {
+    loadingText.textContent = text;
+  }
+
   const overlay = document.getElementById('loading-overlay');
   if (overlay) overlay.style.display = 'flex';
 }
 
-function hideLoading() {
-  const overlay = document.getElementById('loading-overlay');
-  if (overlay) overlay.style.display = 'none';
+function hideLoading(delay = 0) {
+  setTimeout(() => {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) overlay.style.display = 'none';
+  }, delay);
 }
+
 
 
 function showError() {
