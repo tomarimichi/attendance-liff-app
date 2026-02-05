@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/02/05 11:08">
+    <meta name="last-updated" content="2026/02/05 11:38">
 /
   <meta charset="utf-8">
 
@@ -17,20 +17,25 @@
 
 <body>
   <!-- ローディング表示 -->
-    <div id="loading-overlay" class="loading-overlay">
-      <div class="loading-box">
-        <div class="spinner"></div>
-        <p>入力画面を準備しています…</p>
+    <div class="">
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-box">
+          <div class="spinner"></div>
+          <p id="loading-text">入力画面を準備しています…</p>
+        </div>
+      </div>
+      <!-- エラー表示 -->
+      <div id="error" style="display:none; color:red;">
+        <p>
+          データの取得に失敗しました。<br>
+          時間をおいて再度お試しください。
+        </p>
       </div>
     </div>
     <!--
       <div class="load_message">
         <div id="loading" style="display:none;">
           <p id="loading-text">読み込み中…</p>
-        </div>
-        -- エラー表示 --
-        <div id="error" style="display:none; color:red;">
-          <p>データの取得に失敗しました。<br>時間をおいて再度お試しください。</p>
         </div>
       </div>
     -->

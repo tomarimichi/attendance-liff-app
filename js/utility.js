@@ -10,8 +10,26 @@ function hideLoading() {
   document.getElementById('loading').style.display = 'none';
 }
 */
+async function withLoading(task, options = {}) {
+  const {
+    text = '読み込み中…',
+    hideDelay = 300
+  } = options;
+
+  showLoading(text);
+
+  try {
+    return await task();
+  } finally {
+    hideLoading(hideDelay);
+  }
+}
 
 function showLoading() {
+  // const loading = document.getElementById('loading');
+  const loadingText = document.getElementById('loading-text');
+  loadingText.textContent = text;
+  // loading.style.display = '';
   const overlay = document.getElementById('loading-overlay');
   if (overlay) overlay.style.display = 'flex';
 }
@@ -19,6 +37,11 @@ function showLoading() {
 function hideLoading() {
   const overlay = document.getElementById('loading-overlay');
   if (overlay) overlay.style.display = 'none';
+}
+
+
+function showError() {
+  document.getElementById('error').style.display = '';
 }
 
 
