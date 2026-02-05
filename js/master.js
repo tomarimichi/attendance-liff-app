@@ -68,16 +68,6 @@ function buildSymptomOptions(list) {
 
   select.innerHTML = '';
 
-  // プレースホルダー（残す派）
-  /*
-    const placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = '選択してください';
-    placeholder.disabled = true;
-    placeholder.selected = true;
-    select.appendChild(placeholder);
-  */
-
   // マスター由来
   list.forEach(item => {
     const option = document.createElement('option');
@@ -93,6 +83,14 @@ function buildSymptomOptions(list) {
   select.appendChild(otherOption);
 }
 
+// 表示制御
+function updateSymptomVisibility(reasonCode) {
+  const area = document.getElementById('symptomArea');
+  if (!area) return;
+
+  area.style.display =
+    reasonCode === 'ILLNESS' ? 'block' : 'none';
+}
 
 
 
@@ -104,14 +102,6 @@ function buildDepartmentOptions(list) {
   if (!select) return;
 
   select.innerHTML = '';
-
-  // プレースホルダー（残す派）
-  const placeholder = document.createElement('option');
-  placeholder.value = '';
-  placeholder.textContent = '選択してください';
-  placeholder.disabled = true;
-  placeholder.selected = true;
-  select.appendChild(placeholder);
 
   list.forEach(item => {
     const option = document.createElement('option');
@@ -127,6 +117,19 @@ function buildDepartmentOptions(list) {
   select.appendChild(otherOption);
 }
 
+// 表示制御
+function updateDepartmentVisibility(visitStatus) {
+  const area = document.getElementById('departmentArea');
+  if (!area) return;
+
+  area.style.display =
+    ['PLAN', 'DONE'].includes(visitStatus)
+      ? 'block'
+      : 'none';
+}
+
+
+
 document.getElementById('symptom').addEventListener('change', e => {
   const otherArea = document.getElementById('symptomOtherArea');
   if (!otherArea) return;
@@ -136,10 +139,19 @@ document.getElementById('symptom').addEventListener('change', e => {
 });
 
 
+document.getElementById('reason').addEventListener('change', e => {
+  updateSymptomVisibility(e.target.value);
+});
+
 document.getElementById('department').addEventListener('change', e => {
   const otherArea = document.getElementById('departmentOtherArea');
   if (!otherArea) return;
 
   otherArea.style.display =
     e.target.value === 'OTHER' ? 'block' : 'none';
+});
+
+
+document.getElementById('visitStatus').addEventListener('change', e => {
+  updateDepartmentVisibility(e.target.value);
 });

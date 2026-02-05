@@ -131,3 +131,22 @@ console.log('[Type2]:',{
 
   return masters;
 }
+
+
+function sanitizeBeforeSubmit(data) {
+  const sanitized = { ...data };
+
+  // 症状は「体調不良」のときだけ有効
+  if (sanitized.reasonCode !== 'ILLNESS') {
+    sanitized.symptomCodes = [];
+    sanitized.symptomOther = '';
+  }
+
+  // 受診科は「通院あり」のときだけ有効
+  if (!['PLANNED', 'DONE'].includes(sanitized.visitStatus)) {
+    sanitized.departmentCodes = [];
+    sanitized.departmentOther = '';
+  }
+
+  return sanitized;
+}

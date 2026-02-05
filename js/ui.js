@@ -157,23 +157,24 @@ function renderDepartment() {
     wrapper.appendChild(option);
   });
 }
+/*
+  function updateDepartmentVisibility(params, reasonConfig) {
+    const departmentArea = document.getElementById('departmentArea');
+    const visitConfig = visitStatusList.find(
+      v => v.visit_code === params.visitStatus
+    );
 
-function updateDepartmentVisibility(params, reasonConfig) {
-  const departmentArea = document.getElementById('departmentArea');
-  const visitConfig = visitStatusList.find(
-    v => v.visit_code === params.visitStatus
-  );
+    const shouldShow =
+      visitConfig?.requires_department &&
+      reasonConfig.department_required_when_visit;
 
-  const shouldShow =
-    visitConfig?.requires_department &&
-    reasonConfig.department_required_when_visit;
+    departmentArea.style.display = shouldShow ? '' : 'none';
 
-  departmentArea.style.display = shouldShow ? '' : 'none';
-
-  if (shouldShow) {
-    renderDepartment();
+    if (shouldShow) {
+      renderDepartment();
+    }
   }
-}
+*/
 
 function sortBySort(a, b) {
   return a.sort - b.sort;

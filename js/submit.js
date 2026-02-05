@@ -5,7 +5,8 @@ const form = document.getElementById('absenceForm');
 
 const symptomCodes = Array.from(
   document.querySelectorAll('input[name="symptom"]:checked')
-).map(el => el.value);
+  ).map(el => el.value);
+
 const symptomOther =
   symptomCodes.includes('OTHER')
     ? document.getElementById('symptomOtherText')?.value.trim() || ''
@@ -199,25 +200,28 @@ async function submitForm() {
           ).map(el => el.value)
         };
 
-        console.log('[submitForm] send data', absenceData);
+        const sanitized = sanitizeBeforeSubmit(absenceData);
+        console.log('[submitForm] sanitized',sanitized);
+
+        // console.log('[submitForm] send data', absenceData);
 
         const params = new URLSearchParams();
 
         // 単純な値
-        params.append('lineUserId', absenceData.lineUserId);
-        params.append('displayName', absenceData.displayName);
-        params.append('absentDate', absenceData.absentDate);
-        params.append('nextDate', absenceData.nextDate);
-        params.append('nextTime', absenceData.nextTime);
-        params.append('reasonCode', absenceData.reasonCode);
-        params.append('visitStatus', absenceData.visitStatus);
         params.append('submissionId', submissionId);
-        params.append('symptomOther', symptomOther);
-        params.append('departmentOther', departmentOther);
+        params.append('lineUserId', sanitized.lineUserId);
+        params.append('displayName', sanitized.displayName);
+        params.append('absentDate', sanitized.absentDate);
+        params.append('nextDate', sanitized.nextDate);
+        params.append('nextTime', sanitized.nextTime);
+        params.append('reasonCode', sanitized.reasonCode);
+        params.append('visitStatus', sanitized.visitStatus);
+        params.append('symptomOther', sanitized.symptomOther);
+        params.append('departmentOther', sanitized.departmentOther);
 
         // 配列は join
-        params.append('symptomCodes', absenceData.symptomCodes.join(','));
-        params.append('departmentCodes', absenceData.departmentCodes.join(','));
+        params.append('symptomCodes', sanitized.symptomCodes.join(','));
+        params.append('departmentCodes', sanitized.departmentCodes.join(','));
 
         await fetch(GAS_URL, {
         method: 'POST',
