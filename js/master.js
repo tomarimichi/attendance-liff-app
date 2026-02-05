@@ -69,12 +69,14 @@ function buildSymptomOptions(list) {
   select.innerHTML = '';
 
   // プレースホルダー（残す派）
-  const placeholder = document.createElement('option');
-  placeholder.value = '';
-  placeholder.textContent = '選択してください';
-  placeholder.disabled = true;
-  placeholder.selected = true;
-  select.appendChild(placeholder);
+  /*
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '選択してください';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
+  */
 
   // マスター由来
   list.forEach(item => {

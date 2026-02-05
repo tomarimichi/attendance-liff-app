@@ -38,7 +38,7 @@ function bindEvents() {
       if (!otherArea) return;
 
       otherArea.style.display =
-        e.target.value === 'OTHER' ? 'block' : 'none';
+        isOtherSelected(symptomSelect) ? 'block' : 'none';
     });
   }
 
@@ -50,7 +50,12 @@ function bindEvents() {
       if (!otherArea) return;
 
       otherArea.style.display =
-        e.target.value === 'OTHER' ? 'block' : 'none';
+        isOtherSelected(departmentSelect) ? 'block' : 'none';
     });
   }  
+}
+
+function isOtherSelected(selectEl) {
+  return Array.from(selectEl.selectedOptions)
+    .some(opt => opt.value === 'OTHER');
 }
