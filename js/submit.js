@@ -1,6 +1,8 @@
 // ================================
 // submit
 // ================================
+
+
 async function submitAbsence() {
   const form = document.getElementById('absenceForm');
 
@@ -165,74 +167,80 @@ form.addEventListener('submit', async (e) => {
 async function submitForm() {
   const btn = document.getElementById('sendBtn');
   btn.disabled = true;
-
-  const absenceData = {
-    // LINE User data
-    lineUserId: document.getElementById('lineUserId').value,
-    displayName: document.getElementById('displayName').value,
-
-    // HTML入力
-    absentDate: document.getElementById('absentDate').value,
-    nextDate: document.getElementById('nextDate').value,
-    nextTime: document.getElementById('nextTime').value,
-
-    // 既存
-    reasonCode: document.getElementById('reason')?.value || '',
-    symptomCodes: Array.from(
-      document.getElementById('symptom')?.selectedOptions || []).map(opt => opt.value),
-    visitStatus: document.getElementById('visitStatus')?.value || '',
-    departmentCodes: Array.from(
-      document.getElementById('department')?.selectedOptions || []
-    ).map(el => el.value)
-  };
-
-  console.log('[submitForm] send data', absenceData);
-
-  const params = new URLSearchParams();
-
-  // 単純な値
-  params.append('lineUserId', absenceData.lineUserId);
-  params.append('displayName', absenceData.displayName);
-  params.append('absentDate', absenceData.absentDate);
-  params.append('nextDate', absenceData.nextDate);
-  params.append('nextTime', absenceData.nextTime);
-  params.append('reasonCode', absenceData.reasonCode);
-  params.append('visitStatus', absenceData.visitStatus);
-
-  // 配列は join
-  params.append('symptomCodes', absenceData.symptomCodes.join(','));
-  params.append('departmentCodes', absenceData.departmentCodes.join(','));
-
+  btn.textContent = '送信中...';
 
   try {
-    btn.disabled = true;
-    btn.textContent = '送信中...';
+    isSubmitting = true;
+    await withLoading(
+      async () => {
+        const absenceData = {
+          // LINE User data
+          lineUserId: document.getElementById('lineUserId').value,
+          displayName: document.getElementById('displayName').value,
 
-    await fetch(GAS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    body: params
-  });
+          // HTML入力
+          absentDate: document.getElementById('absentDate').value,
+          nextDate: document.getElementById('nextDate').value,
+          nextTime: document.getElementById('nextTime').value,
 
+          // 既存
+          reasonCode: document.getElementById('reason')?.value || '',
+          symptomCodes: Array.from(
+            document.getElementById('symptom')?.selectedOptions || []).map(opt => opt.value),
+          visitStatus: document.getElementById('visitStatus')?.value || '',
+          departmentCodes: Array.from(
+            document.getElementById('department')?.selectedOptions || []
+          ).map(el => el.value)
+        };
 
-    // ここに来た＝「送信は完了した」とみなす
+        console.log('[submitForm] send data', absenceData);
+
+        const params = new URLSearchParams();
+
+        // 単純な値
+        params.append('lineUserId', absenceData.lineUserId);
+        params.append('displayName', absenceData.displayName);
+        params.append('absentDate', absenceData.absentDate);
+        params.append('nextDate', absenceData.nextDate);
+        params.append('nextTime', absenceData.nextTime);
+        params.append('reasonCode', absenceData.reasonCode);
+        params.append('visitStatus', absenceData.visitStatus);
+
+        // 配列は join
+        params.append('symptomCodes', absenceData.symptomCodes.join(','));
+        params.append('departmentCodes', absenceData.departmentCodes.join(','));
+
+        await fetch(GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: params
+      });
+      },
+      {
+        text: '送信しています...',
+        hideDelay: 300
+      }
+    );
+
     alert('送信しました');
     if (liff.isInClient()) {
       liff.closeWindow();
     }
+  } catch(e) {
+    isSubmitting = false;
+    console.error('[submitForm error]', e);
 
-  } catch (e) {
     btn.disabled = false;
-    alert(
+    btn.textContent = '送信';
+
+    alert (
       '送信できませんでした。\n\n' +
       'お手数ですが、LINEのトークで\n' +
-      '直接ご連絡ください。'
+      '直接ご連絡ください'
     );
 
     if (liff.isInClient()) {
       liff.closeWindow();
     }
   }
-
 }
-

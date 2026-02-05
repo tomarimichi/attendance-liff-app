@@ -1,6 +1,15 @@
 // ================================
 // app
 // ================================
+let isSubmitting = false;
+
+window.addEventListener('beforeunload', (e) => {
+  if (isSubmitting) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     await withLoading(
