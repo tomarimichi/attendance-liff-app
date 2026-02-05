@@ -198,30 +198,3 @@ function show(el) {
 }
 
 
-function buildSymptomOptions(list) {
-  const select = document.getElementById('symptom');
-  if (!select) return;
-
-  select.innerHTML = '<option disabled value="">選択してください</option>';
-
-  list.forEach(item => {
-    const option = document.createElement('option');
-    option.value = item.symptom_code;
-    option.textContent = item.symptom_label;
-    select.appendChild(option);
-  });
-}
-
-function buildDepartmentOptions(list) {
-  const select = document.getElementById('department');
-  if (!select) return;
-
-  select.innerHTML = '<option disabled value="">選択してください</option>';
-
-  list.forEach(item => {
-    const option = document.createElement('option');
-    option.value = item.department_code;
-    option.textContent = item.department_label;
-    select.appendChild(option);
-  });
-}

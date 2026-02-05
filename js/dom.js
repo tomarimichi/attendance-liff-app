@@ -29,4 +29,28 @@ function bindEvents() {
     console.log('[event] visitStatus changed', visitStatus.value);
     updateVisibility();
   });
+
+  // 症状「その他」制御
+  const symptomSelect = document.getElementById('symptom');
+  if (symptomSelect) {
+    symptomSelect.addEventListener('change', e => {
+      const otherArea = document.getElementById('symptomOtherArea');
+      if (!otherArea) return;
+
+      otherArea.style.display =
+        e.target.value === 'OTHER' ? 'block' : 'none';
+    });
+  }
+
+  // 受診科「その他」制御
+  const departmentSelect = document.getElementById('department');
+  if (departmentSelect) {
+    departmentSelect.addEventListener('change', e => {
+      const otherArea = document.getElementById('departmentOtherArea');
+      if (!otherArea) return;
+
+      otherArea.style.display =
+        e.target.value === 'OTHER' ? 'block' : 'none';
+    });
+  }  
 }

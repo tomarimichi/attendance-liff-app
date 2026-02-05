@@ -62,86 +62,82 @@ function buildViewMasters(master) {
 // ================================
 // 症状 その他自由記入 masters（UI用）
 // ================================
-function buildSymptomOptions(symptomList) {
-  const container = document.getElementById('symptomArea');
-  container.innerHTML = '';
+function buildSymptomOptions(list) {
+  const select = document.getElementById('symptom');
+  if (!select) return;
 
-  symptomList.forEach(item => {
-    const label = document.createElement('label');
-    label.innerHTML = `
-      <input type="checkbox" name="symptom" value="${item.symptom_code}">
-      ${item.symptom_label}
-    `;
-    container.appendChild(label);
+  select.innerHTML = '';
+
+  // プレースホルダー（残す派）
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択してください';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  select.appendChild(placeholder);
+
+  // マスター由来
+  list.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.symptom_code;
+    option.textContent = item.symptom_label;
+    select.appendChild(option);
   });
 
-  // ★ その他を最後に追加
-  const otherLabel = document.createElement('label');
-  otherLabel.innerHTML = `
-    <input type="checkbox" name="symptom" value="OTHER" id="symptomOther">
-    その他
-  `;
-  container.appendChild(otherLabel);
-
-  // ★ 自由記入欄
-  const otherArea = document.createElement('div');
-  otherArea.id = 'symptomOtherArea';
-  otherArea.style.display = 'none';
-  otherArea.innerHTML = `
-    <textarea
-      id="symptomOtherText"
-      placeholder="症状を具体的に記入してください"
-    ></textarea>
-  `;
-  container.appendChild(otherArea);
-
-  // イベント
-  document
-    .getElementById('symptomOther')
-    .addEventListener('change', e => {
-      otherArea.style.display = e.target.checked ? 'block' : 'none';
-    });
+  // ★ その他（必ず最後）
+  const otherOption = document.createElement('option');
+  otherOption.value = 'OTHER';
+  otherOption.textContent = 'その他';
+  select.appendChild(otherOption);
 }
+
+
 
 
 // ================================
 // 受診科 その他自由記入 masters（UI用）
 // ================================
-function buildDepartmentOptions(departmentList) {
-  const container = document.getElementById('departmentArea');
-  container.innerHTML = '';
+function buildDepartmentOptions(list) {
+  const select = document.getElementById('department');
+  if (!select) return;
 
-  departmentList.forEach(item => {
-    const label = document.createElement('label');
-    label.innerHTML = `
-      <input type="checkbox" name="department" value="${item.department_code}">
-      ${item.department_label}
-    `;
-    container.appendChild(label);
+  select.innerHTML = '';
+
+  // プレースホルダー（残す派）
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択してください';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  select.appendChild(placeholder);
+
+  list.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.department_code;
+    option.textContent = item.department_label;
+    select.appendChild(option);
   });
 
-  // その他
-  const otherLabel = document.createElement('label');
-  otherLabel.innerHTML = `
-    <input type="checkbox" name="department" value="OTHER" id="departmentOther">
-    その他
-  `;
-  container.appendChild(otherLabel);
-
-  const otherArea = document.createElement('div');
-  otherArea.id = 'departmentOtherArea';
-  otherArea.style.display = 'none';
-  otherArea.innerHTML = `
-    <textarea
-      id="departmentOtherText"
-      placeholder="受診内容を記入してください"
-    ></textarea>
-  `;
-  container.appendChild(otherArea);
-
-  document
-    .getElementById('departmentOther')
-    .addEventListener('change', e => {
-      otherArea.style.display = e.target.checked ? 'block' : 'none';
-    });
+  // ★ その他（必ず最後）
+  const otherOption = document.createElement('option');
+  otherOption.value = 'OTHER';
+  otherOption.textContent = 'その他';
+  select.appendChild(otherOption);
 }
+
+document.getElementById('symptom').addEventListener('change', e => {
+  const otherArea = document.getElementById('symptomOtherArea');
+  if (!otherArea) return;
+
+  otherArea.style.display =
+    e.target.value === 'OTHER' ? 'block' : 'none';
+});
+
+
+document.getElementById('department').addEventListener('change', e => {
+  const otherArea = document.getElementById('departmentOtherArea');
+  if (!otherArea) return;
+
+  otherArea.style.display =
+    e.target.value === 'OTHER' ? 'block' : 'none';
+});
