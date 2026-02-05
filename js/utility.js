@@ -1,3 +1,4 @@
+/*
 function showLoading(text) {
   const loading = document.getElementById('loading');
   const loadingText = document.getElementById('loading-text');
@@ -8,6 +9,19 @@ function showLoading(text) {
 function hideLoading() {
   document.getElementById('loading').style.display = 'none';
 }
+*/
+
+function showLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.style.display = 'flex';
+}
+
+function hideLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+
 
 async function fetchMastersWithCache() {
   // ① ローカルストレージ確認

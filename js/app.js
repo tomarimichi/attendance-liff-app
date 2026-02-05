@@ -3,11 +3,12 @@
 // ================================
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    showLoading('LINEに接続しています...');
+    // showLoading('LINEに接続しています...');
+    showLoading();
+
 
     // LIFF初期化
     await liff.init({ liffId: LIFF_ID });
-
     if (!liff.isLoggedIn()) {
       liff.login();
       return;
