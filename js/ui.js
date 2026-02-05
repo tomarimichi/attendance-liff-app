@@ -197,28 +197,12 @@ function show(el) {
   el.style.display = '';
 }
 
-/*
-  function initViewMasters(viewMasters) {
-    console.log(
-      '[initViewMasters] symptoms length',
-      viewMasters.symptoms?.length
-    );
-
-    console.log('[initViewMasters] called', viewMasters);
-    buildSymptomOptions(viewMasters.symptoms);
-    buildDepartmentOptions(viewMasters.departments);
-    console.log(
-      document.getElementById('symptom').innerHTML
-    );
-
-  }
-*/
 
 function buildSymptomOptions(list) {
   const select = document.getElementById('symptom');
   if (!select) return;
 
-  select.innerHTML = '<option value="">選択してください</option>';
+  select.innerHTML = '<option disabled value="">選択してください</option>';
 
   list.forEach(item => {
     const option = document.createElement('option');
@@ -232,7 +216,7 @@ function buildDepartmentOptions(list) {
   const select = document.getElementById('department');
   if (!select) return;
 
-  select.innerHTML = '<option value="">選択してください</option>';
+  select.innerHTML = '<option disabled value="">選択してください</option>';
 
   list.forEach(item => {
     const option = document.createElement('option');

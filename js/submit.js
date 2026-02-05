@@ -1,6 +1,15 @@
 // ================================
 // submit
 // ================================
+const form = document.getElementById('absenceForm');
+
+const symptomCodes = Array.from(
+  document.querySelectorAll('input[name="symptom"]:checked')
+).map(el => el.value);
+const symptomOther =
+  symptomCodes.includes('OTHER')
+    ? document.getElementById('symptomOtherText')?.value.trim() || ''
+    : '';
 
 
 async function submitAbsence() {
@@ -145,9 +154,6 @@ function validateForm() {
 }
 
 
-
-const form = document.getElementById('absenceForm');
-
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -206,6 +212,8 @@ async function submitForm() {
         params.append('reasonCode', absenceData.reasonCode);
         params.append('visitStatus', absenceData.visitStatus);
         params.append('submissionId', submissionId);
+        params.append('symptomOther', symptomOther);
+        params.append('departmentOther', departmentOther);
 
         // 配列は join
         params.append('symptomCodes', absenceData.symptomCodes.join(','));

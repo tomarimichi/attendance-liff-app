@@ -18,34 +18,6 @@ async function fetchMasters() {
     return null;
   }
 }
-  /*
-  async function fetchMasters() {
-    const loading = document.getElementById('loading');
-    const error = document.getElementById('error');
-
-    loading.style.display = '';
-    error.style.display = 'none';
-
-    try {
-      const res = await fetch(`${GAS_URL}?type=reason_master`);
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-
-      const json = await res.json();
-
-      return json; // 正常系
-    } catch (err) {
-      console.error('[fetchMasters error]', err);
-      error.style.display = '';
-      return null; // ← 重要
-    } finally {
-      loading.style.display = 'none';
-    }
-  }
-  */
-
 
 
 // ================================
@@ -84,4 +56,92 @@ function buildViewMasters(master) {
   viewMasters.departmentList = [...master.departments].sort((a, b) => a.sort - b.sort);
 
   console.log('[view masters]', viewMasters);
+}
+
+
+// ================================
+// 症状 その他自由記入 masters（UI用）
+// ================================
+function buildSymptomOptions(symptomList) {
+  const container = document.getElementById('symptomArea');
+  container.innerHTML = '';
+
+  symptomList.forEach(item => {
+    const label = document.createElement('label');
+    label.innerHTML = `
+      <input type="checkbox" name="symptom" value="${item.symptom_code}">
+      ${item.symptom_label}
+    `;
+    container.appendChild(label);
+  });
+
+  // ★ その他を最後に追加
+  const otherLabel = document.createElement('label');
+  otherLabel.innerHTML = `
+    <input type="checkbox" name="symptom" value="OTHER" id="symptomOther">
+    その他
+  `;
+  container.appendChild(otherLabel);
+
+  // ★ 自由記入欄
+  const otherArea = document.createElement('div');
+  otherArea.id = 'symptomOtherArea';
+  otherArea.style.display = 'none';
+  otherArea.innerHTML = `
+    <textarea
+      id="symptomOtherText"
+      placeholder="症状を具体的に記入してください"
+    ></textarea>
+  `;
+  container.appendChild(otherArea);
+
+  // イベント
+  document
+    .getElementById('symptomOther')
+    .addEventListener('change', e => {
+      otherArea.style.display = e.target.checked ? 'block' : 'none';
+    });
+}
+
+
+// ================================
+// 受診科 その他自由記入 masters（UI用）
+// ================================
+function buildDepartmentOptions(departmentList) {
+  const container = document.getElementById('departmentArea');
+  container.innerHTML = '';
+
+  departmentList.forEach(item => {
+    const label = document.createElement('label');
+    label.innerHTML = `
+      <input type="checkbox" name="department" value="${item.department_code}">
+      ${item.department_label}
+    `;
+    container.appendChild(label);
+  });
+
+  // その他
+  const otherLabel = document.createElement('label');
+  otherLabel.innerHTML = `
+    <input type="checkbox" name="department" value="OTHER" id="departmentOther">
+    その他
+  `;
+  container.appendChild(otherLabel);
+
+  const otherArea = document.createElement('div');
+  otherArea.id = 'departmentOtherArea';
+  otherArea.style.display = 'none';
+  otherArea.innerHTML = `
+    <textarea
+      id="departmentOtherText"
+      placeholder="受診内容を記入してください"
+    ></textarea>
+  `;
+  container.appendChild(otherArea);
+
+  document
+    .getElementById('departmentOther')
+    .addEventListener('change', e => {
+      otherArea.style.display = e.target.checked ? 'block' : 'none';
+    });
 }
