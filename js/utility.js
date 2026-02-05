@@ -52,11 +52,17 @@ async function loadMasters() {
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
-console.log({
+console.log('[Type1]:',{
   localVersion,
   latestVersion,
   equal: localVersion === latestVersion,
   hasLocalMasters: !!localMasters,
+});
+console.log('[Type2]:',{ 
+  localVersion: localStorage.getItem(MASTER_VERSION_KEY),
+  latestVersion,
+  equal: localStorage.getItem(MASTER_VERSION_KEY) === latestVersion,
+  localMastersRaw: localStorage.getItem(MASTER_DATA_KEY),
 });
 
 
