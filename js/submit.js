@@ -205,6 +205,7 @@ async function submitForm() {
         params.append('nextTime', absenceData.nextTime);
         params.append('reasonCode', absenceData.reasonCode);
         params.append('visitStatus', absenceData.visitStatus);
+        params.append('submissionId', submissionId);
 
         // 配列は join
         params.append('symptomCodes', absenceData.symptomCodes.join(','));
