@@ -52,6 +52,14 @@ async function loadMasters() {
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
+console.log({
+  localVersion,
+  latestVersion,
+  equal: localVersion === latestVersion,
+  hasLocalMasters: !!localMasters,
+});
+
+
   if (localVersion === latestVersion && localMasters) {
     console.log('[masters] use cache', {
         serverVersion: latestVersion,
