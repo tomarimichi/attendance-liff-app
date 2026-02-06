@@ -143,7 +143,7 @@ function sanitizeBeforeSubmit(data) {
   }
 
   // 受診科は「通院あり」のときだけ有効
-  if (!['PLANNED', 'DONE'].includes(sanitized.visitStatus)) {
+  if (!['PLAN', 'DONE'].includes(sanitized.visitStatus)) {
     sanitized.departmentCodes = [];
     sanitized.departmentOther = '';
   }
