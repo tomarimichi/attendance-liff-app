@@ -12,6 +12,15 @@ const symptomOther =
     ? document.getElementById('symptomOtherText')?.value.trim() || ''
     : '';
 
+const departmentCodes = Array.from(
+  document.querySelectorAll('input[name="department"]:checked')
+  ).map(el => el.value);
+
+const departmentOther =
+  symptomCodes.includes('OTHER')
+    ? document.getElementById('departmentOtherText')?.value.trim() || ''
+    : '';
+
 
 async function submitAbsence() {
   const form = document.getElementById('absenceForm');
@@ -196,8 +205,10 @@ async function submitForm() {
             document.getElementById('symptom')?.selectedOptions || []).map(opt => opt.value),
           visitStatus: document.getElementById('visitStatus')?.value || '',
           departmentCodes: Array.from(
-            document.getElementById('department')?.selectedOptions || []
-          ).map(el => el.value)
+            document.getElementById('department')?.selectedOptions || []).map(el => el.value),
+          
+          symptomOther: document.getElementById('symptomOther')?.value || '',
+          departmentOther: document.getElementById('departmentOther')?.value || ''
         };
 
         const sanitized = sanitizeBeforeSubmit(absenceData);
