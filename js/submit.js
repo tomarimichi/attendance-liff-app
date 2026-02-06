@@ -207,8 +207,8 @@ async function submitForm() {
           departmentCodes: Array.from(
             document.getElementById('department')?.selectedOptions || []).map(el => el.value),
           
-          symptomOther: document.getElementById('symptomOther')?.value || '',
-          departmentOther: document.getElementById('departmentOther')?.value || ''
+          symptomOther: document.getElementById('symptomOtherText')?.value || '',
+          departmentOther: document.getElementById('departmentOtherText')?.value || ''
         };
 
         const sanitized = sanitizeBeforeSubmit(absenceData);
