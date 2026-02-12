@@ -64,55 +64,37 @@ function initDepartmentSelect() {
 
 
 function updateVisibility() {
-  const reasonCode = document.getElementById('reason')?.value;
-  const visitStatus = document.getElementById('visitStatus')?.value;
+  const reasonCode = document.getElementById('reason')?.value || '';
+  const visitStatus =
+    document.querySelector('input[name="visitStatus"]:checked')?.value || '';
 
-  console.log('[updateVisibility]', {reason, visitStatus});
+  console.log('[updateVisibility]', { reasonCode, visitStatus });
 
   const symptomArea = document.getElementById('symptomBlock');
   const visitArea = document.getElementById('visitStatusBlock');
   const departmentArea = document.getElementById('departmentBlock');
 
-
-  console.log('symptomBlock:', symptomArea);
-  console.log('visitBlock:', visitArea);
-  console.log('departmentBlock:', departmentArea);
-
-  if (!reasonCode) return;
-
-  console.log('if(!reasonCode)に入ったよ');
+  if (!reasonCode) {
+    console.log('if(!reasonCode)に入ったよ');
+    return;
+  }
 
   hide(symptomArea);
   hide(visitArea);
   hide(departmentArea);
 
-  // --- 体調不良 ---
   if (reasonCode === 'ILLNESS') {
     show(symptomArea);
-    show(visitArea); 
+    show(visitArea);
 
     if (visitStatus === 'PLAN' || visitStatus === 'DONE') {
       show(departmentArea);
-      console.log('[updateVisibility]', {
-        reason,
-        visitStatus
-        }
-      );
     }
-
   }
 
-  // --- 通院 ---
   if (reasonCode === 'VISIT') {
     show(departmentArea);
-
-  console.log(viewMasters.symptomList);
-  console.log(viewMasters.departmentList);
-
   }
-
-  // --- 私用 ---
-  // PRIVATE は何も表示しない
 }
 
 
