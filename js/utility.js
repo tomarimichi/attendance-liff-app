@@ -126,7 +126,7 @@ async function loadMasters() {
   return masters;
 }
 
-
+/*
 function sanitizeBeforeSubmit(data) {
   const sanitized = { ...data };
 
@@ -141,6 +141,23 @@ function sanitizeBeforeSubmit(data) {
     sanitized.departmentCodes = [];
     sanitized.departmentOther = '';
   }
+
+  return sanitized;
+}
+*/
+function sanitizeBeforeSubmit(data) {
+  const sanitized = { ...data };
+
+const isVisit = sanitized.reasonCode === 'VISIT';
+const isIllnessWithVisit =
+  sanitized.reasonCode === 'ILLNESS' &&
+  ['PLAN', 'DONE'].includes(sanitized.visitStatus);
+
+if (!(isVisit || isIllnessWithVisit)) {
+  sanitized.departmentCodes = [];
+  sanitized.departmentOther = '';
+}
+
 
   return sanitized;
 }
