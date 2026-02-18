@@ -6,7 +6,7 @@ const GAS_ID =
 
 const GAS_URL = `https://script.google.com/macros/s/${GAS_ID}/exec`;
 
-const LIFF_ID = '2008783538-yHgAa1tC';
+const LIFF_ID = '2008657935-a7glOyOk';
 
 // ✅ 固定キー
 const MASTER_DATA_KEY = 'masters';
