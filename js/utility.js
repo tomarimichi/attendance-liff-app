@@ -70,6 +70,9 @@ async function fetchMasterVersion() {
 }
 
 async function loadMasters() {
+  console.log("GAS_URL:", GAS_URL);
+  console.log("LIFF_ID:", LIFF_ID);
+
   // ① GAS の最新 version
   const latestVersion = await fetchMasterVersion();
 
