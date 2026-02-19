@@ -33,8 +33,8 @@ body {
 }
 
 // 開発モードインジケータ
-body::before {
-  content: "🎨 UI開発モード";
+.div-only p {
+  //content: "🎨 UI開発モード";
   position: fixed;
   top: 16px;
   right: 16px;

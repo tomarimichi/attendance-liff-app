@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add(`env-${ENV_NAME}`);
+});
+
+
 async function withLoading(task, options = {}) {
   const {
     text = '読み込み中…',
