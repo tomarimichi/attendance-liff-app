@@ -67,6 +67,11 @@ function updateVisibility() {
   console.log("reason raw:", document.getElementById('reason').value);
 
   const reasonCode = document.getElementById('reason')?.value;
+  if (!reason) {
+    //初期状態は全部非表示でOK
+    return;
+  }
+  
   const visitStatus = document.getElementById('visitStatus')?.value;
 
   console.log('[updateVisibility]', {reason, visitStatus});
