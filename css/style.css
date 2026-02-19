@@ -16,8 +16,7 @@ body {
   }
 }
 
-body::before {
-  content: "🎨 UI開発モード";
+.div-only p {
   position: fixed;
   top: 16px;
   right: 16px;
