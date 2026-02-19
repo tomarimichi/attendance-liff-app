@@ -1,15 +1,3 @@
-/*
-function showLoading(text) {
-  const loading = document.getElementById('loading');
-  const loadingText = document.getElementById('loading-text');
-  loadingText.textContent = text;
-  loading.style.display = '';
-}
-
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-}
-*/
 async function withLoading(task, options = {}) {
   const {
     text = '読み込み中…',
@@ -126,25 +114,7 @@ async function loadMasters() {
   return masters;
 }
 
-/*
-function sanitizeBeforeSubmit(data) {
-  const sanitized = { ...data };
 
-  // 症状は「体調不良」のときだけ有効
-  if (sanitized.reasonCode !== 'ILLNESS') {
-    sanitized.symptomCodes = [];
-    sanitized.symptomOther = '';
-  }
-
-  // 受診科は「通院あり」のときだけ有効
-  if (!['PLAN', 'DONE'].includes(sanitized.visitStatus)) {
-    sanitized.departmentCodes = [];
-    sanitized.departmentOther = '';
-  }
-
-  return sanitized;
-}
-*/
 function sanitizeBeforeSubmit(data) {
   const sanitized = { ...data };
 
