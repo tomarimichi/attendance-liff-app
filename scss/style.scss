@@ -33,6 +33,7 @@ body {
 }
 
 // 開発モードインジケータ
+/*
 body::before {
   content: "🎨 UI開発モード";
   position: fixed;
@@ -47,6 +48,7 @@ body::before {
   z-index: 9999;
   box-shadow: 0 2px 8px rgba(0,185,0,0.3);
 }
+*/
 
 // タイトル
 h3 {
