@@ -15,33 +15,52 @@ document.addEventListener('DOMContentLoaded', async () => {
     await withLoading(
       async () => {
         // LIFF初期化
+        console.log("① liff.init start");
         await liff.init({ liffId: LIFF_ID });
+        console.log("② liff.init done");
+
         if (!liff.isLoggedIn()) {
+          console.log("③ not logged in");
           liff.login();
           return;
         }
 
         // プロフィール取得
+        console.log("④ getProfile start");
         const profile = await liff.getProfile();
+        console.log("⑤ getProfile done");
+
         document.getElementById('lineUserId').value = profile.userId;
         document.getElementById('displayName').value = profile.displayName;
 
         // マスター取得
+        console.log("⑥ loadMasters start");
         const master = await loadMasters();
-        if (!master) return;
+        console.log("⑦ loadMasters done", master);
+
+        if (!master) {
+          console.log("⑧ master null");
+          return;
+          }
 
         masterRaw = master;
 
         // 整形
+        console.log("⑨ buildViewMasters");
         buildViewMasters(masterRaw);
 
         // UI初期化
+        console.log("⑩ initReasonSelect");
         initReasonSelect(viewMasters.reasonList);
+        console.log("⑪ buildSymptomOptions");
         buildSymptomOptions(viewMasters.symptomList);
+        console.log("⑫ buildDepartmentOptions");
         buildDepartmentOptions(viewMasters.departmentList);
 
         // イベント系
+        console.log("⑬ bindEvents");
         bindEvents();
+        console.log("⑭ updateVisibility");
         updateVisibility();
       },
       {
@@ -51,6 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     );
   } catch (e) {
     console.error('[LIFF init error]', e);
+    alert("JSエラー：" + e.message);
     showError();
   }
 });
