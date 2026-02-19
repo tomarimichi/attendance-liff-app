@@ -64,6 +64,8 @@ function initDepartmentSelect() {
 
 
 function updateVisibility() {
+  console.log("reason raw:", document.getElementById('reason').value);
+
   const reasonCode = document.getElementById('reason')?.value;
   const visitStatus = document.getElementById('visitStatus')?.value;
 
