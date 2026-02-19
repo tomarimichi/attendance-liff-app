@@ -74,7 +74,7 @@ function updateVisibility() {
 
   const visitStatus = document.getElementById('visitStatus')?.value;
 
-  console.log('[updateVisibility]', {reasoncode, visitStatus});
+  console.log('[updateVisibility]', {reasonCode, visitStatus});
 
   const symptomArea = document.getElementById('symptomBlock');
   const visitArea = document.getElementById('visitStatusBlock');
@@ -85,9 +85,10 @@ function updateVisibility() {
   console.log('visitBlock:', visitArea);
   console.log('departmentBlock:', departmentArea);
 
-  if (!reasonCode) return;
-
-  console.log('if(!reasonCode)に入ったよ');
+  if (!reasonCode) {
+    console.log('if(!reasonCode)に入ったよ');
+    return;
+  }
 
   hide(symptomArea);
   hide(visitArea);
@@ -101,7 +102,7 @@ function updateVisibility() {
     if (visitStatus === 'PLAN' || visitStatus === 'DONE') {
       show(departmentArea);
       console.log('[updateVisibility]', {
-        reason,
+        reasonCode,
         visitStatus
         }
       );
