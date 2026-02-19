@@ -71,10 +71,10 @@ function updateVisibility() {
     //初期状態は全部非表示でOK
     return;
   }
-  
+
   const visitStatus = document.getElementById('visitStatus')?.value;
 
-  console.log('[updateVisibility]', {reason, visitStatus});
+  console.log('[updateVisibility]', {reasoncode, visitStatus});
 
   const symptomArea = document.getElementById('symptomBlock');
   const visitArea = document.getElementById('visitStatusBlock');
