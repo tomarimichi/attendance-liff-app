@@ -67,11 +67,6 @@ function updateVisibility() {
   console.log("reason raw:", document.getElementById('reason').value);
 
   const reasonCode = document.getElementById('reason')?.value;
-  if (!reason) {
-    //初期状態は全部非表示でOK
-    return;
-  }
-
   const visitStatus = document.getElementById('visitStatus')?.value;
 
   console.log('[updateVisibility]', {reasonCode, visitStatus});
@@ -85,14 +80,13 @@ function updateVisibility() {
   console.log('visitBlock:', visitArea);
   console.log('departmentBlock:', departmentArea);
 
-  if (!reasonCode) {
-    console.log('if(!reasonCode)に入ったよ');
-    return;
-  }
-
   hide(symptomArea);
   hide(visitArea);
   hide(departmentArea);
+
+  if (!reasonCode) {
+    return;
+  }
 
   // --- 体調不良 ---
   if (reasonCode === 'ILLNESS') {
