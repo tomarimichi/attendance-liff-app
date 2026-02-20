@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     );
 
-console.log("departments:", departments);
 console.log("categories:", categories);
+console.log("departments:", departments);
 
   } catch (e) {
     console.error('[LIFF init error]', e);
