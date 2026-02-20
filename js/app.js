@@ -55,12 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("⑪ buildSymptomOptions");
         buildSymptomOptions(
           viewMasters.symptomList,
-          viewMasters.symptomCategories
+          viewMasters.symptomCategoryList
         );
         console.log("⑫ buildDepartmentOptions");
         buildDepartmentOptions(
           viewMasters.departmentList,
-          viewMasters.departmentCategories
+          viewMasters.departmentCategoryList
         );
 
         // イベント系

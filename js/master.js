@@ -87,7 +87,7 @@ function buildSymptomOptions(symptoms, categories) {
       });
 
     // 空カテゴリは出さない
-    if (optgroup.children.lenegth > 0) {
+    if (optgroup.children.length > 0) {
       select.appendChild(optgroup);
     }
   });
