@@ -75,13 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     );
 
-categories.forEach(category => {
-  console.log("category:", category.category_code);
-
-  departments.forEach(dep => {
-    console.log(" compare:", dep.category_code);
-  });
-});
+console.log("departments:", departments);
+console.log("categories:", categories);
 
   } catch (e) {
     console.error('[LIFF init error]', e);
