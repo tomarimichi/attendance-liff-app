@@ -113,7 +113,7 @@ function updateSymptomVisibility(reasonCode) {
 // ================================
 // 受診科 masters（UI用）
 // ================================
-function buildDepartmentOptions(list) {
+function buildDepartmentOptions(departments, categories) {
   const select = document.getElementById('department');
   if (!select) return;
 
