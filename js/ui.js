@@ -32,35 +32,31 @@ function initReasonSelect(reasonList) {
   });
 }
 
-function populateSymptomSelect() {
-  symptom.innerHTML = '<option value="">選択してください</option>';
 
-  viewMasters.symptoms.forEach(s => {
-    const opt = document.createElement('option');
-    opt.value = s.symptom_code;
-    opt.textContent = s.symptom_label;
-    symptom.appendChild(opt);
-  });
-}
+// 使ってない！？
+/*
+  function populateSymptomSelect() {
+    symptom.innerHTML = '';
 
+    viewMasters.symptoms.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.symptom_code;
+      opt.textContent = s.symptom_label;
+      symptom.appendChild(opt);
+    });
+  }
+  function initDepartmentSelect() {
+      department.innerHTML = '';
 
-function initDepartmentSelect() {
-  department.innerHTML = '';
+    viewMasters.departmentList.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.department_code;
+      opt.textContent = d.department_label;
+      department.appendChild(opt);
+    });
+  }
+*/
 
-  const placeholder = document.createElement('option');
-  placeholder.value = '';
-  placeholder.textContent = '選択してください';
-  placeholder.selected = true;
-  placeholder.disabled =true; //★★
-  department.appendChild(placeholder);
-
-  viewMasters.departmentList.forEach(d => {
-    const opt = document.createElement('option');
-    opt.value = d.department_code;
-    opt.textContent = d.department_label;
-    department.appendChild(opt);
-  });
-}
 
 
 function updateVisibility() {

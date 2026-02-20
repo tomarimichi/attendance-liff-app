@@ -60,20 +60,32 @@ function buildViewMasters(master) {
 
 
 // ================================
-// 症状 その他自由記入 masters（UI用）
+// 症状 masters（UI用）
 // ================================
-function buildSymptomOptions(list) {
+function buildSymptomOptions(symptoms, categories) {
   const select = document.getElementById('symptom');
   if (!select) return;
 
   select.innerHTML = '';
 
-  // マスター由来
-  list.forEach(item => {
-    const option = document.createElement('option');
-    option.value = item.symptom_code;
-    option.textContent = item.symptom_label;
-    select.appendChild(option);
+  // カテゴリ描画
+  categories.forEach(catecgory => {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = catecgory.category_label;
+
+    symptoms
+      .filter(item => item.category_code === category.category_code)
+      .forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.symptom_code;
+        option.textContent = item.symptom_label;
+        optgroup.appendChild(option);
+      });
+
+    // 空カテゴリは出さない
+    if (optgroup.children.lenegth > 0) {
+      select.appendChild(optgroup);
+    }
   });
 
   // ★ その他（必ず最後）
@@ -95,7 +107,7 @@ function updateSymptomVisibility(reasonCode) {
 
 
 // ================================
-// 受診科 その他自由記入 masters（UI用）
+// 受診科 masters（UI用）
 // ================================
 function buildDepartmentOptions(list) {
   const select = document.getElementById('department');
@@ -103,11 +115,23 @@ function buildDepartmentOptions(list) {
 
   select.innerHTML = '';
 
-  list.forEach(item => {
-    const option = document.createElement('option');
-    option.value = item.department_code;
-    option.textContent = item.department_label;
-    select.appendChild(option);
+  categories.forEach(category => {
+
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = category.category_label;
+
+    departments
+      .filter(item => item.category_code === category.category_code)
+      .forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.department_code;
+        option.textContent = item.department_label;
+        optgroup.appendChild(option);
+      });
+
+    if (optgroup.children.length > 0) {
+      select.appendChild(optgroup);
+    }
   });
 
   // ★ その他（必ず最後）

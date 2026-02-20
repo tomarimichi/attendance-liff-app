@@ -53,9 +53,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("⑩ initReasonSelect");
         initReasonSelect(viewMasters.reasonList);
         console.log("⑪ buildSymptomOptions");
-        buildSymptomOptions(viewMasters.symptomList);
+        buildSymptomOptions(
+          viewMasters.symptomList,
+          viewMasters.symptomCategories
+        );
         console.log("⑫ buildDepartmentOptions");
-        buildDepartmentOptions(viewMasters.departmentList);
+        buildDepartmentOptions(
+          viewMasters.departmentList,
+          viewMasters.departmentCategories
+        );
 
         // イベント系
         console.log("⑬ bindEvents");
@@ -75,98 +81,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-
-
-/*
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    // showLoading('LINEに接続しています...');
-    showLoading();
-
-
-    // LIFF初期化
-    await liff.init({ liffId: LIFF_ID });
-    if (!liff.isLoggedIn()) {
-      liff.login();
-      return;
-    }
-
-    // プロフィール取得
-    // showLoading('ユーザー情報を取得しています...');
-    const profile = await liff.getProfile();
-    document.getElementById('lineUserId').value = profile.userId;
-    document.getElementById('displayName').value = profile.displayName;
-
-    // マスター取得（★1回だけ）
-    // showLoading('画面を準備しています...')
-    const master = await loadMasters();
-    if (!master) {
-      // fetchMasters 側でエラー表示済み
-      return;
-    }
-
-    masterRaw = master;
-
-    // 整形
-    buildViewMasters(masterRaw);
-
-    // UI初期化
-    initReasonSelect(viewMasters.reasonList);
-    buildSymptomOptions(viewMasters.symptomList);
-    buildDepartmentOptions(viewMasters.departmentList);
-
-    // イベント系
-    bindEvents();
-    updateVisibility();
-
-  } catch (e) {
-    console.error('[LIFF init error]', e);
-  } finally {
-    hideLoading();
-  }
-});
-*/
-
-/*
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await liff.init({ liffId: LIFF_ID });
-
-    if (!liff.isLoggedIn()) {
-    liff.login(); // ← ここで一度リダイレクトされる
-    return;
-  }
-
-  // LIFF
-  const profile = await liff.getProfile();
-  console.log(profile);
-
-  document.getElementById('lineUserId').value = profile.userId;
-  document.getElementById('displayName').value = profile.displayName;
-
-  // マスター取得
-  const master = await fetchMasters();
-  // ★廃止★　initViewMasters(viewMasters);
-  console.log('testですよ')
-  if (!master) {
-    // 取得失敗時はここで止める
-    return;
-  }
-
-  masterRaw = master;
-
-  // 整形
-  buildViewMasters(masterRaw);
-
-  // 初期化
-  initReasonSelect(viewMasters.reasonList);
-  // initDepartmentSelect();
-
-  bindEvents();
-  updateVisibility();
-
-  // イベント登録（現状のままでOK）
-});
-
-*/
 
