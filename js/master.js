@@ -120,13 +120,14 @@ function buildDepartmentOptions(departments, categories) {
   select.innerHTML = '';
 
   categories.forEach(category => {
-
+console.log("category:", category.category_code);
     const optgroup = document.createElement('optgroup');
     optgroup.label = category.category_label;
 
     departments
       .filter(item => item.category_code === category.category_code)
       .forEach(item => {
+console.log(" compare:", item.category_code);
         const option = document.createElement('option');
         option.value = item.department_code;
         option.textContent = item.department_label;
