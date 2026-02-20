@@ -69,9 +69,9 @@ function buildSymptomOptions(symptoms, categories) {
   select.innerHTML = '';
 
   // カテゴリ描画
-  categories.forEach(catecgory => {
+  categories.forEach(category => {
     const optgroup = document.createElement('optgroup');
-    optgroup.label = catecgory.category_label;
+    optgroup.label = category.category_label;
 
     symptoms
       .filter(item => item.category_code === category.category_code)
