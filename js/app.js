@@ -74,6 +74,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideDelay: 300
       }
     );
+
+categories.forEach(category => {
+  console.log("category:", category.category_code);
+
+  departments.forEach(dep => {
+    console.log(" compare:", dep.category_code);
+  });
+});
+
   } catch (e) {
     console.error('[LIFF init error]', e);
     alert("JSエラー：" + e.message);

@@ -32,33 +32,6 @@ function initReasonSelect(reasonList) {
   });
 }
 
-
-// 使ってない！？
-/*
-  function populateSymptomSelect() {
-    symptom.innerHTML = '';
-
-    viewMasters.symptoms.forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s.symptom_code;
-      opt.textContent = s.symptom_label;
-      symptom.appendChild(opt);
-    });
-  }
-  function initDepartmentSelect() {
-      department.innerHTML = '';
-
-    viewMasters.departmentList.forEach(d => {
-      const opt = document.createElement('option');
-      opt.value = d.department_code;
-      opt.textContent = d.department_label;
-      department.appendChild(opt);
-    });
-  }
-*/
-
-
-
 function updateVisibility() {
   console.log("reason raw:", document.getElementById('reason').value);
 
