@@ -68,16 +68,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         bindEvents();
         console.log("⑭ updateVisibility");
         updateVisibility();
+
+console.log("categories:", viewMasters.categories);
+console.log("departments:", viewMasters.departments);
       },
       {
         text: '画面を準備しています…',
         hideDelay: 300
       }
     );
-
-console.log("categories:", categories);
-console.log("departments:", departments);
-
   } catch (e) {
     console.error('[LIFF init error]', e);
     alert("JSエラー：" + e.message);
