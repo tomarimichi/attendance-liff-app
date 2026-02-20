@@ -47,13 +47,17 @@ const visitStatusList = [
 let viewMasters = {
   reasonList: [],
   symptomList: [],
-  departmentList: []
+  symptomCategoryList:[],
+  departmentList: [],
+  departmentCategoryList: []
 };
 
 function buildViewMasters(master) {
   viewMasters.reasonList = [...master.reasons].sort((a, b) => a.sort - b.sort);
   viewMasters.symptomList = [...master.symptoms].sort((a, b) => a.sort - b.sort);
+  viewMasters.symptomCategoryList = [...master.symptomCategories].sort((a,b) =>a.sort - b.sort);
   viewMasters.departmentList = [...master.departments].sort((a, b) => a.sort - b.sort);
+  viewMasters.departmentCategoryList = [...master.departmentCategories].sort((a,b) => a.sort - b.sort);
 
   console.log('[view masters]', viewMasters);
 }
