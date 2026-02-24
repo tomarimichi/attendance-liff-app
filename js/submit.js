@@ -234,11 +234,26 @@ async function submitForm() {
         params.append('symptomCodes', sanitized.symptomCodes.join(','));
         params.append('departmentCodes', sanitized.departmentCodes.join(','));
 
-        await fetch(GAS_URL, {
+
+        
+        const response = await fetch(GAS_URL, {
         method: 'POST',
-        mode: 'no-cors',
+        // mode: 'no-cors',
+        headers:{
+          'Content-type': 'application/x-www-form-urlencoded'
+        },
         body: params
       });
+
+      if (!response.ok) {
+        throw new Error('Server error');
+      }
+
+      const result = await response.json();
+
+      if (result !== 'OK') {
+        throw new Error(result.message || 'Unknown ERROR');
+      }
       },
       {
         text: '送信しています...',
