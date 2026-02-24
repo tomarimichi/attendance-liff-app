@@ -142,7 +142,7 @@ function buildDepartmentOptions(departments, categories) {
       optgroup.label = category.category_label;
 
       departments
-        .filter(item => category_code === category.category_code)
+        .filter(item => item.category_code === category.category_code)
         .forEach(item => {
           const option = document.createElement('option');
           option.value = item.department_code;
