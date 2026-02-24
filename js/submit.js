@@ -235,7 +235,7 @@ async function submitForm() {
         params.append('departmentCodes', sanitized.departmentCodes.join(','));
 
 
-        
+
         const response = await fetch(GAS_URL, {
         method: 'POST',
         // mode: 'no-cors',
@@ -251,7 +251,7 @@ async function submitForm() {
 
       const result = await response.json();
 
-      if (result !== 'OK') {
+      if (result.status !== 'OK') {
         throw new Error(result.message || 'Unknown ERROR');
       }
       },
