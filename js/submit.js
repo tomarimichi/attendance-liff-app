@@ -251,7 +251,7 @@ async function submitForm() {
 
       const result = await response.json();
 
-      if (result.status !== 'OK') {
+      if (result.status !== 'ok') {
         throw new Error(result.message || 'Unknown ERROR');
       }
       },
