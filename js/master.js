@@ -119,15 +119,57 @@ function buildDepartmentOptions(departments, categories) {
 
   select.innerHTML = '';
 
+  // ■有効なカテゴリ数
+  const validCategories = categories.filter(category =>
+    departments.some(d => d.category_code === category.category_code)
+  );
+
+  // ◆カテゴリが1つ以下の場合
+  if(validCategories.length <=1){
+    departments.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.department_code;
+      option.textContent = item.department_label;
+      select.appendChild(option);
+    });
+
+  } else {
+
+    // ◆カテゴリが複数ある場合
+    validCategories.forEach(category => {
+
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = category.category_label;
+
+      departments
+        .filter(item => category_code === category.category_code)
+        .forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.department_code;
+          option.textContent = item.department_label;
+          optgroup.appendChild(option);
+        });
+
+      if(optgroup.children.length>0) {
+        select.appendChild(optgroup);
+      }
+    });
+  }
+
+  // その他
+  const otherOption = document.createElement('option');
+  otherOption.value = 'OTHER';
+  otherOption.textContent = 'その他';
+  select.appendChild(otherOption);
+}
+/*
   categories.forEach(category => {
-console.log("category:", category.category_code);
     const optgroup = document.createElement('optgroup');
     optgroup.label = category.category_label;
 
     departments
       .filter(item => item.category_code === category.category_code)
       .forEach(item => {
-console.log(" compare:", item.category_code);
         const option = document.createElement('option');
         option.value = item.department_code;
         option.textContent = item.department_label;
@@ -145,6 +187,7 @@ console.log(" compare:", item.category_code);
   otherOption.textContent = 'その他';
   select.appendChild(otherOption);
 }
+*/
 
 // 表示制御
 function updateDepartmentVisibility(visitStatus) {
