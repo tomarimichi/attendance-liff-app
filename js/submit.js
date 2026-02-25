@@ -1,3 +1,17 @@
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  console.log('[form submit]');
+
+  const errorMessage = validateForm();
+  if (errorMessage) {
+    alert(errorMessage);
+    return;
+  }
+
+  await submitForm();
+});
+
 // ================================
 // submit
 // ================================
@@ -164,20 +178,6 @@ function validateForm() {
 }
 
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  console.log('[form submit]');
-
-  const errorMessage = validateForm();
-  if (errorMessage) {
-    alert(errorMessage);
-    return;
-  }
-
-  await submitForm();
-});
-
 
 
 async function submitForm() {
@@ -235,6 +235,7 @@ async function submitForm() {
         params.append('departmentCodes', sanitized.departmentCodes.join(','));
 
 
+console.log('[submit params]', params.toString());
 
         const response = await fetch(GAS_URL, {
         method: 'POST',
