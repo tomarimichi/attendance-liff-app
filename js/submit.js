@@ -181,7 +181,7 @@ form.addEventListener('submit', async (e) => {
 
 
 async function submitForm() {
-  clearFormError();
+  // clearFormError();
   const btn = document.getElementById('sendBtn');
   btn.disabled = true;
   btn.textContent = '送信中...';
