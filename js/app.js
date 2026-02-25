@@ -111,5 +111,11 @@ async function postToGAS(type, extraParams = {}) {
     throw new Error(result.message || 'GAS error');
   }
 
-  return result.data;
+  if (result.data !== undefined) {
+    return result.data;
+  }
+
+  const { status, ...rest } =result;
+
+  return rest;
 }
