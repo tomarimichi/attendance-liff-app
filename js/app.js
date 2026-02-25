@@ -107,8 +107,9 @@ async function postToGAS(type, extraParams = {}) {
 
   const result = await res.json();
 
-  if (result.status !== 'ok') {
-    throw new Error(result.message || 'GAS error');
+  if (!result || result.status !== 'ok') {
+    console.error('[GAS error]', result)
+    throw new Error(result.message || 'unknown error');
   }
 
   if (result.data !== undefined) {

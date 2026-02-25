@@ -181,6 +181,7 @@ form.addEventListener('submit', async (e) => {
 
 
 async function submitForm() {
+  clearFormError();
   const btn = document.getElementById('sendBtn');
   btn.disabled = true;
   btn.textContent = '送信中...';
@@ -189,74 +190,17 @@ async function submitForm() {
     isSubmitting = true;
     await withLoading(
       async () => {
-        const absenceData = {
-          // LINE User data
-          lineUserId: document.getElementById('lineUserId').value,
-          displayName: document.getElementById('displayName').value,
-
-          // HTML入力
-          absentDate: document.getElementById('absentDate').value,
-          nextDate: document.getElementById('nextDate').value,
-          nextTime: document.getElementById('nextTime').value,
-
-          // 既存
-          reasonCode: document.getElementById('reason')?.value || '',
-          symptomCodes: Array.from(
-            document.getElementById('symptom')?.selectedOptions || []).map(opt => opt.value),
-          visitStatus: document.getElementById('visitStatus')?.value || '',
-          departmentCodes: Array.from(
-            document.getElementById('department')?.selectedOptions || []).map(el => el.value),
-          
-          symptomOther: document.getElementById('symptomOtherText')?.value || '',
-          departmentOther: document.getElementById('departmentOtherText')?.value || ''
-        };
-
+        const absenceData = collectAbsenceDataFromForm();
         const sanitized = sanitizeBeforeSubmit(absenceData);
+
         console.log('[submitForm] sanitized',sanitized);
 
-        // console.log('[submitForm] send data', absenceData);
-
-        const params = new URLSearchParams();
-
-        params.append('type', 'submit_absence');
-        
-        // 単純な値
-        params.append('submissionId', submissionId);
-        params.append('lineUserId', sanitized.lineUserId);
-        params.append('displayName', sanitized.displayName);
-        params.append('absentDate', sanitized.absentDate);
-        params.append('nextDate', sanitized.nextDate);
-        params.append('nextTime', sanitized.nextTime);
-        params.append('reasonCode', sanitized.reasonCode);
-        params.append('visitStatus', sanitized.visitStatus);
-        params.append('symptomOther', sanitized.symptomOther);
-        params.append('departmentOther', sanitized.departmentOther);
-
-        // 配列は join
-        params.append('symptomCodes', sanitized.symptomCodes.join(','));
-        params.append('departmentCodes', sanitized.departmentCodes.join(','));
-
-
-console.log('[submit params]', params.toString());
-
-        const response = await fetch(GAS_URL, {
-        method: 'POST',
-        // mode: 'no-cors',
-        headers:{
-          'Content-type': 'application/x-www-form-urlencoded'
-        },
-        body: params
-      });
-
-      if (!response.ok) {
-        throw new Error('Server error');
-      }
-
-      const result = await response.json();
-
-      if (result.status !== 'ok') {
-        throw new Error(result.message || 'Unknown ERROR');
-      }
+        await postToGAS('submit_absence',{
+          submissionId,
+          ...sanitized,
+          symptomCodes: sanitized.symptomCodes.join(','),
+          departmentCodes: sanitized.departmentCodes.join(',')
+        });
       },
       {
         text: '送信しています...',
@@ -280,9 +224,67 @@ console.log('[submit params]', params.toString());
       'お手数ですが、LINEのトークで\n' +
       '直接ご連絡ください'
     );
-
-    if (liff.isInClient()) {
-      liff.closeWindow();
-    }
+    /*
+      if (liff.isInClient()) {
+        liff.closeWindow();
+      }
+    */
   }
 }
+
+// ================================
+// DOM取得関数part1
+// ================================
+function collectAbsenceDataFromForm() {
+  return {
+    // LINE User data
+    lineUserId: document.getElementById('lineUserId').value,
+    displayName: document.getElementById('displayName').value,
+
+    // HTML出力
+    absentDate: document.getElementById('absentDate').value,
+    nextDate: document.getElementById('nextDate').value,
+    nextTime: document.getElementById('nextTime').value,
+
+    // 既存データ
+    reasonCode: document.getElementById('reason')?.value || '',
+
+    symptomCodes: Array.from(
+      document.getElementById('symptom')?.selectedOptions || []
+    ).map(opt => opt.value),
+
+    visitStatus: document.getElementById('visitStatus')?.value || '',
+
+    departmentCodes: Array.from(
+      document.getElementById('department')?.selectedOptions || []
+    ).map(opt => opt.value),
+
+    symptomOther: document.getElementById('symptomOtherText')?.value || '',
+    departmentOther: document.getElementById('departmentOtherText')?.value || ''
+  };
+}
+
+/*
+  const params = new URLSearchParams();
+  // 単純な値
+  params.append('type', 'submit_absence');
+  
+  params.append('submissionId', submissionId);
+  params.append('lineUserId', sanitized.lineUserId);
+  params.append('displayName', sanitized.displayName);
+  params.append('absentDate', sanitized.absentDate);
+  params.append('nextDate', sanitized.nextDate);
+  params.append('nextTime', sanitized.nextTime);
+  params.append('reasonCode', sanitized.reasonCode);
+  params.append('visitStatus', sanitized.visitStatus);
+  params.append('symptomOther', sanitized.symptomOther);
+  params.append('departmentOther', sanitized.departmentOther);
+
+  // 配列は join
+  params.append('symptomCodes', sanitized.symptomCodes.join(','));
+  params.append('departmentCodes', sanitized.departmentCodes.join(','));
+
+
+  console.log('[submit params]', params.toString());
+*/
+
