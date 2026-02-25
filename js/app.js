@@ -111,5 +111,5 @@ async function postToGAS(type, extraParams = {}) {
     throw new Error(result.message || 'GAS error');
   }
 
-  return result;
+  return result.data;
 }
