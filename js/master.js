@@ -8,6 +8,7 @@ let symptomList = [];
 let departmentList = [];
 
 // master.js
+/*
 async function fetchMasters() {
   try {
     const res = await fetch(`${GAS_URL}?type=reason_master`);
@@ -18,7 +19,11 @@ async function fetchMasters() {
     return null;
   }
 }
-
+*/
+async function fetchMasters() {
+  const result = await postToGAS('reason_master');
+  return result;
+}
 
 // ================================
 // visit status master

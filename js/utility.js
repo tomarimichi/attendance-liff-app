@@ -68,12 +68,16 @@ async function fetchMastersWithCache() {
 }
 
 async function fetchMasterVersion() {
-  const res = await fetch(`${GAS_URL}?type=master_version`);
-  if (!res.ok) throw new Error('master_version fetch failed');
-  const json = await res.json();
-  return json.masterVersion;
+  const result = await postToGAS('master_version');
+  return result.masterVersion;
 }
 
+async function fetchReasonMaster() {
+  const result = await postToGAS('reason_master');
+  return result.reasons; // ← GAS側の返却キーに合わせる
+}
+
+/*
 async function loadMasters() {
   console.log("GAS_URL:", GAS_URL);
   console.log("LIFF_ID:", LIFF_ID);
@@ -121,7 +125,31 @@ async function loadMasters() {
 
   return masters;
 }
+*/
+async function loadMasters() {
+  console.log("GAS_URL:", GAS_URL);
+  console.log("LIFF_ID:", LIFF_ID);
 
+  // ① 最新バージョン取得
+  const latestVersion = await fetchMasterVersion();
+
+  const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
+  const localMasters = localStorage.getItem(MASTER_DATA_KEY);
+
+  if (localVersion === latestVersion && localMasters) {
+    console.log('[masters] use cache');
+    return JSON.parse(localMasters);
+  }
+
+  console.log('[masters] fetch from GAS');
+
+  const masters = await fetchMasters();
+
+  localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
+  localStorage.setItem(MASTER_DATA_KEY, JSON.stringify(masters));
+
+  return masters;
+}
 
 function sanitizeBeforeSubmit(data) {
   const sanitized = { ...data };

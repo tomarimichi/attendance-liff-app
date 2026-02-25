@@ -85,3 +85,31 @@ console.log("departments:", viewMasters.departments);
 });
 
 
+async function postToGAS(type, extraParams = {}) {
+  const params = new URLSearchParams();
+  params.append('type', type);
+
+  Object.entries(extraParams).forEach(([key, value]) => {
+    params.append(key, value);
+  });
+
+  const res = await fetch(GAS_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: params
+  });
+
+  if (!res.ok) {
+    throw new Error('Network error');
+  }
+
+  const result = await res.json();
+
+  if (result.status !== 'ok') {
+    throw new Error(result.message || 'GAS error');
+  }
+
+  return result;
+}
