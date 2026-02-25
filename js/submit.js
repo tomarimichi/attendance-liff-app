@@ -1,16 +1,3 @@
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  console.log('[form submit]');
-
-  const errorMessage = validateForm();
-  if (errorMessage) {
-    alert(errorMessage);
-    return;
-  }
-
-  await submitForm();
-});
 
 // ================================
 // submit
@@ -177,6 +164,19 @@ function validateForm() {
   return null; // OK
 }
 
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  console.log('[form submit]');
+
+  const errorMessage = validateForm();
+  if (errorMessage) {
+    alert(errorMessage);
+    return;
+  }
+
+  await submitForm();
+});
 
 
 
