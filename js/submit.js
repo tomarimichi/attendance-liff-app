@@ -218,6 +218,8 @@ async function submitForm() {
 
         const params = new URLSearchParams();
 
+        params.append('type', 'submit_absence');
+        
         // 単純な値
         params.append('submissionId', submissionId);
         params.append('lineUserId', sanitized.lineUserId);
