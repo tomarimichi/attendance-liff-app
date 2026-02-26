@@ -69,7 +69,7 @@ async function fetchMastersWithCache() {
 
 async function fetchMasterVersion() {
   const result = await postToGAS('master_version');
-  console.log('[master_version raw]', result);
+  console.log('[master_version raw]', result.getMasterVersion);
   return result.getMasterVersion;
 }
 
