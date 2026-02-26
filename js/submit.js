@@ -195,7 +195,7 @@ async function submitForm() {
 
         console.log('[submitForm] sanitized',sanitized);
 
-        await postToGAS('submit_absence',{
+        const result = await postToGAS('submit_absence',{
           submissionId,
           ...sanitized,
           symptomCodes: sanitized.symptomCodes.join(','),
