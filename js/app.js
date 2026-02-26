@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return;
           }
 
-        masterRaw = master;
+        masterRaw = master.data; //👈
 
         // 整形
         console.log("⑨ buildViewMasters");
