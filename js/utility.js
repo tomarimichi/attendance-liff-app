@@ -69,15 +69,16 @@ async function fetchMastersWithCache() {
 
 async function fetchMasterVersion() {
   const result = await postToGAS('master_version');
-  console.log('[master_version raw]', result)
+  console.log('[master_version raw]', result);
   return result.masterVersion;
 }
 
+/*
 async function fetchReasonMaster() {
   const result = await postToGAS('reason_master');
   return result.reasons; // ← GAS側の返却キーに合わせる
 }
-
+*/
 /*
 async function loadMasters() {
   console.log("GAS_URL:", GAS_URL);
