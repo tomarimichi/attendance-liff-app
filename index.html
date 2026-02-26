@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/02/26 14:42">
+    <meta name="last-updated" content="2026/02/26 15:18">
 
   <meta charset="utf-8">
 
@@ -49,102 +49,117 @@
     <h3>欠席・遅刻連絡フォーム</h3>
 
 
-    <div class="main-form">
+    <div class="main-Fields">
       <form id="absenceForm">
-        <!-- 欠席・遅刻日 -->
-        <div class="form-field">
-          <label for="absentDate" class="required">欠席・遅刻日</label>
-          <input type="date" id="absentDate" name="absentDate" required>
-        </div>
-
-        <!-- 欠席・遅刻理由 -->
-        <div class="form-field">
-          <label for="reason" class="required">欠席・遅刻理由</label>
-          <select id="reason" name="reason" required>
-          </select>
-        </div>
-
-
-        <!-- 理由詳細 -->
-        <div class="form-field">
-          <div id="detailBlock" style="display:none;">
-            <label for="detail" class="required">詳細</label>
-            <select id="detail" name="detail"></select>
+        <!-- 入力エリア -->
+        <div id="formFields">
+          <!-- 欠席・遅刻日 -->
+          <div class="form-field">
+            <label for="absentDate" class="required">欠席・遅刻日</label>
+            <input type="date" id="absentDate" name="absentDate" required>
           </div>
-        </div>
 
-        <!-- 症状 -->
-        <div class="form-field">
-          <div id="symptomBlock" style="display:none;">
-            <label for="symptom" class="required">症状（複数選択可）</label>
-            <select id="symptom" name="symptom" multiple>
+          <!-- 欠席・遅刻理由 -->
+          <div class="form-field">
+            <label for="reason" class="required">欠席・遅刻理由</label>
+            <select id="reason" name="reason" required>
             </select>
           </div>
-        </div>
 
-        <!-- 症状その他 自由記入 -->
-          <div id="symptomOtherArea" class="form-field" style="display:none;">
-            <label for="symptomOther">その他 自由記入</label>
-            <textarea
-              id="symptomOtherText"
-              placeholder="症状を具体的に記入してください"
-            ></textarea>
+
+          <!-- 理由詳細 -->
+          <div class="form-field">
+            <div id="detailBlock" style="display:none;">
+              <label for="detail" class="required">詳細</label>
+              <select id="detail" name="detail"></select>
+            </div>
           </div>
 
-        <!-- 通院有無 -->
-        <div class="form-field">
-          <div id="visitStatusBlock" style="display: none;">
-            <label for="visitStatus" class="required">通院有無・予定</label>
-            <select id="visitStatus" name="visitStatus">
-              <option value="">選択してください</option>
-              <option value="NONE">予定なし</option>
-              <option value="PLAN">受診予定あり</option>
-              <option value="DONE">受診済み</option>
-            </select>
+          <!-- 症状 -->
+          <div class="form-field">
+            <div id="symptomBlock" style="display:none;">
+              <label for="symptom" class="required">症状（複数選択可）</label>
+              <select id="symptom" name="symptom" multiple>
+              </select>
+            </div>
+          </div>
+
+          <!-- 症状その他 自由記入 -->
+            <div id="symptomOtherArea" class="form-field" style="display:none;">
+              <label for="symptomOther">その他 自由記入</label>
+              <textarea
+                id="symptomOtherText"
+                placeholder="症状を具体的に記入してください"
+              ></textarea>
+            </div>
+
+          <!-- 通院有無 -->
+          <div class="form-field">
+            <div id="visitStatusBlock" style="display: none;">
+              <label for="visitStatus" class="required">通院有無・予定</label>
+              <select id="visitStatus" name="visitStatus">
+                <option value="">選択してください</option>
+                <option value="NONE">予定なし</option>
+                <option value="PLAN">受診予定あり</option>
+                <option value="DONE">受診済み</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 受診科 -->
+          <div class="form-field">
+            <div id="departmentBlock" style="display: none;">
+              <label for="department" class="required">受診科（複数選択可）</label>
+              <select id="department" name="department" multiple>
+              </select>
+            </div>
+          </div>
+
+          <!-- 受診科その他 自由記入 -->
+            <div id="departmentOtherArea" class="form-field" style="display:none;">
+              <label for="departmentOther">その他 自由記入</label>
+              <textarea
+                id="departmentOtherText"
+                placeholder=""
+              ></textarea>
+            </div>
+
+
+          <div class="form-field">
+            <label for="nextDate" class="required">次回通所予定日</label>
+            <input type="date" id="nextDate" name="nextDate" class="absentDate-input" required>
+          </div>
+
+          <div class="form-field">
+            <label for="nextTime">遅刻予定（時刻が分かる場合）</label>
+            <input type="time" id="nextTime" name="nextTime" class="time-input">
+          </div>
+
+          <!-- 隠しフィールド -->
+          <div class="HiddenDiv">
+            <input type="hidden" id="lineUserId" name="lineUserId">
+            <input type="hidden" id="displayName" name="displayName">
+
+            <input type="hidden" id="liffVersion" name="liffVersion">
           </div>
         </div>
 
-        <!-- 受診科 -->
-        <div class="form-field">
-          <div id="departmentBlock" style="display: none;">
-            <label for="department" class="required">受診科（複数選択可）</label>
-            <select id="department" name="department" multiple>
-            </select>
-          </div>
-        </div>
+        <!-- 送信ボタン -->
+        <button type="submit" id="sendBtn">>
+          送信する
+        </button>
 
-        <!-- 受診科その他 自由記入 -->
-          <div id="departmentOtherArea" class="form-field" style="display:none;">
-            <label for="departmentOther">その他 自由記入</label>
-            <textarea
-              id="departmentOtherText"
-              placeholder=""
-            ></textarea>
-          </div>
-
-
-        <div class="form-field">
-          <label for="nextDate" class="required">次回通所予定日</label>
-          <input type="date" id="nextDate" name="nextDate" class="absentDate-input" required>
-        </div>
-
-        <div class="form-field">
-          <label for="nextTime">遅刻予定（時刻が分かる場合）</label>
-          <input type="time" id="nextTime" name="nextTime" class="time-input">
-        </div>
-
-        <!-- 隠しフィールド -->
-        <div class="HiddenDiv">
-          <input type="hidden" id="lineUserId" name="lineUserId">
-          <input type="hidden" id="displayName" name="displayName">
-
-          <input type="hidden" id="liffVersion" name="liffVersion">
-        </div>
-
-
-        <button type="submit" id="sendBtn">>送信</button>
+        <!-- ステータス表示エリア -->
+        <div id="statusArea" class="status hidden">
+          <div class="status-icon"></div>
+          <div class="status-title"></div>
+          <div class="status-message"></div>
+          <div class="status-actions"></div>
+        </div>        
       </form>
     </div>
+
+
     
 
 
