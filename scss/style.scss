@@ -3,298 +3,330 @@
 // ========================================
 
 // 変数定義
-$green: #00b900;
-$green-dark: #00a300;
-$red: #ff4444;
-$gray-light: #f5f5f5;
-$border-radius: 8px;
-$spacing-sm: 12px;
-$spacing-md: 16px;
-$spacing-lg: 24px;
+  $green: #00b900;
+  $green-dark: #00a300;
+  $red: #ff4444;
+  $gray-light: #f5f5f5;
+  $border-radius: 8px;
+  $spacing-sm: 12px;
+  $spacing-md: 16px;
+  $spacing-lg: 24px;
 
 // レスポンスブレークポイント
-$mobile: 480px;
+  $mobile: 480px;
 
 // リセット・ベース
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
-  margin: 0;
-  padding: $spacing-lg;
-  background: linear-gradient(135deg, #f8f9ff 0%, #fafafa 100%);
-  min-height: 100vh;
-  
-  @media (max-width: $mobile) {
-    padding: $spacing-md;
+  * {
+    box-sizing: border-box;
   }
-}
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+    margin: 0;
+    padding: $spacing-lg;
+    background: linear-gradient(135deg, #f8f9ff 0%, #fafafa 100%);
+    min-height: 100vh;
+    
+    @media (max-width: $mobile) {
+      padding: $spacing-md;
+    }
+  }
 
 // 開発モードインジケータ
-.div-only p {
-  //content: "🎨 UI開発モード";
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  background: rgba($green, 0.9);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  z-index: 9999;
-  box-shadow: 0 2px 8px rgba(0,185,0,0.3);
-}
+  .div-only p {
+    //content: "🎨 UI開発モード";
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: rgba($green, 0.9);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0,185,0,0.3);
+  }
 
 // タイトル
-h3 {
-  color: $green;
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0 0 $spacing-lg 0;
-  text-align: center;
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: $green;
-    border-radius: 2px;
+  h3 {
+    color: $green;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 $spacing-lg 0;
+    text-align: center;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: $green;
+      border-radius: 2px;
+    }
+    
+    @media (max-width: $mobile) {
+      font-size: 20px;
+    }
   }
-  
-  @media (max-width: $mobile) {
-    font-size: 20px;
-  }
-}
 
 // フォームコンテナ
-.form-container {
-  // max-width: 480px;
-  margin: 0 auto;
-  background: white;
-  padding: $spacing-lg;
-  border-radius: $border-radius;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-}
+  .form-container {
+    // max-width: 480px;
+    margin: 0 auto;
+    background: white;
+    padding: $spacing-lg;
+    border-radius: $border-radius;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
 
 // ラベル（必須項目強調）
-label {
-  display: block;
-  font-size: 15px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 6px;
+  label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
 
-  &.required::after {
-      content: " *";
-      color: red;
-      font-weight: 800;
+    &.required::after {
+        content: " *";
+        color: red;
+        font-weight: 800;
+    }
   }
-}
 
 
 
 // 入力フォーム
-input, select, textarea {
-  width: 100%;
-//   max-width: 400px;
-  margin: 0 auto;
-  display: block;
-  padding: 16px;
-  border: 2px solid #e1e5e9;
-  border-radius: $border-radius;
-  font-size: 16px;
-  transition: all 0.2s ease;
-  background: white;
-  
-  &:focus {
-    border-color: $green;
-    box-shadow: 0 0 0 4px rgba($green, 0.1);
-    outline: none;
-    transform: translateY(-1px);
-  }
-  
-  &::placeholder {
-    color: #999;
-  }
-}
-
-textarea {
-  // width: 92%;
+  input, select, textarea {
+    width: 100%;
   //   max-width: 400px;
-  margin: 0 auto;
-  display: block;
-  padding: 16px;
-  border: 2px solid #e1e5e9;
-  border-radius: $border-radius;
-  font-size: 16px;
-  font-family: inherit;  // フォント継承
-  line-height: 1.5;      // 行間調整
-  min-height: 96px;      // 初期2行（16px*1.5*4行分）
-  max-height: 300px;     // 最大高さ制限
-  overflow-y: auto;      // 縦スクロール
-  resize: vertical;      // 縦のみリサイズ可
-  transition: all 0.2s ease;
-  
-  &:focus {
-    border-color: $green;
-    box-shadow: 0 0 0 4px rgba($green, 0.1);
-    outline: none;
+    margin: 0 auto;
+    display: block;
+    padding: 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: $border-radius;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    background: white;
+    
+    &:focus {
+      border-color: $green;
+      box-shadow: 0 0 0 4px rgba($green, 0.1);
+      outline: none;
+      transform: translateY(-1px);
+    }
+    
+    &::placeholder {
+      color: #999;
+    }
   }
-}
+
+  textarea {
+    // width: 92%;
+    //   max-width: 400px;
+    margin: 0 auto;
+    display: block;
+    padding: 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: $border-radius;
+    font-size: 16px;
+    font-family: inherit;  // フォント継承
+    line-height: 1.5;      // 行間調整
+    min-height: 96px;      // 初期2行（16px*1.5*4行分）
+    max-height: 300px;     // 最大高さ制限
+    overflow-y: auto;      // 縦スクロール
+    resize: vertical;      // 縦のみリサイズ可
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: $green;
+      box-shadow: 0 0 0 4px rgba($green, 0.1);
+      outline: none;
+    }
+  }
 
 
 // 送信ボタン（目玉機能）
-button {
-  width: 100%;
-  padding: 20px;
-  margin-top: $spacing-lg;
-  background: linear-gradient(135deg, $green, $green-dark);
-  color: white;
-  border: none;
-  border-radius: $border-radius;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba($green, 0.3);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+  button {
+    width: 100%;
+    padding: 20px;
+    margin-top: $spacing-lg;
+    background: linear-gradient(135deg, $green, $green-dark);
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba($green, 0.3);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba($green, 0.4);
+      background: linear-gradient(135deg, $green-dark, darken($green-dark, 5%));
+    }
+    
+    &:active::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    @media (max-width: $mobile) {
+      padding: 18px;
+      font-size: 16px;
+    }
   }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba($green, 0.4);
-    background: linear-gradient(135deg, $green-dark, darken($green-dark, 5%));
-  }
-  
-  &:active::before {
-    width: 300px;
-    height: 300px;
-  }
-  
-  @media (max-width: $mobile) {
-    padding: 18px;
-    font-size: 16px;
-  }
-}
 
 // レスポンシブ
-@media (max-width: $mobile) {
-  .form-container {
-    padding: $spacing-md;
-    margin: $spacing-md;
+  @media (max-width: $mobile) {
+    .form-container {
+      padding: $spacing-md;
+      margin: $spacing-md;
+    }
   }
-}
 
 // iPhone日付・時間入力はみ出し対策
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"] {
-  width: 92% !important;
-  // max-width: 360px !important;
-  margin: 0 auto !important;
-  display: block !important;
-  padding: 18px 16px !important;
-  
-  // iPhone SafariネイティブUI調整
-  -webkit-appearance: none;
-  appearance: none;
-  
-  // フォールバック（効かない場合）
-  box-sizing: border-box !important;
-  
-  @media (max-width: 414px) {
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"] {
     width: 92% !important;
-    // max-width: 340px !important;
+    // max-width: 360px !important;
+    margin: 0 auto !important;
+    display: block !important;
+    padding: 18px 16px !important;
+    
+    // iPhone SafariネイティブUI調整
+    -webkit-appearance: none;
+    appearance: none;
+    
+    // フォールバック（効かない場合）
+    box-sizing: border-box !important;
+    
+    @media (max-width: 414px) {
+      width: 92% !important;
+      // max-width: 340px !important;
+    }
   }
-}
 
 // 親ラベルも確実に中央配置
-.form-field input[type="date"],
-.form-field input[type="time"] {
-  width: 92% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
+  .form-field input[type="date"],
+  .form-field input[type="time"] {
+    width: 92% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 
 
 // test
-.date-picker, .time-picker {
-  width: 92% !important;
-  // max-width: 360px !important;
-  margin: 0 auto !important;
-  display: block !important;
-  padding: 18px 16px !important;
-  font-size: 16px !important;
-  border: 2px solid #e1e5e9 !important;
-  border-radius: $border-radius !important;
-  
-  &::placeholder {
-    color: #999;
+  .date-picker, .time-picker {
+    width: 92% !important;
+    // max-width: 360px !important;
+    margin: 0 auto !important;
+    display: block !important;
+    padding: 18px 16px !important;
+    font-size: 16px !important;
+    border: 2px solid #e1e5e9 !important;
+    border-radius: $border-radius !important;
+    
+    &::placeholder {
+      color: #999;
+    }
   }
-}
 
 /* 黄金比レイアウト（最優先） */
-form {
-  max-width: 92vw;
-  margin: 0 6vw;
-  padding: 20px 16px;
-  box-sizing: border-box;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-}
+  form {
+    max-width: 92vw;
+    margin: 0 6vw;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
 
 /* プログレススピナー */
-.loading-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 9999;
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  .loading-box {
-    text-align: center;
-    color: #555;
+    .loading-box {
+      text-align: center;
+      color: #555;
 
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #ccc;
-      border-top-color: #1976d2;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 12px;
-    }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #ccc;
+        border-top-color: #1976d2;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 12px;
+      }
 
-    #loading-text {
-      font-size: 14px;
+      #loading-text {
+        font-size: 14px;
+      }
     }
   }
-}
+
+/* ステータス表示エリア */
+  .status {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .status.success {
+    background: #e6f7ec;
+    color: #1a7f37;
+  }
+
+  .status.warning {
+    background: #fff4e5;
+    color: #b26a00;
+  }
+
+  .status.error {
+    background: #fdecea;
+    color: #b42318;
+  }
+
+  .status.loading {
+    background: #eef2ff;
+    color: #3730a3;
+  }
+
+  .hidden {
+    display: none;
+  }
 
 @keyframes spin {
   to {

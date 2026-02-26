@@ -102,12 +102,6 @@ async function submitAbsence() {
     return;
   }
 
-
-  if (needDepartment && !params.department) {
-    alert('受診科を選択してください');
-    return;
-  }
-
   // ===== 送信 =====
   await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
   liff.closeWindow();
@@ -185,6 +179,7 @@ async function submitForm() {
   const btn = document.getElementById('sendBtn');
   btn.disabled = true;
   btn.textContent = '送信中...';
+  setStatus('loading','送信しています...');
 
   try {
     isSubmitting = true;
@@ -208,6 +203,26 @@ async function submitForm() {
       }
     );
 
+    if (result.lwSuccess) {
+      setStatus('success', '送信が完了しました');
+    } else {
+      setStatus('warning','受付は完了しましたが通知に失敗しました。');
+    }
+
+    if (liff.isInClient()) {
+      setTimeout(() => liff.closeWindow(), 1500);
+    }
+
+  } catch (e) {
+    setStatus('error',
+      '送信できませんでした。\nLINEのトークから直接ご連絡ください。'
+    );
+
+    btn.disabled = false;
+  }
+
+
+    /*
     alert('送信しました');
     if (liff.isInClient()) {
       liff.closeWindow();
@@ -224,7 +239,7 @@ async function submitForm() {
       'お手数ですが、LINEのトークで\n' +
       '直接ご連絡ください'
     );
-    /*
+
       if (liff.isInClient()) {
         liff.closeWindow();
       }

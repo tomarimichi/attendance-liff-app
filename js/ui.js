@@ -152,4 +152,11 @@ function show(el) {
   el.style.display = '';
 }
 
-
+// ================================
+// ステータス表示エリア関数
+// ================================
+function setStatus(type, message) {
+  const el = document.getElementById('statusArea');
+  el.className = `status ${type}`;
+  el.textContent = message;
+}

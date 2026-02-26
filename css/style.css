@@ -252,6 +252,38 @@ form {
   font-size: 14px;
 }
 
+/* ステータス表示エリア */
+.status {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.status.success {
+  background: #e6f7ec;
+  color: #1a7f37;
+}
+
+.status.warning {
+  background: #fff4e5;
+  color: #b26a00;
+}
+
+.status.error {
+  background: #fdecea;
+  color: #b42318;
+}
+
+.status.loading {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.hidden {
+  display: none;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
