@@ -2,7 +2,7 @@
 // 設定
 // ================================
 const GAS_ID = 
-'AKfycbw2lyjG-T-XN8xY3KJJGfzMN-rZ8MVMjHBB44TBxQyzi_9SzL66w-mMLknzjwzhQqWiyw';
+'AKfycbwVGrn8Ku9IftAs-NctGTVsg-zbDYULfKojWYOLKucgkbOIfq43c9nuT_nfI9ThnycnKQ';
 
 const GAS_URL = `https://script.google.com/macros/s/${GAS_ID}/exec`;
 
