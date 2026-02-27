@@ -21,10 +21,13 @@ function bindEvents() {
   // ===== submit =====
   form?.addEventListener('submit',async (e) => {
     console.log("🚀 submit start");
+    console.log("params:", params);
+    console.log("symptomValues:", symptomValues);
+    console.log("departmentValues:", departmentValues);
     e.preventDefault();
 
     const params = buildParams(form);
-    const error = validateForm(params);
+    const error = validateForm(params, symptomValues, departmentValues);
 
     if (error) {
       alert(error);
