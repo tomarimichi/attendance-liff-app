@@ -25,6 +25,7 @@ function bindEvents() {
     e.preventDefault();
     console.log("🚀 submit start");
   console.log("reasonList:", reasonList);
+  console.log("viewMasters.reasonList:", viewMasters.reasonList);
   // console.log("selected reason:", params.reason);
 
     const { params, symptomValues, departmentValues } = buildParams(form);
