@@ -10,7 +10,7 @@ async function withLoading(task, options = {}) {
     type = 'normal'
   } = options;
 
-  showLoading(text);
+  showLoading(text,type);
 
   try {
     return await task();
@@ -19,7 +19,7 @@ async function withLoading(task, options = {}) {
   }
 }
 
-function showLoading(text = '読み込み中…') {
+function showLoading(text = '読み込み中…', type = 'normal') {
   const loadingText = document.getElementById('loading-text');
   if (loadingText) {
     loadingText.textContent = text;
