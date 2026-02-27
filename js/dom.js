@@ -35,6 +35,8 @@ function bindEvents() {
       return;
     }
 
+    console.log("✅ validation passed");
+
     // await sendToGAS(params, symptomValues, departmentValues);
     
   });

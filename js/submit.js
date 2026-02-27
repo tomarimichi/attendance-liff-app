@@ -260,7 +260,7 @@ function validateForm(params, symptomValues, departmentValues) {
 
   return null; // エラーなし
 }
-
+/*
 async function sendToGAS(params, symptomValues, departmentValues) {
 
   // 送信直前に文字列化（join方式統一）
@@ -286,6 +286,7 @@ async function sendToGAS(params, symptomValues, departmentValues) {
     setTimeout(() => liff.closeWindow(), 2000);
   }
 }
+*/
 /*
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -302,7 +303,7 @@ form.addEventListener('submit', async (e) => {
 });
 */
 
-
+/*
 async function submitForm() {
   // clearFormError();
   const btn = document.getElementById('sendBtn');
@@ -359,7 +360,7 @@ async function submitForm() {
           btn.textContent = '再送する';
         }
       }
-
+*/
 
 
 // ================================
