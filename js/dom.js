@@ -24,7 +24,7 @@ function bindEvents() {
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
     console.log("🚀 submit start",form);
-    console.log("reasonList:", reasonList);
+    // console.log("reasonList:", reasonList);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
     // console.log("selected reason:", params.reason);
     console.log(
