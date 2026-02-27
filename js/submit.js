@@ -267,7 +267,20 @@ async function sendToGAS(params, symptomValues, departmentValues) {
   params.symptom = symptomValues.join(',');
   params.department = departmentValues.join(',');
 
-  await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    });
+
+    const text = await res.text();
+    console.log("GAS response:", text);
+  } catch(err) {
+    console.error("送信エラー：", err);
+  }
 
   if (liff.isInClient()) {
     setTimeout(() => liff.closeWindow(), 2000);

@@ -20,6 +20,7 @@ function bindEvents() {
 
   // ===== submit =====
   form?.addEventListener('submit',async (e) => {
+    console.log("🚀 submit start");
     e.preventDefault();
 
     const params = buildParams(form);
@@ -30,7 +31,7 @@ function bindEvents() {
       return;
     }
 
-    await submitToserver(params);
+    await sendToGAS(params, symptomValues, departmentValues);
   });
 
   const reason = document.getElementById('reason');
