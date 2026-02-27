@@ -116,7 +116,7 @@ function submitAbsence() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
   
-  const {params, symptomValues, departmentValues } = buldParams(form);
+  const {params, symptomValues, departmentValues } = buildParams(form);
 
   const error = validateForm(
     params,
