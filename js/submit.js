@@ -212,7 +212,7 @@ function validateForm(params, symptomValues, departmentValues) {
     return '理由を選択してください';
   }
 
-  const reasonConfig = reasonList.find(
+  const reasonConfig = viewMasters.reasonList.find(
     r => r.reason_code === params.reason
   );
 

@@ -3,9 +3,9 @@
 // ================================
 
 let masterRaw;
-let reasonList = [];
-let symptomList = [];
-let departmentList = [];
+// let reasonList = [];
+// let symptomList = [];
+// let departmentList = [];
 
 // master.js
 /*
