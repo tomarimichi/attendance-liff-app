@@ -297,33 +297,19 @@
   }
 
 /* ステータス表示エリア */
-  .status {
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 14px;
-  }
+.status {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
 
-  .status.success {
-    background: #e6f7ec;
-    color: #1a7f37;
-  }
+.status.loading  { background:#eef3ff; }
+.status.success  { background:#e6f7ed; }
+.status.warning  { background:#fff4e5; }
+.status.error    { background:#ffe6e6; }
 
-  .status.warning {
-    background: #fff4e5;
-    color: #b26a00;
-  }
-
-  .status.error {
-    background: #fdecea;
-    color: #b42318;
-  }
-
-  .status.loading {
-    background: #eef2ff;
-    color: #3730a3;
-  }
-
+.hidden { display:none; }
   .hidden {
     display: none;
   }

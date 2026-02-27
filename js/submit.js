@@ -178,13 +178,11 @@ async function submitForm() {
   // clearFormError();
   const btn = document.getElementById('sendBtn');
   btn.disabled = true;
-  btn.textContent = '送信中...';
+
+  // btn.textContent = '送信中...';
   setStatus('loading','送信しています...');
 
   try {
-    isSubmitting = true;
-    await withLoading(
-      async () => {
         const absenceData = collectAbsenceDataFromForm();
         const sanitized = sanitizeBeforeSubmit(absenceData);
 
@@ -196,56 +194,31 @@ async function submitForm() {
           symptomCodes: sanitized.symptomCodes.join(','),
           departmentCodes: sanitized.departmentCodes.join(',')
         });
-      },
-      {
-        text: '送信しています...',
-        hideDelay: 300
+
+        if (result.lwSuccess) {
+          setStatus('success', '送信が完了しました。');
+        } else {
+          setStatus('warning', '受付は完了しましたが通知に失敗しました。');
+        }
+
+        if (liff.isInClient()) {
+          setTimeout(() => liff.closeWindow(), 1500)
+          }
+
+        } catch (e){
+          console.error('[submitForm error]', e);
+
+          setStatus(
+            'error',
+            '送信できませんでした。\nLINEのトークから直接ご連絡ください。'
+          );
+
+          btn.disabled = false;
+
+        }
       }
-    );
-
-    if (result.lwSuccess) {
-      setStatus('success', '送信が完了しました');
-    } else {
-      setStatus('warning','受付は完了しましたが通知に失敗しました。');
-    }
-
-    if (liff.isInClient()) {
-      setTimeout(() => liff.closeWindow(), 1500);
-    }
-
-  } catch (e) {
-    setStatus('error',
-      '送信できませんでした。\nLINEのトークから直接ご連絡ください。'
-    );
-
-    btn.disabled = false;
-  }
 
 
-    /*
-    alert('送信しました');
-    if (liff.isInClient()) {
-      liff.closeWindow();
-    }
-  } catch(e) {
-    isSubmitting = false;
-    console.error('[submitForm error]', e);
-
-    btn.disabled = false;
-    btn.textContent = '送信';
-
-    alert (
-      '送信できませんでした。\n\n' +
-      'お手数ですが、LINEのトークで\n' +
-      '直接ご連絡ください'
-    );
-
-      if (liff.isInClient()) {
-        liff.closeWindow();
-      }
-    */
-  }
-}
 
 // ================================
 // DOM取得関数part1

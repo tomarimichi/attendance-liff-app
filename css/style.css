@@ -254,30 +254,30 @@ form {
 
 /* ステータス表示エリア */
 .status {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 14px;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.status.loading {
+  background: #eef3ff;
 }
 
 .status.success {
-  background: #e6f7ec;
-  color: #1a7f37;
+  background: #e6f7ed;
 }
 
 .status.warning {
   background: #fff4e5;
-  color: #b26a00;
 }
 
 .status.error {
-  background: #fdecea;
-  color: #b42318;
+  background: #ffe6e6;
 }
 
-.status.loading {
-  background: #eef2ff;
-  color: #3730a3;
+.hidden {
+  display: none;
 }
 
 .hidden {
