@@ -313,12 +313,17 @@
   padding: 16px;
   border-radius: 8px;
   text-align: center;
+
+  &-message{
+    white-space: pre-line;
+  }
+
+  &.loading  { background:#eef3ff; }
+  &.success  { background:#e6f7ed; }
+  &.warning  { background:#fff4e5; }
+  &.error    { background:#ffe6e6; }
 }
 
-.status.loading  { background:#eef3ff; }
-.status.success  { background:#e6f7ed; }
-.status.warning  { background:#fff4e5; }
-.status.error    { background:#ffe6e6; }
 
 .hidden { display:none; }
   .hidden {

@@ -185,11 +185,12 @@ function setStatus(type, message = '') {
     case 'error':
       title.textContent = '送信エラー';
       icon.textContent = '❌';
-      createRetryButton(actions);
+      // createRetryButton(actions);
       break;
   }
 }
 
+/*
 function createRetryButton(container) {
   const btn = document.createElement('button');
   btn.textContent = '再送する';
@@ -199,3 +200,4 @@ function createRetryButton(container) {
   };
   container.appendChild(btn);
 }
+*/

@@ -269,19 +269,18 @@ form {
   border-radius: 8px;
   text-align: center;
 }
-
+.status-message {
+  white-space: pre-line;
+}
 .status.loading {
   background: #eef3ff;
 }
-
 .status.success {
   background: #e6f7ed;
 }
-
 .status.warning {
   background: #fff4e5;
 }
-
 .status.error {
   background: #ffe6e6;
 }

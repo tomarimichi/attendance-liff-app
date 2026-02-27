@@ -182,8 +182,6 @@ async function submitForm() {
   try {
     await withLoading(
       async () => {
-        // TEST
-          throw new Error('テストエラー');
         // setStatus('loading','送信しています...');
 
         const absenceData = collectAbsenceDataFromForm();
@@ -200,6 +198,8 @@ async function submitForm() {
 
         if (result.lwSuccess) {
           setStatus('success', '送信が完了しました。');
+          btn.textContent = '送信する';
+          btn.disabled = true;
         } else {
           setStatus('warning', '受付は完了しましたが通知に失敗しました。');
         }
@@ -224,7 +224,7 @@ async function submitForm() {
           );
 
           btn.disabled = false;
-
+          btn.textContent = '再送する';
         }
       }
 
