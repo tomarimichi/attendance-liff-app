@@ -148,7 +148,7 @@ function buildParams(form) {
     : [];
 
     try {
-      params.userId = liff.getdecodedIDToken().sub;
+      params.userId = liff.getDecodedIDToken().sub;
     } catch {
       params.userId = 'web-user';
     }

@@ -20,13 +20,14 @@ function bindEvents() {
 
   // ===== submit =====
   form?.addEventListener('submit',async (e) => {
+    e.preventDefault();
     console.log("🚀 submit start");
+
+    const { params, symptomValues, departmentValues } = buildParams(form);
     console.log("params:", params);
     console.log("symptomValues:", symptomValues);
     console.log("departmentValues:", departmentValues);
-    e.preventDefault();
 
-    const params = buildParams(form);
     const error = validateForm(params, symptomValues, departmentValues);
 
     if (error) {
@@ -34,7 +35,8 @@ function bindEvents() {
       return;
     }
 
-    await sendToGAS(params, symptomValues, departmentValues);
+    // await sendToGAS(params, symptomValues, departmentValues);
+    
   });
 
   const reason = document.getElementById('reason');
