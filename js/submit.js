@@ -110,6 +110,7 @@ async function submitAbsence() {
 */
 
 function submitAbsence() {
+  console.log('[submitAbsence]')
   const form = document.getElementById('absenceForm');
   if (!form) return;
 
@@ -271,7 +272,7 @@ async function sendToGAS(params, symptomValues, departmentValues) {
     setTimeout(() => liff.closeWindow(), 2000);
   }
 }
-
+/*
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -285,7 +286,7 @@ form.addEventListener('submit', async (e) => {
 
   await submitForm();
 });
-
+*/
 
 
 async function submitForm() {
