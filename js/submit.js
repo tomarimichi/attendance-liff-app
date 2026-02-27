@@ -108,7 +108,7 @@ async function submitAbsence() {
   liff.closeWindow();
 }
 */
-
+/*
 function submitAbsence() {
   console.log('[submitAbsence]')
   const form = document.getElementById('absenceForm');
@@ -133,6 +133,7 @@ function submitAbsence() {
   await sendToGAS(params, symptomValues, departmentValues);
 });
 }
+*/
 
 function buildParams(form) {
   const formData = new FormData(form);

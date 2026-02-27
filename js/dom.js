@@ -16,6 +16,23 @@ function bindDom() {
 }
 
 function bindEvents() {
+  const form = document.getElementById((absenceForm));
+
+  // ===== submit =====
+  form?.addEventListener('submit',async (e) => {
+    e.preventDefault();
+
+    const params = buildParams(form);
+    const error = validateForm(params);
+
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    await submitToserver(params);
+  });
+
   const reason = document.getElementById('reason');
   console.log('[bindEvents] reason found:', !!reason);
 
