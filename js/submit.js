@@ -180,7 +180,6 @@ async function submitForm() {
   btn.disabled = true;
 
   try {
-    throw new Error('テストエラー');
     await withLoading(
       async () => {
         // setStatus('loading','送信しています...');
@@ -196,6 +195,9 @@ async function submitForm() {
           symptomCodes: sanitized.symptomCodes.join(','),
           departmentCodes: sanitized.departmentCodes.join(',')
         });
+
+        // test
+        result.lwSuccess = false;
 
         if (result.lwSuccess) {
           setStatus('success', '送信が完了しました。');
