@@ -16,7 +16,7 @@ function bindDom() {
 }
 
 function bindEvents() {
-  const form = document.getElementById((absenceForm));
+  const form = document.getElementById('absenceForm');
 
   // ===== submit =====
   form?.addEventListener('submit',async (e) => {
