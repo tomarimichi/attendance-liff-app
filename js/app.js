@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       },
       {
         text: '画面を準備しています…',
-        hideDelay: 300
+        hideDelay: 300,
+        type: loading
       }
     );
   } catch (e) {
