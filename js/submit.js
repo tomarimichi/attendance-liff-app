@@ -180,6 +180,7 @@ async function submitForm() {
   btn.disabled = true;
 
   try {
+    throw new Error('テストエラー');
     await withLoading(
       async () => {
         // setStatus('loading','送信しています...');
