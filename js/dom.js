@@ -27,14 +27,14 @@ function bindEvents() {
     // console.log("reasonList:", reasonList);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
     // console.log("selected reason:", params.reason);
+
+
+    const { params, symptomValues, departmentValues } = buildParams(form);
     console.log(
       viewMasters.reasonList.find(
         r => r.reason_code === params.reason
       )
-    );
-
-    const { params, symptomValues, departmentValues } = buildParams(form);
-    console.log("params:", params);
+    );    console.log("params:", params);
     console.log("symptomValues:", symptomValues);
     console.log("departmentValues:", departmentValues);
 
