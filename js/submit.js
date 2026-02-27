@@ -182,7 +182,9 @@ async function submitForm() {
   try {
     await withLoading(
       async () => {
-        setStatus('loading','送信しています...');
+        // TEST
+          throw new Error('テストエラー');
+        // setStatus('loading','送信しています...');
 
         const absenceData = collectAbsenceDataFromForm();
         const sanitized = sanitizeBeforeSubmit(absenceData);
@@ -210,7 +212,7 @@ async function submitForm() {
     );
 
         if (liff.isInClient()) {
-          setTimeout(() => liff.closeWindow(), 1500)
+          setTimeout(() => liff.closeWindow(), 2000)
           }
 
         } catch (e){
