@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 async function withLoading(task, options = {}) {
   const {
     text = '読み込み中…',
-    hideDelay = 300
+    hideDelay = 300,
+    type = 'normal'
   } = options;
 
   showLoading(text);
@@ -25,13 +26,26 @@ function showLoading(text = '読み込み中…') {
   }
 
   const overlay = document.getElementById('loading-overlay');
-  if (overlay) overlay.style.display = 'flex';
+  if (!overlay) return;
+
+  overlay.classList.remove('sending');
+
+  if(type === 'sending') {
+    overlay.classList.add('sending');
+  }
+
+  overlay.style.display = 'flex';
 }
 
 function hideLoading(delay = 0) {
   setTimeout(() => {
     const overlay = document.getElementById('loading-overlay');
-    if (overlay) overlay.style.display = 'none';
+    if (!overlay) return;
+
+    overlay.style.display = 'none';
+
+    // 状態リセット
+    overlay.classList.remove('sending');
   }, delay);
 }
 

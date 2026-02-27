@@ -155,8 +155,47 @@ function show(el) {
 // ================================
 // ステータス表示エリア関数
 // ================================
-function setStatus(type, message) {
-  const el = document.getElementById('statusArea');
-  el.className = `status ${type}`;
-  el.textContent = message;
+function setStatus(type, message = '') {
+  const area = document.getElementById('statusArea');
+  const icon = area.querySelector('.status-icon');
+  const title = area.querySelector('.status-title');
+  const msg = area.querySelector('.status-message');
+  const actions = area.querySelector('.status-actions');
+
+  area.className = `status ${type}`; // hidden除去
+  msg.textContent = message;
+  actions.innerHTML = '';
+
+  switch (type) {
+    case 'loading':
+      title.textContent = '送信中';
+      icon.textContent = '⏳';
+      break;
+
+    case 'success':
+      title.textContent = '送信完了';
+      icon.textContent = '✅';
+      break;
+
+    case 'warning':
+      title.textContent = '通知失敗';
+      icon.textContent = '⚠️';
+      break;
+
+    case 'error':
+      title.textContent = '送信エラー';
+      icon.textContent = '❌';
+      createRetryButton(actions);
+      break;
+  }
+}
+
+function createRetryButton(container) {
+  const btn = document.createElement('button');
+  btn.textContent = '再送する';
+  btn.type = 'button';
+  btn.onclick = () => {
+    submitForm();
+  };
+  container.appendChild(btn);
 }

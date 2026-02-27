@@ -179,10 +179,11 @@ async function submitForm() {
   const btn = document.getElementById('sendBtn');
   btn.disabled = true;
 
-  // btn.textContent = '送信中...';
-  setStatus('loading','送信しています...');
-
   try {
+    await withLoading(
+      async () => {
+        setStatus('loading','送信しています...');
+
         const absenceData = collectAbsenceDataFromForm();
         const sanitized = sanitizeBeforeSubmit(absenceData);
 
@@ -200,6 +201,13 @@ async function submitForm() {
         } else {
           setStatus('warning', '受付は完了しましたが通知に失敗しました。');
         }
+      },
+      {
+        text: '送信しています...',
+        type: 'sending',
+        hideDelay: 300
+      }
+    );
 
         if (liff.isInClient()) {
           setTimeout(() => liff.closeWindow(), 1500)

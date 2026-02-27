@@ -231,6 +231,11 @@ form {
   inset: 0;
   background: rgba(255, 255, 255, 0.8);
   z-index: 9999;
+}
+.loading-overlay.sending {
+  background: rgba(255, 255, 255, 0.6);
+}
+.loading-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,6 +257,11 @@ form {
   font-size: 14px;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /* ステータス表示エリア */
 .status {
   margin-top: 20px;
@@ -282,10 +292,4 @@ form {
 
 .hidden {
   display: none;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }/*# sourceMappingURL=style.css.map */

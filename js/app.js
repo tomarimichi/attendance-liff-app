@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("⑭ updateVisibility");
         updateVisibility();
 
-console.log("categories:", viewMasters.categories);
-console.log("departments:", viewMasters.departments);
+        console.log("categories:", viewMasters.categories);
+        console.log("departments:", viewMasters.departments);
       },
       {
         text: '画面を準備しています…',
