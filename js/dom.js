@@ -19,6 +19,10 @@ function bindEvents() {
   const form = document.getElementById('absenceForm');
 
   // ===== submit =====
+  console.log("reasonList:", reasonList);
+  console.log("selected reason:", params.reason);
+
+
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
     console.log("🚀 submit start");
