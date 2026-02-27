@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/02/27 09:21">
+    <meta name="last-updated" content="2026/02/27 09:37">
 
   <meta charset="utf-8">
 
@@ -19,6 +19,28 @@
   <div class="dev-only">
     <h1>DV VERSION</h1>
     <p>🎨 UI開発モード</p>
+    <!--テスト用　  後で消す-->
+      <div class="test">
+        <h1>テスト環境</h1>
+        <p id="update-time">更新時間・読み込み中...</p>
+      </div>
+      <script>
+        // GitHub Pages最終更新日自動取得
+        document.addEventListener('DOMContentLoaded', function() {
+          const updateTime = document.getElementById('update-time');
+          if (updateTime) {
+            // GitHub Pagesのメタタグから最終更新取得
+            const meta = document.querySelector('meta[name="last-updated"]');
+            if (meta && meta.content) {
+              updateTime.textContent = `最終更新・${meta.content}`;
+            } else {
+              // フォールバック：ビルド日時（手動更新不要）
+              const now = new Date(Date.UTC(2026, 0, 9, 11, 10)); // JST+9考慮
+              updateTime.textContent = `最終更新・${now.toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})}`;
+            }
+          }
+        });
+      </script>
   </div>
   <!-- ローディング表示 -->
     <div class="">
@@ -39,11 +61,6 @@
 
     
   <main class="container">
-    <!--テスト用　  後で消す-->
-      <div class="test">
-        <h1>テスト環境</h1>
-        <p id="update-time">更新時間・読み込み中...</p>
-      </div>
 
 
     <h3>欠席・遅刻連絡フォーム</h3>
@@ -168,24 +185,6 @@
 
   </main>
 
-  <!--テスト：時間表示用(後で消す)  -->
-    <script>
-      // GitHub Pages最終更新日自動取得
-      document.addEventListener('DOMContentLoaded', function() {
-        const updateTime = document.getElementById('update-time');
-        if (updateTime) {
-          // GitHub Pagesのメタタグから最終更新取得
-          const meta = document.querySelector('meta[name="last-updated"]');
-          if (meta && meta.content) {
-            updateTime.textContent = `最終更新・${meta.content}`;
-          } else {
-            // フォールバック：ビルド日時（手動更新不要）
-            const now = new Date(Date.UTC(2026, 0, 9, 11, 10)); // JST+9考慮
-            updateTime.textContent = `最終更新・${now.toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})}`;
-          }
-        }
-      });
-    </script>
 
 
   <script src="js/config_dev.js"></script>
