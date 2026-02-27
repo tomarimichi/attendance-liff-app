@@ -226,7 +226,7 @@ function validateForm(params, symptomValues, departmentValues) {
 
   if (
     symptomValues.includes('OTHER') &&
-    !params.symptomOtherText?.trim()
+    !params.symptomOther?.trim()
   ) {
     return '症状（その他）を入力してください';
   }
@@ -253,7 +253,7 @@ function validateForm(params, symptomValues, departmentValues) {
 
   if (
     departmentValues.includes('OTHER') &&
-    !params.departmentOtherText?.trim()
+    !params.departmentOther?.trim()
   ) {
     return '受診科（その他）を入力してください';
   }

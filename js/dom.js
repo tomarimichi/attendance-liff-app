@@ -34,9 +34,14 @@ function bindEvents() {
       viewMasters.reasonList.find(
         r => r.reason_code === params.reason
       )
-    );    console.log("params:", params);
+    );
+    console.log("params:", params);
     console.log("symptomValues:", symptomValues);
     console.log("departmentValues:", departmentValues);
+
+    console.log("symptomValues:", symptomValues);
+    console.log("params.symptom:", params.symptom);
+    console.log("params.symptomOther:", params.symptomOther);
 
     const error = validateForm(params, symptomValues, departmentValues);
 
