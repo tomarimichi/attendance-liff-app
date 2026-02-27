@@ -50,10 +50,10 @@ const visitStatusList = [
 // view masters（UI用）
 // ================================
 let viewMasters = {
-  reasonList: [],
-  symptomList: [],
+  // reasonList: [],
+  // symptomList: [],
   symptomCategoryList:[],
-  departmentList: [],
+  // departmentList: [],
   departmentCategoryList: []
 };
 
