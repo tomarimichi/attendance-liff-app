@@ -22,7 +22,7 @@ const departmentOther =
     ? document.getElementById('departmentOtherText')?.value.trim() || ''
     : '';
 
-
+/*
 async function submitAbsence() {
   const form = document.getElementById('absenceForm');
 
@@ -41,6 +41,7 @@ async function submitAbsence() {
 
   const formData = new FormData(form);
   const params = Object.fromEntries(formData.entries());
+  
 
   // department（複数選択）
   if (form.department) {
@@ -58,7 +59,7 @@ async function submitAbsence() {
 
   // ===== reason 必須 =====
   if (!params.reason) {
-    alert('大項目を選択してください');
+    alert('理由を選択してください');
     return;
   }
 
@@ -106,8 +107,54 @@ async function submitAbsence() {
   await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
   liff.closeWindow();
 }
+*/
 
+function submitAbsence() {
+  const form = document.getElementById('absenceForm');
+  if (!form) return;
 
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+  
+  const {params, symptomValues, departmentValues } = buldParams(form);
+
+  const error = validateForm(
+    params,
+    symptomValues,
+    departmentValues
+  );
+
+  if (error) {
+    alert(error);
+    return;
+  }
+
+  await sendToGAS(params, symptomValues, departmentValues);
+});
+}
+
+function buildParams(form) {
+  const formData = new FormData(form);
+  const params = Object.fromEntries(formData.entries());
+
+  const symptomValues = form.symptom
+    ? [...form.symptom.selectedOptions].map(o => o.value)
+    : [];
+
+  const departmentValues = form.department
+    ? [...form.department.selectedOptions].map(o => o.value)
+    : [];
+
+    try {
+      params.userId = liff.getdecodedIDToken().sub;
+    } catch {
+      params.userId = 'web-user';
+    }
+
+    return { params, symptomValues, departmentValues};
+}
+
+/*
 function validateForm() {
   console.log(
     '[validateForm]',
@@ -156,6 +203,73 @@ function validateForm() {
   }
 
   return null; // OK
+}
+*/
+function validateForm(params, symptomValues, departmentValues) {
+  if (!params.reason) {
+    return '理由を選択してください';
+  }
+
+  const reasonConfig = reasonList.find(
+    r => r.reason_code === params.reason
+  );
+
+  if(!reasonConfig) {
+    return '不正な理由が選択されています';
+  }
+
+  if (reasonConfig.symptom_required && symptomValues.length === 0) {
+    return '症状を選択してください';
+  }
+
+  if (
+    symptomValues.includes('OTHER') &&
+    !params.symptomOtherText?.trim()
+  ) {
+    return '症状（その他）を入力してください';
+  }
+
+  if (reasonConfig.visit_required && !params.visitStatus) {
+    return '通院有無を選択してください';
+  }
+
+  const visitConfig = visitStatusList.find(
+    v => v.visit_code === params.visitStatus
+  );
+
+  if (params.visitStatus && !visitConfig) {
+    return '不正な通院有無が選択されています';
+  }
+
+  const needDepartment =
+    visitConfig?.requires_department &&
+    reasonConfig.department_required_when_visit;
+
+  if (needDepartment && departmentValues.length === 0) {
+    return '受診科を選択してください';
+  }
+
+  if (
+    departmentValues.includes('OTHER') &&
+    !params.departmentOtherText?.trim()
+  ) {
+    return '受診科（その他）を入力してください';
+  }
+
+  return null; // エラーなし
+}
+
+async function sendToGAS(params, symptomValues, departmentValues) {
+
+  // 送信直前に文字列化（join方式統一）
+  params.symptom = symptomValues.join(',');
+  params.department = departmentValues.join(',');
+
+  await fetch(`${GAS_URL}?${new URLSearchParams(params)}`);
+
+  if (liff.isInClient()) {
+    setTimeout(() => liff.closeWindow(), 2000);
+  }
 }
 
 form.addEventListener('submit', async (e) => {
