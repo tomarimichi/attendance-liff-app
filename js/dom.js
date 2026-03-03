@@ -83,7 +83,7 @@ function bindEvents() {
           setStatus('success','受付が完了しました。');
           submitBtn.diabled = true;
           setTimeout(()=> {
-            if (isinclient()){
+            if (isinClient()){
               liff.closeWindow();
             }
           },3000);
