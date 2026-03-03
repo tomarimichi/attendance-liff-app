@@ -308,6 +308,7 @@
 
 
 /* ステータス表示エリア */
+/*
 .status {
   margin-top: 20px;
   padding: 16px;
@@ -323,9 +324,163 @@
   &.warning  { background:#fff4e5; }
   &.error    { background:#ffe6e6; }
 }
-
+*/
 
 .hidden { display:none; }
   .hidden {
     display: none;
   }
+
+
+// ===============================
+// 変数
+// ===============================
+$color-success: #2e7d32;
+$color-warning: #f57c00;
+$color-error:   #c62828;
+$color-loading: #1565c0;
+
+$bg-success: #e8f5e9;
+$bg-warning: #fff8e1;
+$bg-error:   #ffebee;
+$bg-loading: #e3f2fd;
+
+
+// ===============================
+// ステータス全体（オーバーレイ）
+// ===============================
+.status {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.6);
+
+  opacity: 1;
+  transition: opacity 0.25s ease;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  // ===============================
+  // カード部分
+  // ===============================
+  & > .status-icon,
+  & > .status-title,
+  & > .status-message,
+  & > .status-actions {
+    position: relative;
+    z-index: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    max-width: 420px;
+    height: auto;
+    min-height: 220px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    z-index: 0;
+  }
+
+  // ===============================
+  // 内部レイアウト
+  // ===============================
+  .status-icon {
+    font-size: 42px;
+    margin-bottom: 12px;
+  }
+
+  .status-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .status-message {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .status-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    button {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  // ===============================
+  // 状態別スタイル
+  // ===============================
+  &.success {
+    color: $color-success;
+
+    &::before {
+      background: $bg-success;
+    }
+
+    .status-actions button {
+      background: $color-success;
+      color: white;
+    }
+  }
+
+  &.warning {
+    color: $color-warning;
+
+    &::before {
+      background: $bg-warning;
+    }
+
+    .status-actions button {
+      background: $color-warning;
+      color: white;
+    }
+  }
+
+  &.error {
+    color: $color-error;
+
+    &::before {
+      background: $bg-error;
+    }
+
+    .status-actions button {
+      background: $color-error;
+      color: white;
+    }
+  }
+
+  &.loading {
+    color: $color-loading;
+
+    &::before {
+      background: $bg-loading;
+    }
+  }
+}

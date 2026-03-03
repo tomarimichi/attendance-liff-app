@@ -263,32 +263,128 @@ form {
   }
 }
 /* ステータス表示エリア */
+/*
 .status {
   margin-top: 20px;
   padding: 16px;
   border-radius: 8px;
   text-align: center;
+
+  &-message{
+    white-space: pre-line;
+  }
+
+  &.loading  { background:#eef3ff; }
+  &.success  { background:#e6f7ed; }
+  &.warning  { background:#fff4e5; }
+  &.error    { background:#ffe6e6; }
 }
-.status-message {
-  white-space: pre-line;
+*/
+.hidden {
+  display: none;
 }
-.status.loading {
-  background: #eef3ff;
+
+.hidden {
+  display: none;
+}
+
+.status {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+.status.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.status > .status-icon, .status > .status-title, .status > .status-message, .status > .status-actions {
+  position: relative;
+  z-index: 1;
+}
+.status::before {
+  content: "";
+  position: absolute;
+  width: 90%;
+  max-width: 420px;
+  height: auto;
+  min-height: 220px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  z-index: 0;
+}
+.status .status-icon {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+.status .status-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.status .status-message {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding: 0 24px;
+  text-align: center;
+}
+.status .status-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.status .status-actions button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+.status .status-actions button:hover {
+  opacity: 0.85;
 }
 .status.success {
-  background: #e6f7ed;
+  color: #2e7d32;
+}
+.status.success::before {
+  background: #e8f5e9;
+}
+.status.success .status-actions button {
+  background: #2e7d32;
+  color: white;
 }
 .status.warning {
-  background: #fff4e5;
+  color: #f57c00;
+}
+.status.warning::before {
+  background: #fff8e1;
+}
+.status.warning .status-actions button {
+  background: #f57c00;
+  color: white;
 }
 .status.error {
-  background: #ffe6e6;
+  color: #c62828;
 }
-
-.hidden {
-  display: none;
+.status.error::before {
+  background: #ffebee;
 }
-
-.hidden {
-  display: none;
+.status.error .status-actions button {
+  background: #c62828;
+  color: white;
+}
+.status.loading {
+  color: #1565c0;
+}
+.status.loading::before {
+  background: #e3f2fd;
 }/*# sourceMappingURL=style.css.map */
