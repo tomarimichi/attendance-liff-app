@@ -37,28 +37,35 @@ function bindEvents() {
     console.log("symptomValues:", symptomValues);
     console.log("departmentValues:", departmentValues);
 
-    console.log("symptomValues:", symptomValues);
     console.log("params.symptom:", params.symptom);
     console.log("params.symptomOther:", params.symptomOther);
 
     const error = validateForm(params, symptomValues, departmentValues);
 
+
+    console.log("✅ validation passed");
+
+    const payload = {
+        ...params,
+
+        submissionId: submissionId,
+
+        reasonCode: temp,
+        reasonLabel: temp, 
+        symptom: JSON.stringify(symptomValues),
+        department: JSON.stringify(departmentValues)
+    }
+
+    console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
+
+
     if (error) {
       alert(error);
       return;
     }
-
-    console.log("✅ validation passed");
-    console.log('params:',params);
-
     try{
       // params.append('submissionId', submissionId);    
-      const result = await postToGAS("submit_absence", {
-        ...params,
-        submissionId: submissionId,
-        symptom: JSON.stringify(symptomValues),
-        department: JSON.stringify(departmentValues)
-    });
+      const result = await postToGAS("submit_absence", payload);
 
     alert('送信完了しました。');
     console.log(result)
