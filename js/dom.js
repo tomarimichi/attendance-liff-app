@@ -55,7 +55,7 @@ function bindEvents() {
     console.log('symptomValues:',symptomValues);
     console.log('departmentValues:',departmentValues);
 
-    await sendToGAS(params, symptomValues, departmentValues);
+    await postToGAS(params, symptomValues, departmentValues);
     
   });
 
