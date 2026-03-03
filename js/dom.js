@@ -80,7 +80,12 @@ function bindEvents() {
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');
-          setTimeout(() => LIFF.closeWindows(), 3000);
+          submitButton.diabled = true;
+          setTimeout(()=> {
+            if (isinclient()){
+              liff.closeWindow();
+            }
+          },3000);
         
         } else if (result.gasSuccess) {
           setStatus('warning', '受付は完了しましたが通知に失敗しました。');
