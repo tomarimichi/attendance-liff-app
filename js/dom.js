@@ -51,8 +51,11 @@ function bindEvents() {
     }
 
     console.log("✅ validation passed");
+    console.log('params:',params);
+    console.log('symptomValues:',symptomValues);
+    console.log('departmentValues:',departmentValues);
 
-    // await sendToGAS(params, symptomValues, departmentValues);
+    await sendToGAS(params, symptomValues, departmentValues);
     
   });
 

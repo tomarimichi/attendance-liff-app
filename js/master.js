@@ -3,23 +3,7 @@
 // ================================
 
 let masterRaw;
-// let reasonList = [];
-// let symptomList = [];
-// let departmentList = [];
 
-// master.js
-/*
-async function fetchMasters() {
-  try {
-    const res = await fetch(`${GAS_URL}?type=reason_master`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    console.error('[fetchMasters error]', err);
-    return null;
-  }
-}
-*/
 async function fetchMasters() {
   const result = await postToGAS('reason_master');
   return result;
