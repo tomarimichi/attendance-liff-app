@@ -15,12 +15,14 @@ function bindDom() {
   departmentBlock  = document.getElementById('departmentBlock');
 }
 
+
+// ================================
+// イベント管理
+// ================================
 function bindEvents() {
   const form = document.getElementById('absenceForm');
 
-  // ===== submit =====
-
-
+  // ===== 送信 submit =====
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
     console.log("🚀 submit start",form);
@@ -54,7 +56,7 @@ function bindEvents() {
         submissionId,
 
         reasonCode: reasonMaster?.reason_code || "",
-        reasonLabel: reasonMaster?.reasonLabel || "",
+        // reasonLabel: reasonMaster?.reasonLabel || "",
 
         symptomCodes: symptomValues,
         departmentCodes: departmentValues,
@@ -75,7 +77,10 @@ function bindEvents() {
     }
     try{
       // params.append('submissionId', submissionId);    
+      await withLoading(async () => {
       const result = await postToGAS("submit_absence", payload);
+      },
+      { text: '送信中...'});
 
     alert('送信完了しました。');
     console.log(result)
