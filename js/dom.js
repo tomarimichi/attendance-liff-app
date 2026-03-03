@@ -56,7 +56,7 @@ function bindEvents() {
     console.log('departmentValues:',departmentValues);
 
     try{
-    const result = await postToGAS("submit", {
+    const result = await postToGAS("submit_absence", {
       ...params,
       symptom: JSON.stringify(symptomValues),
       department: JSON.stringify(departmentValues)
