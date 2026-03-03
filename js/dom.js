@@ -73,6 +73,7 @@ function bindEvents() {
       return;
       }
       try{
+        const submitBtn = document.getElementById('sendBtn');
         const result = await withLoading(
           () => fetchWithTimeout(postToGAS("submit_absence", payload),10000),
           { text: '送信中...'}
@@ -80,7 +81,7 @@ function bindEvents() {
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');
-          submitButton.diabled = true;
+          submitBtn.diabled = true;
           setTimeout(()=> {
             if (isinclient()){
               liff.closeWindow();

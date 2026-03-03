@@ -190,14 +190,3 @@ function setStatus(type, message = '') {
   }
 }
 
-/*
-function createRetryButton(container) {
-  const btn = document.createElement('button');
-  btn.textContent = '再送する';
-  btn.type = 'button';
-  btn.onclick = () => {
-    submitForm();
-  };
-  container.appendChild(btn);
-}
-*/

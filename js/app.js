@@ -79,8 +79,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     );
   } catch (e) {
     console.error('[LIFF init error]', e);
-    alert("JSエラー：" + e.message);
-    showError();
+    //alert("JSエラー：" + e.message);
+    //showError();
+    setStatus('error','初期化に失敗しました。LINEを再起動してください。');
   }
 });
 

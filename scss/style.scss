@@ -324,25 +324,6 @@
   &.error    { background:#ffe6e6; }
 }
 
-.status-overlay {
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(4px);
-  background: rgba(255,255,255,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.status-card {
-  background: white;
-  padding: 32px;
-  border-radius: 16px;
-  width: 85%;
-  max-width: 400px;
-  text-align: center;
-}
 
 .hidden { display:none; }
   .hidden {
