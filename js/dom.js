@@ -28,6 +28,9 @@ function bindEvents() {
 
 
     const { params, symptomValues, departmentValues } = buildParams(form);
+    const reasonMaster = viewMasters.reasonList.find(
+      r => r.reason_code === params.reason
+    );
     console.log(
       viewMasters.reasonList.find(
         r => r.reason_code === params.reason
@@ -50,8 +53,9 @@ function bindEvents() {
 
         submissionId: submissionId,
 
-        reasonCode: temp,
-        reasonLabel: temp, 
+        reasonCode: reasonMaster?.reason_code || "",
+        reasonLabel: reasonMaster?.reasonLabel || "",
+
         symptom: JSON.stringify(symptomValues),
         department: JSON.stringify(departmentValues)
     }
