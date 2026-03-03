@@ -24,9 +24,7 @@ function bindEvents() {
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
     console.log("🚀 submit start",form);
-    // console.log("reasonList:", reasonList);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
-    // console.log("selected reason:", params.reason);
 
 
     const { params, symptomValues, departmentValues } = buildParams(form);
@@ -52,13 +50,12 @@ function bindEvents() {
 
     console.log("✅ validation passed");
     console.log('params:',params);
-    console.log('symptomValues:',symptomValues);
-    console.log('departmentValues:',departmentValues);
 
     try{
-      params.append('submissionId', submissionId);    
+      // params.append('submissionId', submissionId);    
       const result = await postToGAS("submit_absence", {
         ...params,
+        submissionId: submissionId,
         symptom: JSON.stringify(symptomValues),
         department: JSON.stringify(departmentValues)
     });
