@@ -56,7 +56,6 @@ function bindEvents() {
         submissionId,
 
         reasonCode: reasonMaster?.reason_code || "",
-        // reasonLabel: reasonMaster?.reasonLabel || "",
 
         symptomCodes: symptomValues,
         departmentCodes: departmentValues,
@@ -64,8 +63,6 @@ function bindEvents() {
         symptomOther: params.symptomOther,
         departmentOther: params.departmentOther
 
-        // symptom: JSON.stringify(symptomValues),
-        // department: JSON.stringify(departmentValues)
     }
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
@@ -74,21 +71,32 @@ function bindEvents() {
     if (error) {
       alert(error);
       return;
+      }
+      try{
+        const result = await withLoading(
+          () => fetchWithTimeout(postToGAS("submit_absence", payload),10000),
+          { text: '送信中...'}
+        );
+
+        if(result.gasSuccess && result.lwSuccess) {
+          setStatus('success','受付が完了しました。');
+          setTimeout(() => LIFF.closeWindows(), 3000);
+        
+        } else if (result.gasSuccess) {
+          setStatus('warning', '受付は完了しましたが通知に失敗しました。');
+
+        } else {
+          setStatus('error', '処理に失敗しました。LINEを再起動してください。');
+        }
+
+      } catch (error) {
+        if (error.message === 'timeout') {
+          setStatus('error', '通信がタイムアウトしました。電波状況をご確認ください。');
+        } else {
+          setStatus('error' ,'通信エラーが発生しました。');
+        }
+        console.error(error);
     }
-    try{
-      // params.append('submissionId', submissionId);    
-      await withLoading(async () => {
-      const result = await postToGAS("submit_absence", payload);
-      },
-      { text: '送信中...'});
-
-    alert('送信完了しました。');
-    console.log(result)
-
-  } catch (error) {
-    console.error(error);
-    alert("通信エラーが発生しました");
-  }
     
   });
 
