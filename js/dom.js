@@ -51,13 +51,19 @@ function bindEvents() {
     const payload = {
         ...params,
 
-        submissionId: submissionId,
+        submissionId,
 
         reasonCode: reasonMaster?.reason_code || "",
         reasonLabel: reasonMaster?.reasonLabel || "",
 
-        symptom: JSON.stringify(symptomValues),
-        department: JSON.stringify(departmentValues)
+        symptomCodes: symptomValues,
+        departmentCodes: departmentValues,
+
+        symptomOther: params.symptomOther,
+        departmentOther: params.departmentOther
+
+        // symptom: JSON.stringify(symptomValues),
+        // department: JSON.stringify(departmentValues)
     }
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
