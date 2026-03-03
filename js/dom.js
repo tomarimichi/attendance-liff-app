@@ -55,7 +55,19 @@ function bindEvents() {
     console.log('symptomValues:',symptomValues);
     console.log('departmentValues:',departmentValues);
 
-    await postToGAS(params, symptomValues, departmentValues);
+    try{
+    const result = await postToGAS("submit", {
+      ...params,
+      symptom: JSON.stringify(symptomValues),
+      department: JSON.stringify(departmentValues)
+    });
+
+    alert('送信完了しました。');
+
+  } catch (error) {
+    console.error(error);
+    alert("通信エラーが発生しました");
+  }
     
   });
 
