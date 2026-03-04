@@ -145,7 +145,7 @@ if (!(isVisit || isIllnessWithVisit)) {
 }
 
 
-function fetchWithTimeout(promise, ms = 10000) {
+function fetchWithTimeout(promise, ms = 20000) {
   return Promise.race([
     promise,
     new Promise((_, reject) =>
