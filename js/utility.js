@@ -30,14 +30,6 @@ async function withLoading(task, options = {}) {
     clearTimeout(safetyTimer);
     safeHide();
   }
-  /*      
-      }
-    }
-      return await task();
-    } finally {
-      hideLoading(hideDelay);
-    }
-  */
 }
 
 function showLoading(text = '読み込み中…') {
@@ -171,12 +163,12 @@ if (!(isVisit || isIllnessWithVisit)) {
 
 async function fetchWithTimeout(promise, timeout = 30000) {
   
-  const timeoutPromise = new Promise((_, refect) =>
+  const timeoutPromise = new Promise((_, reject) =>
     setTimeout(() => reject(new Error('timeout')), timeout)
   );
 
   return Promise.race([
-    task,
+    promise,
     timeoutPromise
   ]);
 }
