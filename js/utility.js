@@ -94,7 +94,7 @@ async function fetchMasterVersion() {
   const res = await fetch(`${GAS_URL}?type=master_version`);
   if (!res.ok) throw new Error('master_version fetch failed');
   const json = await res.json();
-  return json.masterVersion;
+  return json.getMasterVersion;
 }
 
 async function loadMasters() {
