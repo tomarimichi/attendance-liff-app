@@ -67,13 +67,13 @@ function bindEvents() {
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
+    const submitBtn = document.getElementById('sendBtn');
 
     if (error) {
       alert(error);
       return;
       }
       try{
-        const submitBtn = document.getElementById('sendBtn');
         submitBtn.disabled = true;
 
         const result = await withLoading(
