@@ -1,28 +1,43 @@
-/*
-function showLoading(text) {
-  const loading = document.getElementById('loading');
-  const loadingText = document.getElementById('loading-text');
-  loadingText.textContent = text;
-  loading.style.display = '';
-}
-
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-}
-*/
 async function withLoading(task, options = {}) {
   const {
     text = '読み込み中…',
-    hideDelay = 300
+    hideDelay = 300,
+    safetyTimeout = 40000
   } = options;
 
   showLoading(text);
 
+  let finished = false;
+
+  const safeHide = () => {
+    if (!finished) {
+      finished = true;
+      hideLoading(hideDelay);
+    }
+  };
+
+  const safetyTimer = setTimeout(() => {
+    console.warn('loading safety timeout');
+    safeHide();    
+  }, safetyTimeout);
+
   try {
-    return await task();
+    const result = await Promise.resolve().then(task);
+    return result;
+  } catch (error) {
+      throw error;
   } finally {
-    hideLoading(hideDelay);
+    clearTimeout(safetyTimer);
+    safeHide();
   }
+  /*      
+      }
+    }
+      return await task();
+    } finally {
+      hideLoading(hideDelay);
+    }
+  */
 }
 
 function showLoading(text = '読み込み中…') {
@@ -35,10 +50,19 @@ function showLoading(text = '読み込み中…') {
   if (overlay) overlay.style.display = 'flex';
 }
 
+let loadingTimer = null;
+
 function hideLoading(delay = 0) {
-  setTimeout(() => {
+
+  if (loadingTimer) {
+    clearTimeout(loadingTimer);
+  }
+
+  loadingTimer = setTimeout(() => {
     const overlay = document.getElementById('loading-overlay');
-    if (overlay) overlay.style.display = 'none';
+    if (!overlay) return;
+       overlay.style.display = 'none';
+       loadingTimer = null;
   }, delay);
 }
 
@@ -145,11 +169,22 @@ if (!(isVisit || isIllnessWithVisit)) {
 }
 
 
-function fetchWithTimeout(promise, ms = 20000) {
+async function fetchWithTimeout(promise, timeout = 30000) {
+  
+  const timeoutPromise = new Promise((_, refect) =>
+    setTimeout(() => reject(new Error('timeout')), timeout)
+  );
+
+  return Promise.race([
+    task,
+    timeoutPromise
+  ]);
+}
+  /*
   return Promise.race([
     promise,
     new Promise((_, reject) =>
       setTimeout(() => reject(new Error('timeout')), ms)
     )
   ]);
-}
+  */

@@ -74,28 +74,36 @@ function bindEvents() {
       }
       try{
         const submitBtn = document.getElementById('sendBtn');
+        submitBtn.disabled = true;
+
         const result = await withLoading(
-          () => fetchWithTimeout(postToGAS("submit_absence", payload),10000),
+          () => fetchWithTimeout(postToGAS("submit_absence", payload),30000),
           { text: '送信中...'}
         );
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');
-          submitBtn.diabled = true;
+          submitBtn.disabled = true;
           setTimeout(()=> {
             if (liff.isInClient()){
               liff.closeWindow();
             }
           },3000);
         
+        } else if (result.duplicate) {
+          setStatus('success','すでに受付済みです。');
+          return;
         } else if (result.gasSuccess) {
           setStatus('warning', '受付は完了しましたが通知に失敗しました。');
 
         } else {
           setStatus('error', '処理に失敗しました。LINEを再起動してください。');
+          submitBtn.disabled = false;
         }
 
       } catch (error) {
+        submitBtn.disabled = false;
+
         if (error.message === 'timeout') {
           setStatus('error', '通信がタイムアウトしました。電波状況をご確認ください。');
         } else {
