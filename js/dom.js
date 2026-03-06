@@ -81,14 +81,23 @@ function bindEvents() {
           { text: '送信中...'}
         );
 
+        console.log("before setStatus call");
         if(result.gasSuccess && result.lwSuccess) {
+          console.log("setStatus call");
           setStatus('success','受付が完了しました。');
           submitBtn.disabled = true;
+          if (liff.isInClient()) {
+            setTimeout(() => {
+              liff.closeWindow();
+            }, 3000);
+          }
+          /*
           setTimeout(()=> {
             if (liff.isInClient()){
               liff.closeWindow();
             }
           },3000);
+          */
         
         } else if (result.duplicate) {
           setStatus('success','すでに受付済みです。');
