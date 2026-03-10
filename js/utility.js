@@ -190,7 +190,7 @@ async function fetchWithTimeout(promise, timeout = 30000) {
   }, timeout);
 
   try {
-    const res = await new Promise({ signal: controller.signal });
+    const res = new Promise;
     return res;
   } catch (err) {
     if (err.name === 'AbortError') {
