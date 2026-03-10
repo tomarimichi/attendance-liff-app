@@ -116,3 +116,21 @@ async function postToGAS(type, extraParams = {}) {
   return result;
 
 }
+
+async function postToGAS_JSON(type, extraParams = {}) {
+  const payload = { type, ...extraParams };
+
+  const res = await fetchWithTimeout(GAS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }, 30000); // タイムアウト 30秒
+
+  const result = await res.json();
+
+  if (!result.gasSuccess) {
+    throw new Error(result.message || 'GAS failed');
+  }
+
+  return result;
+}
