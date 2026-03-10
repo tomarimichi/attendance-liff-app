@@ -22,8 +22,7 @@ async function withLoading(task, options = {}) {
   }, safetyTimeout);
 
   try {
-    const result = await task();
-    // const result = await Promise.resolve().then(task);
+    const result = await Promise.resolve().then(task);
     return result;
   } catch (error) {
       throw error;
@@ -183,8 +182,7 @@ if (!(isVisit || isIllnessWithVisit)) {
 
 
 
-async function fetchWithTimeout(url, options = {}, timeout = 30000) {
-  
+async function fetchWithTimeout(promise, timeout = 30000) {
   const controller = new AbortController();
 
   const timer = setTimeout(() => {
@@ -192,11 +190,7 @@ async function fetchWithTimeout(url, options = {}, timeout = 30000) {
   }, timeout);
 
   try {
-    const res = await fetch(url, {
-      ...options,
-      signal: controller.signal
-    });
-
+    const res = await promise({ signal: controller.signal });
     return res;
   } catch (err) {
     if (err.name === 'AbortError') {
@@ -227,3 +221,30 @@ async function fetchWithTimeout(url, options = {}, timeout = 30000) {
     )
   ]);
   */
+
+
+  
+
+  // -------------------------------------------
+// タイムアウトテスト用送信関数
+// 元の postToGAS を使う
+// -------------------------------------------
+async function testSubmitAbsence(payload) {
+  try {
+    const result = await withLoading(
+      () => fetchWithTimeout(() => postToGAS('submit_absence', payload), 30000),
+      { text: '送信中…（タイムアウトテスト）' }
+    );
+
+    console.log('GAS response:', result);
+
+    if (result.gasSuccess && result.lwSuccess) {
+      setStatus('success', '受付が完了しました（テスト）');
+    } else {
+      setStatus('error', result.message || '送信失敗（テスト）');
+    }
+  } catch (err) {
+    console.error('送信エラー:', err);
+    setStatus('error', err.message || '送信失敗（タイムアウト）');
+  }
+}
