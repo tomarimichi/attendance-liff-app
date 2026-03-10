@@ -20,6 +20,16 @@ function bindDom() {
 // イベント管理
 // ================================
 function bindEvents() {
+
+            // タイムアウトテスト
+            const testBtn = document.getElementById('testBtn');
+            testBtn.addEventListener('click', async (e) => {
+              e.preventDefault();
+
+              await testTimeout();  // タイムアウト挙動確認用
+            });
+
+
   const form = document.getElementById('absenceForm');
 
   // ===== 送信 submit =====
@@ -76,13 +86,6 @@ function bindEvents() {
       try{
         submitBtn.disabled = true;
 
-            // タイムアウトテスト
-            const testBtn = document.getElementById('testBtn');
-            testBtn.addEventListener('click', async (e) => {
-              e.preventDefault();
-
-              await testTimeout();  // タイムアウト挙動確認用
-            });
 
         const result = await withLoading(
           () => postToGAS('submit_absence', payload),
