@@ -22,7 +22,8 @@ async function withLoading(task, options = {}) {
   }, safetyTimeout);
 
   try {
-    const result = await Promise.resolve().then(task);
+    const result = await task();
+    // const result = await Promise.resolve().then(task);
     return result;
   } catch (error) {
       throw error;
@@ -32,6 +33,24 @@ async function withLoading(task, options = {}) {
   }
 }
 
+let loadingTimer = null;
+
+function showLoading(text = '読み込み中…') {
+
+  if (loadingTimer) {
+    clearTimeout(loadingTimer);
+    loadingTimer = null;
+  }
+
+  const overlay = document.getElementById('loading-overlay');
+  const lodingText = document.getElementById('loading-text');
+
+  if (lodingText) lodingText.textContent = text;
+
+  if (overlay) overlay.style.display = 'flex';
+}
+
+/*
 function showLoading(text = '読み込み中…') {
   const loadingText = document.getElementById('loading-text');
   if (loadingText) {
@@ -41,8 +60,7 @@ function showLoading(text = '読み込み中…') {
   const overlay = document.getElementById('loading-overlay');
   if (overlay) overlay.style.display = 'flex';
 }
-
-let loadingTimer = null;
+*/
 
 function hideLoading(delay = 0) {
 
@@ -164,8 +182,33 @@ if (!(isVisit || isIllnessWithVisit)) {
 }
 
 
-async function fetchWithTimeout(promise, timeout = 30000) {
+
+async function fetchWithTimeout(url, options = {}, timeout = 30000) {
   
+  const controller = new AbortController();
+
+  const timer = setTimeout(() => {
+    controller.abort();
+  }, timeout);
+
+  try {
+    const res = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+
+    return res;
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      throw new Error('timeout');
+    }
+
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+/*
   const timeoutPromise = new Promise((_, reject) =>
     setTimeout(() => reject(new Error('timeout')), timeout)
   );
@@ -175,6 +218,7 @@ async function fetchWithTimeout(promise, timeout = 30000) {
     timeoutPromise
   ]);
 }
+*/
   /*
   return Promise.race([
     promise,
