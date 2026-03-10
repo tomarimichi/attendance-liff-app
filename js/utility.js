@@ -97,7 +97,7 @@ async function fetchMasterVersion() {
 
   console.log('[master_version raw]', json);
 
-  return json.data?.getMasterVersion;
+  return json.data.version;
 }
 
 async function loadMasters() {
