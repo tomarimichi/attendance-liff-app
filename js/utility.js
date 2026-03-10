@@ -227,15 +227,17 @@ async function fetchWithTimeout(promise, timeout = 30000) {
 
 
 
-  // -------------------------------------------
+// -------------------------------------------
 // タイムアウトテスト用送信関数
 // 元の postToGAS を使う
 // -------------------------------------------
 async function testTimeout() {
-  const payload = { dummy: 'test' };
+  const payload = { dummy: 'test' }; // 適当なテストデータ
 
   try {
+    // withLoading でモーダル表示
     const result = await withLoading(
+      // postToGAS はすでに Promise を返すので直接渡す
       () => fetchWithTimeout(postToGAS('timeout_test', payload), 30000),
       { text: '送信中…（タイムアウトテスト）' }
     );
@@ -248,3 +250,12 @@ async function testTimeout() {
     setStatus('error', err.message || '送信失敗（タイムアウト）');
   }
 }
+
+// -------------------------------------------
+// タイムアウトテストボタンにイベント登録
+// -------------------------------------------
+const testBtn = document.getElementById('testBtn');
+testBtn.addEventListener('click', async (e) => {
+  e.preventDefault();  // フォーム送信を防ぐ
+  await testTimeout();
+});
