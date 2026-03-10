@@ -76,14 +76,12 @@ function bindEvents() {
       try{
         submitBtn.disabled = true;
 
-        await testTimeout();  //👈
 
-        /*
+
         const result = await withLoading(
           () => postToGAS('submit_absence', payload),
           { text: '送信中...'}
         );
-        */
 
         console.log('[withLoading result]', result);
 
@@ -126,7 +124,15 @@ function bindEvents() {
         }
         console.error(error);
     }
-    
+
+            // タイムアウトテスト
+            const testBtn = document.getElementById('testBtn');
+            testBtn.addEventListener('click', async (e) => {
+              e.preventDefault();
+
+              await testTimeout();  // タイムアウト挙動確認用
+            });
+                
   });
 
   const reason = document.getElementById('reason');
