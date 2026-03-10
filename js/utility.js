@@ -221,7 +221,7 @@ async function testTimeout() {
     // withLoading でモーダル表示
     const result = await withLoading(
       // postToGAS はすでに Promise を返すので直接渡す
-      () => fetchWithTimeout(postToGAS('timeout_test', payload), 30000),
+      () => sendWithRetry('timeout_test', payload,1),
       { text: '送信中…（タイムアウトテスト）' }
     );
 

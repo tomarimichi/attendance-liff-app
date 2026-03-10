@@ -21,10 +21,12 @@ function bindDom() {
 // ================================
 function bindEvents() {
   const form = document.getElementById('absenceForm');
+  const submitBtn = document.getElementById('sendBtn');
 
   // ===== 送信 submit =====
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
+
     console.log("🚀 submit start",form);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
 
@@ -33,50 +35,46 @@ function bindEvents() {
     const reasonMaster = viewMasters.reasonList.find(
       r => r.reason_code === params.reason
     );
-    console.log(
-      viewMasters.reasonList.find(
-        r => r.reason_code === params.reason
-      )
-    );
-    console.log("params:", params);
-    console.log("symptomValues:", symptomValues);
-    console.log("departmentValues:", departmentValues);
 
-    console.log("params.symptom:", params.symptom);
-    console.log("params.symptomOther:", params.symptomOther);
+    /* log生成
+      console.log(
+        viewMasters.reasonList.find(
+          r => r.reason_code === params.reason
+        )
+      );
+      console.log("params:", params);
+      console.log("symptomValues:", symptomValues);
+      console.log("departmentValues:", departmentValues);
 
-    const error = validateForm(params, symptomValues, departmentValues);
+      console.log("params.symptom:", params.symptom);
+      console.log("params.symptomOther:", params.symptomOther);
+    */
+
 
 
     console.log("✅ validation passed");
 
     const payload = {
-        ...params,
-
-        submissionId,
-
-        reasonCode: reasonMaster?.reason_code || "",
-
-        symptomCodes: symptomValues,
-        departmentCodes: departmentValues,
-
-        symptomOther: params.symptomOther,
-        departmentOther: params.departmentOther
-
+      ...params,
+      submissionId,
+      reasonCode: reasonMaster?.reason_code || "",
+      symptomCodes: symptomValues,
+      departmentCodes: departmentValues,
+      symptomOther: params.symptomOther,
+      departmentOther: params.departmentOther
     }
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
-    const submitBtn = document.getElementById('sendBtn');
-
+    const error = validateForm(params, symptomValues, departmentValues);
     if (error) {
       alert(error);
       return;
       }
+
+      submitBtn.disabled = true;
+
       try{
-        submitBtn.disabled = true;
-
-
         const result = await withLoading(
           () => sendWithRetry('submit_absence', payload, 1),
           { text: '送信中...'}
@@ -84,11 +82,10 @@ function bindEvents() {
 
         console.log('[withLoading result]', result);
 
-        console.log("before setStatus call");
         if(result.gasSuccess && result.lwSuccess) {
-          console.log("setStatus call");
           setStatus('success','受付が完了しました。');
           submitBtn.disabled = true;
+
           if (liff.isInClient()) {
             setTimeout(() => {
               liff.closeWindow();
@@ -116,10 +113,7 @@ function bindEvents() {
           setStatus('error' ,'通信に失敗しました。お手数ですがLINEで直接ご連絡ください');
         }
         console.error(error);
-    }
-
-
-                
+    }              
   });
 
   const reason = document.getElementById('reason');
