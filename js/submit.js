@@ -142,7 +142,6 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
   while (attempt <= retryCount) {
     try {
       console.log(`送信試行: ${attempt + 1}`);
-      // postToGAS は Promise を返すので await で受ける
       const res = await fetchWithTimeout(postToGAS(type, payload), timeout);
       return res; // 成功したら即リターン
     } catch (err) {
@@ -150,10 +149,7 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
       attempt++;
       console.warn(`送信失敗 (試行 ${attempt}):`, err);
 
-      if (attempt <= retryCount) {
-        // 再送前に少し待つ
-        await new Promise(r => setTimeout(r, 1000));
-      }
+      if (attempt <= retryCount) await new Promise(r => setTimeout(r, 1000));
     }
   }
 
