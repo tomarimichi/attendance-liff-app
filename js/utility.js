@@ -225,29 +225,6 @@ async function fetchWithTimeout(promise, timeout = 30000) {
 
   
 
-  // -------------------------------------------
-// タイムアウトテスト用送信関数
-// 元の postToGAS を使う
-// -------------------------------------------
-async function testSubmitAbsence(payload) {
-  try {
-    const result = await withLoading(
-      () => fetchWithTimeout(() => postToGAS('submit_absence', payload), 30000),
-      { text: '送信中…（タイムアウトテスト）' }
-    );
-
-    console.log('GAS response:', result);
-
-    if (result.gasSuccess && result.lwSuccess) {
-      setStatus('success', '受付が完了しました（テスト）');
-    } else {
-      setStatus('error', result.message || '送信失敗（テスト）');
-    }
-  } catch (err) {
-    console.error('送信エラー:', err);
-    setStatus('error', err.message || '送信失敗（タイムアウト）');
-  }
-}
 
 
   // -------------------------------------------
@@ -259,7 +236,10 @@ async function testTimeout() {
 
   try {
     const result = await withLoading(
-      () => fetchWithTimeout(() => postToGAS('timeout_test', payload), 30000),
+      () => fetchWithTimeout(
+        postToGAS('timeout_test', payload), // ← Promise を直接渡す
+        30000                              // ← タイムアウトは第二引数
+      ),
       { text: '送信中…（タイムアウトテスト）' }
     );
 
