@@ -2,7 +2,7 @@ async function withLoading(task, options = {}) {
   const {
     text = '読み込み中…',
     hideDelay = 300,
-    safetyTimeout = 40000
+    safetyTimeout = 45000
   } = options;
 
   showLoading(text);
@@ -28,7 +28,7 @@ async function withLoading(task, options = {}) {
       throw error;
   } finally {
     clearTimeout(safetyTimer);
-    // safeHide();
+    safeHide();
   }
 }
 
@@ -177,36 +177,19 @@ if (!(isVisit || isIllnessWithVisit)) {
 // -------------------------------------------
 async function fetchWithTimeout(promise, timeout = 30000) {
   // timeout 用の Promise
-  const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('timeout')), timeout)
-  );
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() =>{
+      reject(new Error('timeout'));
+     }, timeout);
+  });
 
   // Promise.race で競合させる
-  return Promise.race([promise, timeoutPromise]);
+  return Promise.race([
+    promise,
+    timeoutPromise
+  ]);
 }
-/*
-async function fetchWithTimeout(promise, timeout = 30000) {
-  const controller = new AbortController();
 
-  const timer = setTimeout(() => {
-    controller.abort();
-  }, timeout);
-
-  try {
-    const res = new Promise;
-    return res;
-  } catch (err) {
-    if (err.name === 'AbortError') {
-      throw new Error('timeout');
-    }
-
-    throw err;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-*/
-  
 
 
 
