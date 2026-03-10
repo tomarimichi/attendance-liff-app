@@ -236,15 +236,13 @@ async function testTimeout() {
 
   try {
     const result = await withLoading(
-      () => fetchWithTimeout(
-        postToGAS('timeout_test', payload), // ← Promise を直接渡す
-        30000                              // ← タイムアウトは第二引数
-      ),
+      () => fetchWithTimeout(postToGAS('timeout_test', payload), 30000),
       { text: '送信中…（タイムアウトテスト）' }
     );
 
     console.log('GAS response (遅延テスト):', result);
     setStatus('success', '遅延テスト成功');
+
   } catch (err) {
     console.error('タイムアウト発生:', err);
     setStatus('error', err.message || '送信失敗（タイムアウト）');
