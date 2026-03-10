@@ -135,7 +135,9 @@ function collectAbsenceDataFromForm() {
 // -------------------------------------------
 // 再送付き送信関数
 // -------------------------------------------
-async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
+// test中
+// async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
+async function sendWithRetry(type, payload, retryCount = 1, timeout = 10) {
   let attempt = 0;
   let lastError = null;
 
