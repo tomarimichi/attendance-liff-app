@@ -77,7 +77,7 @@ function bindEvents() {
         submitBtn.disabled = true;
 
         const result = await withLoading(
-          () => postToGAS_JSON('submit_absence', payload),
+          () => postToGAS('submit_absence', payload),
           { text: '送信中...'}
         );
 
