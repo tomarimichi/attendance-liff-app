@@ -77,8 +77,11 @@ function bindEvents() {
         submitBtn.disabled = true;
 
         const result = await withLoading(
-          () => fetchWithTimeout(postToGAS("timeout_test", payload),30000),
-          //() => fetchWithTimeout(postToGAS("submit_absence", payload),30000),
+          () => fetchWithTimeout(
+            fetch('${GAS_URL}?type=timeout_test'),
+            30000
+          )
+          // () => fetchWithTimeout(postToGAS("submit_absence", payload),30000),
           { text: '送信中...'}
         );
 
