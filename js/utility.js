@@ -94,7 +94,10 @@ async function fetchMasterVersion() {
   const res = await fetch(`${GAS_URL}?type=master_version`);
   if (!res.ok) throw new Error('master_version fetch failed');
   const json = await res.json();
-  return json.getMasterVersion;
+
+  console.log('[master_version raw]', json);
+
+  return json.data?.getMasterVersion;
 }
 
 async function loadMasters() {
@@ -106,7 +109,7 @@ async function loadMasters() {
 
 
   // ② ローカル確認
-  const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
+  const localVersion = localStorage.getItem(MASTER_VERSION_KEY) || null;
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
   console.log('[loadMasters]:',{ 
