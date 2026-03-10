@@ -68,7 +68,7 @@ function bindEvents() {
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
     const submitBtn = document.getElementById('sendBtn');
-            });
+
     if (error) {
       alert(error);
       return;
@@ -82,7 +82,7 @@ function bindEvents() {
               e.preventDefault();
 
               await testTimeout();  // タイムアウト挙動確認用
-
+            });
 
         const result = await withLoading(
           () => postToGAS('submit_absence', payload),
