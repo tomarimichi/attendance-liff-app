@@ -49,17 +49,6 @@ function showLoading(text = '読み込み中…') {
   if (overlay) overlay.style.display = 'flex';
 }
 
-/*
-function showLoading(text = '読み込み中…') {
-  const loadingText = document.getElementById('loading-text');
-  if (loadingText) {
-    loadingText.textContent = text;
-  }
-
-  const overlay = document.getElementById('loading-overlay');
-  if (overlay) overlay.style.display = 'flex';
-}
-*/
 
 function hideLoading(delay = 0) {
 
@@ -182,6 +171,20 @@ if (!(isVisit || isIllnessWithVisit)) {
 
 
 
+// -------------------------------------------
+// fetchWithTimeout：Promise.race でタイムアウト判定
+// postToGAS のように Promise を返す関数で使用可能
+// -------------------------------------------
+async function fetchWithTimeout(promise, timeout = 30000) {
+  // timeout 用の Promise
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('timeout')), timeout)
+  );
+
+  // Promise.race で競合させる
+  return Promise.race([promise, timeoutPromise]);
+}
+/*
 async function fetchWithTimeout(promise, timeout = 30000) {
   const controller = new AbortController();
 
@@ -202,27 +205,7 @@ async function fetchWithTimeout(promise, timeout = 30000) {
     clearTimeout(timer);
   }
 }
-/*
-  const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('timeout')), timeout)
-  );
-
-  return Promise.race([
-    promise,
-    timeoutPromise
-  ]);
-}
 */
-  /*
-  return Promise.race([
-    promise,
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('timeout')), ms)
-    )
-  ]);
-  */
-
-
   
 
 
