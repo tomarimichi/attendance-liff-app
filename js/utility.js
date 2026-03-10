@@ -248,3 +248,28 @@ async function testSubmitAbsence(payload) {
     setStatus('error', err.message || '送信失敗（タイムアウト）');
   }
 }
+
+
+  // -------------------------------------------
+// タイムアウトテスト用送信関数
+// 元の postToGAS を使う
+// -------------------------------------------
+async function testTimeout() {
+  const payload = { dummy: 'test' };
+
+  try {
+    const result = await withLoading(
+      () => fetchWithTimeout(() => postToGAS('timeout_test', payload), 30000),
+      { text: '送信中…（タイムアウトテスト）' }
+    );
+
+    console.log('GAS response (遅延テスト):', result);
+    setStatus('success', '遅延テスト成功');
+  } catch (err) {
+    console.error('タイムアウト発生:', err);
+    setStatus('error', err.message || '送信失敗（タイムアウト）');
+  }
+}
+
+// 実行例
+testTimeout();
