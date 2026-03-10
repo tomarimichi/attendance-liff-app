@@ -68,7 +68,13 @@ function bindEvents() {
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
     const submitBtn = document.getElementById('sendBtn');
+            // タイムアウトテスト
+            const testBtn = document.getElementById('testBtn');
+            testBtn.addEventListener('click', async (e) => {
+              e.preventDefault();
 
+              await testTimeout();  // タイムアウト挙動確認用
+            });
     if (error) {
       alert(error);
       return;
@@ -125,13 +131,7 @@ function bindEvents() {
         console.error(error);
     }
 
-            // タイムアウトテスト
-            const testBtn = document.getElementById('testBtn');
-            testBtn.addEventListener('click', async (e) => {
-              e.preventDefault();
 
-              await testTimeout();  // タイムアウト挙動確認用
-            });
                 
   });
 
