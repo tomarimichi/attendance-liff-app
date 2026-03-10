@@ -12,7 +12,6 @@ window.addEventListener('beforeunload', (e) => {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-  await fetch(`${GAS_URL}?type=timeout_test`);
     await withLoading(
       async () => {
         // LIFF初期化
