@@ -113,7 +113,9 @@ function bindEvents() {
           setStatus('error' ,'通信に失敗しました。お手数ですがLINEで直接ご連絡ください');
         }
         console.error(error);
-    }              
+    } finally {
+      hideLoading();
+    }
   });
 
   const reason = document.getElementById('reason');

@@ -28,7 +28,7 @@ async function withLoading(task, options = {}) {
       throw error;
   } finally {
     clearTimeout(safetyTimer);
-    safeHide();
+    // safeHide();
   }
 }
 
@@ -221,7 +221,7 @@ async function testTimeout() {
     // withLoading でモーダル表示
     const result = await withLoading(
       // postToGAS はすでに Promise を返すので直接渡す
-      () => sendWithRetry('timeout_test', payload,1),
+      () => sendWithRetry('submit_absence', payload,1),
       { text: '送信中…（タイムアウトテスト）' }
     );
 
@@ -231,6 +231,8 @@ async function testTimeout() {
   } catch (err) {
     console.error('タイムアウト発生:', err);
     setStatus('error', err.message || '送信失敗（タイムアウト）');
+  } finally {
+    hideLoading();
   }
 }
 
