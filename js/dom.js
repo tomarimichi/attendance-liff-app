@@ -76,6 +76,7 @@ function bindEvents() {
       try{
         submitBtn.disabled = true;
 
+        console.log('エラー元？');
         const result = await withLoading(
           () => fetchWithTimeout(GAS_URL, {
             method: "POST",
@@ -83,6 +84,8 @@ function bindEvents() {
           }, 30000),
           { text: '送信中...'}
         );
+        console.log('after エラー元？');
+
 
         console.log("before setStatus call");
         if(result.gasSuccess && result.lwSuccess) {
