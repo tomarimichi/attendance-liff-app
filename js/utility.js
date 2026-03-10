@@ -237,8 +237,10 @@ async function testTimeout() {
 // -------------------------------------------
 // タイムアウトテストボタンにイベント登録
 // -------------------------------------------
+/*
 const testBtn = document.getElementById('testBtn');
 testBtn.addEventListener('click', async (e) => {
   e.preventDefault();  // フォーム送信を防ぐ
   await testTimeout();
 });
+*/
