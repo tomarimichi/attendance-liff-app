@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用　後で消す-->
-    <meta name="last-updated" content="2026/03/10 13:04">
+    <meta name="last-updated" content="2026/03/10 13:13">
 
   <meta charset="utf-8">
 
@@ -193,6 +193,15 @@
   <script src="js/ui.js"></script>
   <script src="js/submit.js"></script>
   <script src="js/app.js"></script>
+
+  <script>
+    // タイムアウトテスト用ボタンイベント
+    const testBtn = document.getElementById('testBtn');
+    testBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await testTimeout();
+    });
+  </script>
 
 </body>
 </html>
