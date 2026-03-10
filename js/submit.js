@@ -132,3 +132,31 @@ function collectAbsenceDataFromForm() {
   };
 }
 
+// -------------------------------------------
+// 再送付き送信関数
+// -------------------------------------------
+async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
+  let attempt = 0;
+  let lastError = null;
+
+  while (attempt <= retryCount) {
+    try {
+      console.log(`送信試行: ${attempt + 1}`);
+      // postToGAS は Promise を返すので await で受ける
+      const res = await fetchWithTimeout(postToGAS(type, payload), timeout);
+      return res; // 成功したら即リターン
+    } catch (err) {
+      lastError = err;
+      attempt++;
+      console.warn(`送信失敗 (試行 ${attempt}):`, err);
+
+      if (attempt <= retryCount) {
+        // 再送前に少し待つ
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    }
+  }
+
+  // ここに来たら再送も失敗
+  throw lastError;
+}

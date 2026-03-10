@@ -78,7 +78,7 @@ function bindEvents() {
 
 
         const result = await withLoading(
-          () => postToGAS('submit_absence', payload),
+          () => sendWithRetry('submit_absence', payload, 1),
           { text: '送信中...'}
         );
 
@@ -94,13 +94,7 @@ function bindEvents() {
               liff.closeWindow();
             }, 3000);
           }
-          /*
-          setTimeout(()=> {
-            if (liff.isInClient()){
-              liff.closeWindow();
-            }
-          },3000);
-          */
+
         
         } else if (result.duplicate) {
           setStatus('success','すでに受付済みです。');
@@ -119,7 +113,7 @@ function bindEvents() {
         if (error.message === 'timeout') {
           setStatus('error', '通信がタイムアウトしました。電波状況をご確認ください。');
         } else {
-          setStatus('error' ,'通信エラーが発生しました。');
+          setStatus('error' ,'通信に失敗しました。お手数ですがLINEで直接ご連絡ください');
         }
         console.error(error);
     }
