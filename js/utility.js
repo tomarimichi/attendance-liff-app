@@ -270,6 +270,3 @@ async function testTimeout() {
     setStatus('error', err.message || '送信失敗（タイムアウト）');
   }
 }
-
-// 実行例
-testTimeout();
