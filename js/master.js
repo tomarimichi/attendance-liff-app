@@ -151,32 +151,6 @@ function buildDepartmentOptions(departments, categories) {
   otherOption.textContent = 'その他';
   select.appendChild(otherOption);
 }
-/*
-  categories.forEach(category => {
-    const optgroup = document.createElement('optgroup');
-    optgroup.label = category.category_label;
-
-    departments
-      .filter(item => item.category_code === category.category_code)
-      .forEach(item => {
-        const option = document.createElement('option');
-        option.value = item.department_code;
-        option.textContent = item.department_label;
-        optgroup.appendChild(option);
-      });
-
-    if (optgroup.children.length > 0) {
-      select.appendChild(optgroup);
-    }
-  });
-
-  // ★ その他（必ず最後）
-  const otherOption = document.createElement('option');
-  otherOption.value = 'OTHER';
-  otherOption.textContent = 'その他';
-  select.appendChild(otherOption);
-}
-*/
 
 // 表示制御
 function updateDepartmentVisibility(visitStatus) {
