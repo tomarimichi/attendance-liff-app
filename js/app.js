@@ -40,14 +40,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (!master) {
           console.log("⑧ master null");
+          throw new Error("マスター取得失敗");
           return;
           }
 
-        masterRaw = master.data;
+        // masterRaw = master.data;
 
         // 整形
         console.log("⑨ buildViewMasters");
-        buildViewMasters(masterRaw);
+        buildViewMasters(master.data);
 
         // UI初期化
         console.log("⑩ initReasonSelect");
@@ -82,6 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     //alert("JSエラー：" + e.message);
     //showError();
     setStatus('error','初期化に失敗しました。LINEを再起動してください。');
+  } finally {
+    hideLoading(0);
   }
 });
 
