@@ -136,13 +136,12 @@ function collectAbsenceDataFromForm() {
 // 再送付き送信関数
 // -------------------------------------------
 // test中
-// async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
-async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
+// async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
+async function sendWithRetry(type, payload, retryCount = 1, timeout = 2000) {
   let attempt = 0;
   let lastError = null;
 
   while (attempt <= retryCount) {
-    const controller = new AbortController();
     try {
       console.log(`送信試行: ${attempt + 1}`);
       const res = await fetchWithTimeout(
