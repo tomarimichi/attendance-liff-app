@@ -147,7 +147,7 @@ async function fetchWithTimeout(promise, timeout = 15000) {
     }, timeout);
 
     Promise.resolve()
-      .then(task)
+      .then(promise)
       .then((result) => {
         clearTimeout(timer);
         resolve(result);
