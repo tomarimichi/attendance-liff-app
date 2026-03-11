@@ -27,8 +27,12 @@ function bindEvents() {
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
 
-    const { symptomCodes, symptomOther } = collectSymptoms();
-    const { departmentCodes, departmentOther } = collectDepartment();
+    const {
+      symptomCodes,
+      symptomOther,
+      departmentCodes,
+      departmentOther 
+    } = collectList();
 
     console.log("🚀 submit start",form);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);

@@ -4,31 +4,31 @@
 // ================================
 const form = document.getElementById('absenceForm');
 
-function collectSymptoms() {
+function collectList() {
+  // チェックされた症状を取得
   const symptomCodes = Array.from(
     document.querySelectorAll('input[name="symptom"]:checked')
-    ).map(el => el.value);
+  ).map(el => el.value);
 
-  const symptomOther =
-    symptomCodes.includes('OTHER')
-      ? document.getElementById('symptomOtherText')?.value.trim() || ''
-      : '';
+  const symptomOther = symptomCodes.includes('OTHER')
+    ? document.getElementById('symptomOtherText')?.value.trim() || ''
+    : '';
 
-  return{ symptomCodes, symptomOther };
-}
-
-function collectDepartment() {
-
+  // チェックされた部署を取得
   const departmentCodes = Array.from(
     document.querySelectorAll('input[name="department"]:checked')
-    ).map(el => el.value);
+  ).map(el => el.value);
 
-  const departmentOther =
-    symptomCodes.includes('OTHER')
-      ? document.getElementById('departmentOtherText')?.value.trim() || ''
-      : '';
+  const departmentOther = departmentCodes.includes('OTHER')
+    ? document.getElementById('departmentOtherText')?.value.trim() || ''
+    : '';
 
-  return {departmentCodes, departmentOther};
+  return {
+    symptomCodes,
+    symptomOther,
+    departmentCodes,
+    departmentOther
+  };
 }
 
 function buildParams(form) {
