@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-
+/*
 async function postToGAS(type, extraParams = {}) {
   const params = new URLSearchParams();
   params.append('type', type);
@@ -138,3 +138,4 @@ async function postToGAS_JSON(type, extraParams = {}) {
 
   return result;
 }
+*/

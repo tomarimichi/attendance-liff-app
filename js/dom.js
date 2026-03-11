@@ -27,6 +27,9 @@ function bindEvents() {
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
 
+    const { symptomCodes, symptomOther } = collectSymptoms();
+    const { departmentCodes, departmentOther } = collectDepartment();
+
     console.log("🚀 submit start",form);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
 
@@ -36,32 +39,16 @@ function bindEvents() {
       r => r.reason_code === params.reason
     );
 
-    /* log生成
-      console.log(
-        viewMasters.reasonList.find(
-          r => r.reason_code === params.reason
-        )
-      );
-      console.log("params:", params);
-      console.log("symptomValues:", symptomValues);
-      console.log("departmentValues:", departmentValues);
-
-      console.log("params.symptom:", params.symptom);
-      console.log("params.symptomOther:", params.symptomOther);
-    */
-
-
-
     console.log("✅ validation passed");
 
     const payload = {
       ...params,
       submissionId,
       reasonCode: reasonMaster?.reason_code || "",
-      symptomCodes: symptomValues,
-      departmentCodes: departmentValues,
-      symptomOther: params.symptomOther,
-      departmentOther: params.departmentOther
+      symptomCodes,
+      departmentCodes,
+      symptomOther,
+      departmentOther
     }
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
@@ -77,7 +64,7 @@ function bindEvents() {
       try{
         console.log("before withLoading");
         const result = await withLoading(
-          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload,signal), 15000),
+          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 15000),
           { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
         );
 
