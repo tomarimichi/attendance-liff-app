@@ -80,6 +80,7 @@ async function fetchWithTimeout(promise, timeout = 30000) {
 */
 
 function showLoading(text = '読み込み中') {
+  console.log("loading show");
   if (loadingTimer) clearTimeout(loadingTimer);
 
   const overlay = document.getElementById('loading-overlay');
@@ -95,6 +96,7 @@ function showLoading(text = '読み込み中') {
 }
 
 function hideLoading(delay = 0) {
+  console.log("loading hide", delay);
   if (loadingTimer) clearTimeout(loadingTimer);
 
   loadingTimer = setTimeout(() => {

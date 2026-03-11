@@ -75,12 +75,13 @@ function bindEvents() {
       submitBtn.disabled = true;
 
       try{
+        console.log("before withLoading");
         const result = await withLoading(
           () => sendWithRetry('submit_absence', payload, 1),
           { text: '送信中...'}
         );
 
-        console.log('[withLoading result]', result);
+        console.log("after withLoading");
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');
@@ -105,6 +106,7 @@ function bindEvents() {
         }
 
       } catch (error) {
+        console.log("catch", error);
         submitBtn.disabled = false;
 
         if (error.message === 'timeout') {
