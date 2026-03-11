@@ -73,37 +73,36 @@ function bindEvents() {
           () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 2000),
           { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
         );
-
         console.log('[送信結果]', result);
+
+        hideLoading();
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');
           setTimeout(() => liff.closeWindow(),3000);
           submitBtn.disabled = true;
-
-          /*
-          if (liff.isInClient()) {
-            setTimeout(() => {
-              liff.closeWindow();
-            }, 3000);
-          }
-          */
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),3000);
         
         } else if (result.duplicate) {
           setStatus('success','すでに受付済みです。');
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),2000);
           return;
         } else if (result.gasSuccess) {
           setStatus('warning', '受付は完了しましたが通知に失敗しました。');
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),3000);
 
         } else {
           setStatus('error', '処理に失敗しました。LINEを再起動してください。');
           submitBtn.disabled = false;
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
         }
 
       } catch (error) {
         console.error("送信エラー", error);
+        hideLoading();
         setStatus('error', error.message || '通信エラーが発生しました。LINEで直接連絡してください');
         submitBtn.disabled = false;
+        if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
     }
   });
 

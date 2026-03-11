@@ -155,7 +155,7 @@ async function fetchWithTimeout(fetchFunc, timeout = 15000) {
     const res = await fetchFunc(controller.signal);
     return res;
   } catch (err) {
-    if (err.name === 'AbortError') throw new Error('送信が少し時間かかっています。報告はもう届いているかもしれません。返信が来るまで少しお待ちください。');
+    if (err.name === 'AbortError') throw new Error('送信が少し時間かかっています。\n報告はもう届いているかもしれません。\n返信が来るまで少しお待ちください。');
     throw err;
   } finally {
     clearTimeout(timer);
