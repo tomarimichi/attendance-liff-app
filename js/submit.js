@@ -4,25 +4,32 @@
 // ================================
 const form = document.getElementById('absenceForm');
 
-const symptomCodes = Array.from(
-  document.querySelectorAll('input[name="symptom"]:checked')
-  ).map(el => el.value);
+function collectSymptoms() {
+  const symptomCodes = Array.from(
+    document.querySelectorAll('input[name="symptom"]:checked')
+    ).map(el => el.value);
 
-const symptomOther =
-  symptomCodes.includes('OTHER')
-    ? document.getElementById('symptomOtherText')?.value.trim() || ''
-    : '';
+  const symptomOther =
+    symptomCodes.includes('OTHER')
+      ? document.getElementById('symptomOtherText')?.value.trim() || ''
+      : '';
 
-const departmentCodes = Array.from(
-  document.querySelectorAll('input[name="department"]:checked')
-  ).map(el => el.value);
+  return{ symptomCodes, symptomOther };
+}
 
-const departmentOther =
-  symptomCodes.includes('OTHER')
-    ? document.getElementById('departmentOtherText')?.value.trim() || ''
-    : '';
+function collectDepartment() {
 
+  const departmentCodes = Array.from(
+    document.querySelectorAll('input[name="department"]:checked')
+    ).map(el => el.value);
 
+  const departmentOther =
+    symptomCodes.includes('OTHER')
+      ? document.getElementById('departmentOtherText')?.value.trim() || ''
+      : '';
+
+  return {departmentCodes, departmentOther};
+}
 
 function buildParams(form) {
   const formData = new FormData(form);

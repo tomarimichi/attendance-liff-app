@@ -6,7 +6,7 @@ let masterRaw;
 
 async function fetchMasters(timeout = 15000) {
   return await fetchWithTimeout(
-    (signal) => postToGAS('reason_master', {signal}),
+    (signal) => postToGAS('reason_master', {}, {signal}),
     timeout
   );
 }
