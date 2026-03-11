@@ -92,7 +92,7 @@ function bindEvents() {
           if (liff.isInClient()) setTimeout(() => liff.closeWindow(),3000);
 
         } else {
-          setStatus('error', '処理に失敗しました。LINEを再起動してください。');
+          setStatus('error', '処理に失敗しました。<br>LINEを再起動してください。');
           submitBtn.disabled = false;
           if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
         }
@@ -100,7 +100,7 @@ function bindEvents() {
       } catch (error) {
         console.error("送信エラー", error);
         hideLoading();
-        setStatus('error', error.message || '通信エラーが発生しました。LINEで直接連絡してください');
+        setStatus('error', error.message || '通信エラーが発生しました。<br>LINEで直接連絡してください');
         submitBtn.disabled = false;
         if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
     }
