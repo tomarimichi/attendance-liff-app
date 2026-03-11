@@ -27,12 +27,14 @@ function bindEvents() {
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
 
+    /*
     const {
       symptomCodes,
       symptomOther,
       departmentCodes,
       departmentOther 
     } = collectList();
+    */
 
     console.log("🚀 submit start",form);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
@@ -68,7 +70,7 @@ function bindEvents() {
       try{
         console.log("before withLoading");
         const result = await withLoading(
-          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 15000),
+          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 2000),
           { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
         );
 
