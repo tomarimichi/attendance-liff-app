@@ -380,6 +380,10 @@ $bg-loading: #e3f2fd;
     z-index: 1;
   }
 
+  & > .status-message {
+    white-space: pre-wrap;
+  }
+
   &::before {
     content: '';
     position: absolute;
