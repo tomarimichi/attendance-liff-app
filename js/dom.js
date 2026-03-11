@@ -49,10 +49,10 @@ function bindEvents() {
       ...params,
       submissionId,
       reasonCode: reasonMaster?.reason_code || "",
-      symptomCodes,
-      departmentCodes,
-      symptomOther,
-      departmentOther
+      symptomCodes: symptomValues,
+      departmentCodes: departmentValues,
+      symptomOther: params.symptomOther,
+      departmentOther: params.departmentOther
     }
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
