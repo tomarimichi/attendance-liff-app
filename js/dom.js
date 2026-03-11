@@ -77,7 +77,7 @@ function bindEvents() {
       try{
         console.log("before withLoading");
         const result = await withLoading(
-          () => sendWithRetry('submit_absence', payload, 1, 15000),
+          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload,signal), 15000),
           { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
         );
 
@@ -85,14 +85,16 @@ function bindEvents() {
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');
+          setTimeout(() => liff.closeWindow(),3000);
           submitBtn.disabled = true;
 
+          /*
           if (liff.isInClient()) {
             setTimeout(() => {
               liff.closeWindow();
             }, 3000);
           }
-
+          */
         
         } else if (result.duplicate) {
           setStatus('success','すでに受付済みです。');
@@ -106,15 +108,9 @@ function bindEvents() {
         }
 
       } catch (error) {
-        console.log("catch", error);
+        console.error("送信エラー", error);
+        setStatus('error', error.message || '通信エラーが発生しました。LINEで直接連絡してください');
         submitBtn.disabled = false;
-
-        if (error.message === 'timeout') {
-          setStatus('error', '通信がタイムアウトしました。電波状況をご確認ください。');
-        } else {
-          setStatus('error' ,'通信に失敗しました。お手数ですがLINEで直接ご連絡ください');
-        }
-        console.error(error);
     }
   });
 

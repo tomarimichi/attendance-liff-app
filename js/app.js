@@ -120,6 +120,7 @@ async function postToGAS(type, extraParams = {}) {
 
 }
 
+
 async function postToGAS_JSON(type, extraParams = {}) {
   const payload = { type, ...extraParams };
 

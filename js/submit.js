@@ -137,6 +137,7 @@ function collectAbsenceDataFromForm() {
 // -------------------------------------------
 // test中
 // async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
+/*
 async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
   let attempt = 0;
   let lastError = null;
@@ -166,3 +167,4 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
   // ここに来たら再送も失敗
   throw lastError;
 }
+*/

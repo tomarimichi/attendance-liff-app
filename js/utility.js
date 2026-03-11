@@ -147,24 +147,19 @@ async function withLoading(task, options = {}) {
   }
 }
 
-async function fetchWithTimeout(promise, timeout = 15000) {
-  return new Promise((resolve, reject) => {
+async function fetchWithTimeout(fetchFunc, timeout = 15000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeout);
 
-    const timer = setTimeout(() => {
-      reject(new Error('timeout'));
-    }, timeout);
-
-    Promise.resolve()
-      .then(promise)
-      .then((result) => {
-        clearTimeout(timer);
-        resolve(result);
-      })
-      .catch((err) => {
-        clearTimeout(timer);
-        reject(err);
-      });
-  });
+  try {
+    const res = await fetchFunc(controller.signal);
+    return res;
+  } catch (err) {
+    if (err.name === 'AbortError') throw new Error('timeout');
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 
