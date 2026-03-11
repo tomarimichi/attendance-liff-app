@@ -77,11 +77,11 @@ function bindEvents() {
       try{
         console.log("before withLoading");
         const result = await withLoading(
-          () => sendWithRetry('submit_absence', payload, 1),
-          { text: '送信中...'}
+          () => sendWithRetry('submit_absence', payload, 1, 15000),
+          { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
         );
 
-        console.log("after withLoading");
+        console.log('[送信結果]', result);
 
         if(result.gasSuccess && result.lwSuccess) {
           setStatus('success','受付が完了しました。');

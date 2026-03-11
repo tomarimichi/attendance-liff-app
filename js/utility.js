@@ -130,8 +130,14 @@ async function withLoading(task, options = {}) {
     safeHide();
   }, safetyTimeout);
 
+  const closeBtn = document.getElementById('loading-close-btn');
+  if (closeBtn) {
+    closeBtn.onclick = () => safeHide();
+  }
+
+
   try {
-    const result = await Promise.resolve().then(task);
+    const result = await task();
     return result;
   } catch (error) {
     throw error;
