@@ -137,21 +137,30 @@ function collectAbsenceDataFromForm() {
 // -------------------------------------------
 // test中
 // async function sendWithRetry(type, payload, retryCount = 1, timeout = 30000) {
-async function sendWithRetry(type, payload, retryCount = 1, timeout = 10) {
+async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
   let attempt = 0;
   let lastError = null;
 
   while (attempt <= retryCount) {
+    const controller = new AbortController();
     try {
       console.log(`送信試行: ${attempt + 1}`);
-      const res = await fetchWithTimeout(postToGAS(type, payload), timeout);
+      const res = await fetchWithTimeout(
+        () => postToGAS(type, payload),
+        timeout
+      );
+
       return res; // 成功したら即リターン
+
     } catch (err) {
       lastError = err;
       attempt++;
+
       console.warn(`送信失敗 (試行 ${attempt}):`, err);
 
-      if (attempt <= retryCount) await new Promise(r => setTimeout(r, 1000));
+      if (attempt <= retryCount) {
+        await new Promise(r => setTimeout(r, 1000));
+      }
     }
   }
 

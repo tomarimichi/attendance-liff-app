@@ -109,10 +109,11 @@ async function withLoading(task, options = {}) {
   const {
     text = '読み込み中...',
     hideDelay = 300,
-    safetyTimeout = 30000
+    safetyTimeout = 45000
   } = options;
 
   showLoading(text);
+
   let finished = false;
 
   const safeHide = () => {
@@ -138,11 +139,24 @@ async function withLoading(task, options = {}) {
   }
 }
 
-async function fetchWithTimeout(promise, timeout = 30000) {
-  const timeoutPromise = new Promise((_, reject)=> {
-    setTimeout(() => reject(new Error('timeout')), timeout);
+async function fetchWithTimeout(promise, timeout = 15000) {
+  return new Promise((resolve, reject) => {
+
+    const timer = setTimeout(() => {
+      reject(new Error('timeout'));
+    }, timeout);
+
+    Promise.resolve()
+      .then(task)
+      .then((result) => {
+        clearTimeout(timer);
+        resolve(result);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
   });
-  return Promise.race([promise, timeoutPromise]);
 }
 
 
@@ -249,15 +263,6 @@ if (!(isVisit || isIllnessWithVisit)) {
 
   return sanitized;
 }
-
-
-
-// -------------------------------------------
-// fetchWithTimeout：Promise.race でタイムアウト判定
-// postToGAS のように Promise を返す関数で使用可能
-// -------------------------------------------
-
-
 
 
 
