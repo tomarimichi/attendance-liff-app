@@ -190,3 +190,19 @@ function setStatus(type, message = '') {
   }
 }
 
+// ================================
+// DevTool
+// ================================
+function applyDevOnlyVisibility(configEnv) {
+  const devElements = document.querySelectorAll('.dev_only');
+
+  // dev 環境なら表示、dev 以外は非表示
+  const hide = configEnv !== 'dev';
+  devElements.forEach(el => {
+    if (hide) {
+      el.classList.add('hide');
+    } else {
+      el.classList.remove('hide');
+    }
+  });
+}
