@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       async () => {
         // LIFF初期化
         console.log("① liff.init start");
-        await liff.init({ liffId: LIFF_ID });
+        await liff.init({
+          liffId: CONFIG.ENV_CONFIG[CONFIG.ENV].LIFF_ID
+        });
         console.log("② liff.init done");
 
         if (!liff.isLoggedIn()) {
