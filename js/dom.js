@@ -70,7 +70,7 @@ function bindEvents() {
       try{
         console.log("before withLoading");
         const result = await withLoading(
-          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 2000),
+          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 15000),
           { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
         );
         console.log('[送信結果]', result);
