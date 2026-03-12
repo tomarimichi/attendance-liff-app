@@ -14,7 +14,8 @@ const CONFIG = {
         },
         prob: {
             LIFF_ID: '2008783538-yHgAa1tC',
-            GAS_ID: 'AKfycbxZvubfezFgESs4oDYdiGS6In4kDtxSSWjrjwGevpyju-kx58WxjfqOGbXX47_DSiyO'
+            GAS_ID:
+                'AKfycbxJzkRqF9hu9PD16d_4gpY9-JYKeQkRduraigPaunk7unfq3PMU8F1yU8yYAxGTPvCX'
         }
     }
 }
