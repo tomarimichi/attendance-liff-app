@@ -116,7 +116,7 @@ async function fetchMastersWithCache() {
 }
 
 async function fetchMasterVersion() {
-  const res = await fetch(`${GAS_URL}?type=master_version`);
+  const res = await fetch(`${GAS_URL}&type=master_version`);
   if (!res.ok) throw new Error('master_version fetch failed');
   
   const text = await res.text();
