@@ -1,83 +1,4 @@
 let loadingTimer = null;
-/* 2026/03/10 15:25:23 改修直前
-function showLoading(text = '読み込み中…') {
-
-  if (loadingTimer) {
-    clearTimeout(loadingTimer);
-    loadingTimer = null;
-  }
-
-  const overlay = document.getElementById('loading-overlay');
-  const lodingText = document.getElementById('loading-text');
-
-  if (lodingText) lodingText.textContent = text;
-
-  if (overlay) overlay.style.display = 'flex';
-}
-
-function hideLoading(delay = 0) {
-
-  if (loadingTimer) {
-    clearTimeout(loadingTimer);
-  }
-
-  loadingTimer = setTimeout(() => {
-    const overlay = document.getElementById('loading-overlay');
-    if (!overlay) return;
-       overlay.style.display = 'none';
-       loadingTimer = null;
-  }, delay);
-}
-
-async function withLoading(task, options = {}) {
-  const {
-    text = '読み込み中…',
-    hideDelay = 300,
-    safetyTimeout = 45000
-  } = options;
-
-  showLoading(text);
-
-  let finished = false;
-
-  const safeHide = () => {
-    if (!finished) {
-      finished = true;
-      hideLoading(hideDelay);
-    }
-  };
-
-  const safetyTimer = setTimeout(() => {
-    console.warn('loading safety timeout');
-    safeHide();    
-  }, safetyTimeout);
-
-  try {
-    const result = await Promise.resolve().then(task);
-    return result;
-  } catch (error) {
-      throw error;
-  } finally {
-    clearTimeout(safetyTimer);
-    safeHide();
-  }
-}
-
-async function fetchWithTimeout(promise, timeout = 30000) {
-  // timeout 用の Promise
-  const timeoutPromise = new Promise((_, reject) => {
-    setTimeout(() =>{
-      reject(new Error('timeout'));
-     }, timeout);
-  });
-
-  // Promise.race で競合させる
-  return Promise.race([
-    promise,
-    timeoutPromise
-  ]);
-}
-*/
 
 function showLoading(text = '読み込み中') {
   console.log("loading show");
@@ -197,7 +118,12 @@ async function fetchMastersWithCache() {
 async function fetchMasterVersion() {
   const res = await fetch(`${GAS_URL}?type=master_version`);
   if (!res.ok) throw new Error('master_version fetch failed');
-  const json = await res.json();
+  
+  const text = await res.text();
+  console.log("[raw response]", text);
+
+  // const json = await res.json();
+  const json = JSON.parse(text);
 
   console.log('[master_version raw]', json);
 
