@@ -390,4 +390,8 @@ form {
 }
 .status.loading::before {
   background: #e3f2fd;
+}
+
+.dev-only.hide {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
