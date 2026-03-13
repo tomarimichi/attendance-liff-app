@@ -15,14 +15,35 @@ const CONFIG = {
         prob: {
             LIFF_ID: '2008783538-yHgAa1tC',
             GAS_ID:
-                'AKfycbwcm_ghagSijZC0U5tLNx9uMnc2tgwuaufkNELpOjFSyMFP89cx4-MCGk3oABSAGaNI'
+                'AKfycbzkhNbtMjxx_O9ca2PzhYV6AHpDG8-teX_Ya9JjniaxbkeFApKCn140yp-YImJ2mfGL'
         }
     }
 }
 
+
+
+
+
+// ============================================================
+
 const ENV = CONFIG.ENV_CONFIG[CONFIG.ENV]
+    if(!ENV){
+    throw new Error(`ENV_CONFIG missing for ${CONFIG.ENV}`);
+    }
 
 const GAS_URL = `https://script.google.com/macros/s/${ENV.GAS_ID}/exec?v=${CONFIG.VERSION}`;
+// const url = new URL(GAS_URL);
+
+function buildGasUrl(type) {
+  const url = new URL(GAS_URL);
+
+  if(type) {
+    url.searchParams.set("type",type);
+  }
+
+  return url;
+};
+
 
 
 // ✅ 固定キー

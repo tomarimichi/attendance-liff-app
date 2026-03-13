@@ -7,7 +7,7 @@ async function postToGAS(type, extraParams = {}, options = {}) {
     params.append(k,v);
   });
 
-  const res = await fetch(GAS_URL,{
+  const res = await fetch(buildGasUrl(),{
     method:'POST',
     headers:{
       'Content-Type':'application/x-www-form-urlencoded'
