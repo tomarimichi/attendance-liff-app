@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用  後で消す-->
-  <meta name="last-updated" content="2026/03/13 11:01">
+  <meta name="last-updated" content="2026/03/13 11:25">
 
   <meta charset="utf-8">
 
@@ -16,7 +16,7 @@
 </head>
 <body>
   <!-- 開発モード -->
-    <div class="dev-only" id="dev-only">
+    <div class="dev-only hide" id="dev-only">
       <h1>DV VERSION</h1>
       <p>🎨 UI開発モード</p>
       
@@ -164,7 +164,8 @@
 
         <!-- 送信ボタン -->
         <button type="submit" id="sendBtn">> 送信する</button>
-        <button type="button" id="testBtn" class="dev-only">テスト</button>
+          <!-- テスト用 -->
+          <button type="button" id="testBtn hide" class="dev-only">テスト</button>
 
         <!-- ステータス表示エリア -->
         <div id="statusArea" class="status hidden">
