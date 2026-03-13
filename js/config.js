@@ -2,7 +2,7 @@
 // 設定
 // ================================
 const CONFIG = {
-    ENV: "prob",
+    ENV: "prod",
     VERSION:"0.9.1",
     TIMEOUT: 30000,
 
@@ -12,7 +12,7 @@ const CONFIG = {
             GAS_ID:
                 'AKfycbxZvubfezFgESs4oDYdiGS6In4kDtxSSWjrjwGevpyju-kx58WxjfqOGbXX47_DSiyO'
         },
-        prob: {
+        prod: {
             LIFF_ID: '2008783538-yHgAa1tC',
             GAS_ID:
                 'AKfycbzkhNbtMjxx_O9ca2PzhYV6AHpDG8-teX_Ya9JjniaxbkeFApKCn140yp-YImJ2mfGL'
@@ -32,7 +32,6 @@ const ENV = CONFIG.ENV_CONFIG[CONFIG.ENV]
     }
 
 const GAS_URL = `https://script.google.com/macros/s/${ENV.GAS_ID}/exec?v=${CONFIG.VERSION}`;
-// const url = new URL(GAS_URL);
 
 function buildGasUrl(type) {
   const url = new URL(GAS_URL);
@@ -54,12 +53,13 @@ const MASTER_VERSION_KEY = 'masterVersion';
 const submissionId = crypto.randomUUID();
 
 
-// 起動ログ
-console.log("ENV:", CONFIG.ENV);
-console.log("VERSION:", CONFIG.VERSION);
-console.log("TIMEOUT:", CONFIG.TIMEOUT)
 
 // ページ読み込み時に呼び出す
 document.addEventListener('DOMContentLoaded', () => {
   applyDevOnlyVisibility(CONFIG.ENV);
 });
+
+// 起動ログ
+console.log("ENV:", CONFIG.ENV);
+console.log("VERSION:", CONFIG.VERSION);
+console.log("TIMEOUT:", CONFIG.TIMEOUT)

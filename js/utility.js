@@ -1,3 +1,7 @@
+function showError() {
+  document.getElementById('error').style.display = '';
+}
+
 
 // ===========================
 // 表示関連
@@ -87,11 +91,6 @@ async function fetchWithTimeout(fetchFunc, timeout = 15000) {
   }
 }
 
-
-
-function showError() {
-  document.getElementById('error').style.display = '';
-}
 
 
 
