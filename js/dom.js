@@ -62,6 +62,7 @@ function bindEvents() {
     const error = validateForm(params, symptomValues, departmentValues);
     if (error) {
       alert(error);
+      // setStatus()
       return;
       }
 

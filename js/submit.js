@@ -52,7 +52,7 @@ function buildParams(form) {
     return { params, symptomValues, departmentValues};
 }
 
-
+/* メッセージ分岐 */
 function validateForm(params, symptomValues, departmentValues) {
   if (!params.reason) {
     return '理由を選択してください';
@@ -70,6 +70,10 @@ function validateForm(params, symptomValues, departmentValues) {
     return '症状を選択してください';
   }
 
+  // 文言改善
+    // 症状(その他)を入力してください
+    // 　↓
+    // 理由を書かないといけない旨の文面に変更
   if (
     symptomValues.includes('OTHER') &&
     !params.symptomOther?.trim()
@@ -139,12 +143,7 @@ function collectAbsenceDataFromForm() {
   };
 }
 
-// -------------------------------------------
-// 再送付き送信関数
-// -------------------------------------------
-// test中
-// async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
-/*
+
 async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
   let attempt = 0;
   let lastError = null;
