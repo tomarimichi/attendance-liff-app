@@ -3,14 +3,14 @@
 // ================================
 const CONFIG = {
     ENV: "dev",
-    VERSION:"0.9.1",
+    VERSION:"0.9.2",
     TIMEOUT: 30000,
 
     ENV_CONFIG: {
         dev: {
             LIFF_ID: "2008783538-KeEB2k47",
             GAS_ID:
-                'AKfycbyrm6PDqTy6dOt1zxhB1tz6fdZ1vWasdDnjmcoNRk5S6GHh-vyyE7GZsavGQWVimlX5bw'
+                'AKfycbzkEFFscidAu8ZGrk-_mYVMOKzz2JJWpVjyWC-GlbQ0dtwvuJuZwfc88gKGBcDigrbDbQ'
         },
         prod: {
             LIFF_ID: '2008783538-yHgAa1tC',
