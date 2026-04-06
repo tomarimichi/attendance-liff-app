@@ -80,7 +80,7 @@ async function loadMasters() {
   // ② 最新 version
   const latestVersion = await fetchMasterVersion();
 
-  // ③ ローカル
+  // ③ ローカル確認
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
@@ -88,24 +88,27 @@ async function loadMasters() {
     console.log('[masters] from localStorage');
 
     const parsed = JSON.parse(localMasters);
+    const masters = normalizeMasters(parsed);
 
     memoryCache.version = latestVersion;
-    memoryCache.masters = parsed;
+    memoryCache.masters = masters;
 
-    return parsed;
+    return masters;
   }
 
   // ④ GAS取得
   console.log('[masters] from GAS');
-  const masters = await fetchMasters();
+  const data = await fetchMasters();
 
-    if (!masters) {
+    if (!data) {
       throw new Error('masters fetch failed');
     }
 
+  const masters = normalizeMasters(data);
+
   // 保存
   localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
-  localStorage.setItem(MASTER_DATA_KEY, JSON.stringify(masters));
+  localStorage.setItem(MASTER_DATA_KEY, JSON.stringify(data));
 
   memoryCache.version = latestVersion;
   memoryCache.masters = masters;
