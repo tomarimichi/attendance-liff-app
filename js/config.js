@@ -20,7 +20,11 @@ const CONFIG = {
     }
 }
 
-
+// キャッシュ
+let memoryCache = {
+  version: null,
+  masters: null,
+};
 
 
 

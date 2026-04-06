@@ -173,4 +173,3 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
   // ここに来たら再送も失敗
   throw lastError;
 }
-*/
