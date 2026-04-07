@@ -84,13 +84,15 @@ async function loadMasters() {
   // ③ ローカル確認
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
-  console.log("[③ ローカル確認]localVersion:",localVersion)
-  console.log("[③ ローカル確認]:localMasters:",localMasters)
   
+  console.log("[③ ローカル確認]localVersion:",localVersion);
+  console.log("[③ ローカル確認]:localMasters:",localMasters);
+
   if (localVersion === latestVersion && localMasters) {
     console.log('[masters] from localStorage');
 
     const parsed = JSON.parse(localMasters);
+    console.log(parsed);
 
     const masters = normalizeMasters(parsed);
 
