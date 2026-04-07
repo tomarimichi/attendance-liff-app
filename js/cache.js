@@ -93,7 +93,9 @@ async function loadMasters() {
 
     const parsed = JSON.parse(localMasters);
 
-    console.log('parsed before normalize', parsed);
+    console.log("[masters before normalize]",masters);
+    console.log('[parsed before normalize]', parsed);
+    
     const masters = normalizeMasters(parsed);
     console.log("[memoryCache before assign]",memoryCache);
 
