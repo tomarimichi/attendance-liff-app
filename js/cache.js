@@ -94,6 +94,7 @@ async function loadMasters() {
     const parsed = JSON.parse(localMasters);
     console.log("[parsed]",parsed);
 
+    console.log('masters raw before normalize', data);
     const masters = normalizeMasters(parsed);
     console.log(memoryCache);
 
