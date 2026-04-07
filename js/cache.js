@@ -180,24 +180,24 @@ function normalizeMasters(data) {
 
     // --- reason ---
     reasonList: data.reasons || [],
-    reasonMap: toMap(data.reasons || []),
+    reasonMap: toMap(data.reasons || [], 'reason_code'),
 
     // --- symptom ---
     symptomList: data.cat_symptom || data.symptoms || [],
-    symptomMap: toMap(data.m_symptom || data.symptoms || []),
+    symptomMap: toMap(data.m_symptom || data.symptoms || [], 'symptom_code'),
 
     // --- symptomカテゴリ ---
     symptomCategoryList: data.cat_symptom || data.symptomCategories || [],
-    symptomCategoryMap: toMap(data.cat_symptom || data.symptomCategories || []),
-    symptomByCategory: toGroupedMap(data.m_symptom || data.symptoms || [], 'category_id'),
+    symptomCategoryMap: toMap(data.symptomCategories || [], 'category_code'),
+    symptomByCategory: toGroupedMap(data.m_symptom || data.symptoms || [], 'category_code'),
 
     // --- department ---
     departmentList: data.m_department || data.departments || [],
-    departmentMap: toMap(data.m_department || data.departments || []),
+    departmentMap: toMap(data.m_department || data.departments || [], 'department_code'),
 
     // --- departmentカテゴリ ---
     departmentCategoryList: data.cat_department || data.departmentCategories || [],
-    departmentCategoryMap: toMap(data.cat_department || data.departmentCategories || [], 'category_code'),
+    departmentCategoryMap: toMap(data.departmentCategories || [], 'category_code'),
     departmentByCategory: toGroupedMap(data.m_department || data.departments || [], 'category_code'),
   };
 }
