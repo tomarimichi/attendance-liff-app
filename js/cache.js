@@ -84,7 +84,7 @@ async function loadMasters() {
   // ③ ローカル確認
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
-  
+
   console.log("[③ ローカル確認]localVersion:",localVersion);
   console.log("[③ ローカル確認]:localMasters:",localMasters);
 
@@ -92,12 +92,15 @@ async function loadMasters() {
     console.log('[masters] from localStorage');
 
     const parsed = JSON.parse(localMasters);
-    console.log(parsed);
+    console.log("[parsed]",parsed);
 
     const masters = normalizeMasters(parsed);
+    console.log(memoryCache);
 
     memoryCache.version = latestVersion;
     memoryCache.masters = masters;
+
+    console.log(memoryCache);
 
     return masters;
   }
