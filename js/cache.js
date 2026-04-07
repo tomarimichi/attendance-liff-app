@@ -88,6 +88,13 @@ async function loadMasters() {
   console.log("[③ ローカル確認]localVersion:",localVersion);
   console.log("[③ ローカル確認]:localMasters:",localMasters);
 
+  // 強制キャッシュクリア
+  const FORCE_REFRESH = true;
+  if (FORCE_REFRESH) {
+    localStorage.removeItem(MASTER_VERSION_KEY);
+    localStorage.removeItem(MASTER_DATA_KEY);
+  }
+
   if (localVersion === latestVersion && localMasters) {
     console.log('[masters] from localStorage');
 
@@ -147,9 +154,11 @@ async function fetchMasterVersion() {
 
 function normalizeMasters(data) {
   console.log("[start normalizeMasters]",data)
+
   // 汎用マップ生成
   const toMap = (list) =>
     Object.fromEntries(list.map(v => [v.id, v]));
+  console.log(`[toMap]: ${toMap}`)
 
   // カテゴリ付きマップ
   const toGroupedMap = (list, key) => {
@@ -160,6 +169,7 @@ function normalizeMasters(data) {
       return acc;
     }, {});
   };
+  console.log(`[toGroupedMap]: ${toGroupedMap}`)
 
   return {
     // --- 元データ ---
