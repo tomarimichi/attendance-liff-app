@@ -115,8 +115,9 @@ async function loadMasters() {
       throw new Error('masters fetch failed');
     }
 
-  console.log('masters raw before normalize', data);
+  console.log('[masters raw before normalize]:', data);
   const masters = normalizeMasters(data.data);
+  console.log("[masters raw after normalize]:", masters.data)
 
   // 保存
   localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
@@ -145,6 +146,7 @@ async function fetchMasterVersion() {
 }
 
 function normalizeMasters(data) {
+  console.log("[start normalizeMasters]",data)
   // 汎用マップ生成
   const toMap = (list) =>
     Object.fromEntries(list.map(v => [v.id, v]));
