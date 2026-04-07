@@ -116,7 +116,7 @@ async function loadMasters() {
     }
 
   console.log('masters raw before normalize', data);
-  const masters = normalizeMasters(data);
+  const masters = normalizeMasters(data.data);
 
   // 保存
   localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
