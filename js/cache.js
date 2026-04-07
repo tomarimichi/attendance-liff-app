@@ -89,7 +89,6 @@ async function loadMasters() {
 
     const parsed = JSON.parse(localMasters);
 
-    console.log('masters raw before normalize', data);
     const masters = normalizeMasters(parsed);
 
     memoryCache.version = latestVersion;
