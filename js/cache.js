@@ -88,6 +88,8 @@ async function loadMasters() {
     console.log('[masters] from localStorage');
 
     const parsed = JSON.parse(localMasters);
+
+    console.log('masters raw before normalize', data);
     const masters = normalizeMasters(parsed);
 
     memoryCache.version = latestVersion;
@@ -104,6 +106,7 @@ async function loadMasters() {
       throw new Error('masters fetch failed');
     }
 
+  console.log('masters raw before normalize', data);
   const masters = normalizeMasters(data);
 
   // 保存

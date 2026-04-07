@@ -44,11 +44,11 @@ let viewMasters = {
 };
 
 function buildViewMasters(master) {
-  viewMasters.reasonList = [...master.reasons].sort((a, b) => a.sort - b.sort);
-  viewMasters.symptomList = [...master.symptoms].sort((a, b) => a.sort - b.sort);
-  viewMasters.symptomCategoryList = [...master.symptomCategories].sort((a,b) =>a.sort - b.sort);
-  viewMasters.departmentList = [...master.departments].sort((a, b) => a.sort - b.sort);
-  viewMasters.departmentCategoryList = [...master.departmentCategories].sort((a,b) => a.sort - b.sort);
+  viewMasters.reasonList = [...master.reasonList].sort((a, b) => a.sort - b.sort);
+  viewMasters.symptomList = [...master.symptomList].sort((a, b) => a.sort - b.sort);
+  viewMasters.symptomCategoryList = [...master.symptomCategoryList].sort((a,b) =>a.sort - b.sort);
+  viewMasters.departmentList = [...master.departmentList].sort((a, b) => a.sort - b.sort);
+  viewMasters.departmentCategoryList = [...master.departmentCategoryList].sort((a,b) => a.sort - b.sort);
 
   console.log('[view masters]', viewMasters);
 }
