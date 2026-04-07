@@ -156,8 +156,8 @@ function normalizeMasters(data) {
   console.log("[start normalizeMasters]",data)
 
   // 汎用マップ生成
-  const toMap = (list) =>
-    Object.fromEntries(list.map(v => [v.id, v]));
+  const toMap = (list,key) =>
+    Object.fromEntries(list.map(v => [String(v[key]), v]));
   console.log(`[toMap]: ${toMap}`)
 
   // カテゴリ付きマップ
@@ -201,3 +201,11 @@ function normalizeMasters(data) {
     departmentByCategory: toGroupedMap(data.m_department || data.departments || [], 'category_code'),
   };
 }
+
+/*     reasonMap: toMap(data.reasons || [], 'reason_code'),
+    symptomMap: toMap(data.m_symptom || data.symptoms || [], 'symptom_code'),
+    departmentMap: toMap(data.m_department || data.departments || [], 'department_code'),
+
+    symptomCategoryMap: toMap(data.symptomCategories || [], 'category_code'),
+    departmentCategoryMap: toMap(data.departmentCategories || [], 'category_code'),
+ */
