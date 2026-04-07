@@ -89,11 +89,11 @@ async function loadMasters() {
   console.log("[③ ローカル確認]:localMasters:",localMasters);
 
   // 強制キャッシュクリア
-  const FORCE_REFRESH = true;
+/*   const FORCE_REFRESH = true;
   if (FORCE_REFRESH) {
     localStorage.removeItem(MASTER_VERSION_KEY);
     localStorage.removeItem(MASTER_DATA_KEY);
-  }
+  } */
 
   if (localVersion === latestVersion && localMasters) {
     console.log('[masters] from localStorage');

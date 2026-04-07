@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // masterRaw = master.data;
 
         // 整形
+        console.log("⑨ buildViewMasters");
         buildViewMasters(master);
 
         // UI初期化
