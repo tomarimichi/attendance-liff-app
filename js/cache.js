@@ -85,9 +85,6 @@ async function loadMasters() {
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
-  console.log("[③ ローカル確認]localVersion:",localVersion);
-  console.log("[③ ローカル確認]:localMasters:",localMasters);
-
   // 強制キャッシュクリア
 /*   const FORCE_REFRESH = true;
   if (FORCE_REFRESH) {
@@ -99,17 +96,16 @@ async function loadMasters() {
     console.log('[masters] from localStorage');
 
     const parsed = JSON.parse(localMasters);
-    console.log('[parsed before normalize]', parsed);
+    console.log('[parsed before normalize]');
 
     const masters = normalizeMasters(parsed.data);
-    console.log("[masters after normalize]",masters);
     
-    console.log("[memoryCache before assign]",memoryCache);
+    console.log("[memoryCache before assign]");
 
     memoryCache.version = latestVersion;
     memoryCache.masters = masters;
 
-    console.log("[memoryCache after assign]",memoryCache);
+    console.log("[memoryCache after assign]");
 
     return masters;
   }
@@ -122,9 +118,9 @@ async function loadMasters() {
       throw new Error('masters fetch failed');
     }
 
-  console.log('[masters raw before normalize]:', data);
+  console.log('[masters raw before normalize]:');
   const masters = normalizeMasters(data.data);
-  console.log("[masters raw after normalize]:", masters.data)
+  console.log("[masters raw after normalize]:")
 
   // 保存
   localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
