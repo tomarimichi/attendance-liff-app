@@ -79,11 +79,14 @@ async function loadMasters() {
 
   // ② 最新 version
   const latestVersion = await fetchMasterVersion();
+  console.log ("[② 最新 version]:",latestVersion)
 
   // ③ ローカル確認
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
-
+  console.log("[③ ローカル確認]localVersion:",localVersion)
+  console.log("[③ ローカル確認]:localMasters:",localMasters)
+  
   if (localVersion === latestVersion && localMasters) {
     console.log('[masters] from localStorage');
 
