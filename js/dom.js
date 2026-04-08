@@ -23,6 +23,13 @@ function bindEvents() {
   const form = document.getElementById('absenceForm');
 
 
+  // ===== 日付ボタン =====
+  form?.addEventListener('button',async (e) => {
+    e.preventDefault();
+
+    await clickBtn();
+  });
+
   // ===== 送信 submit =====
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
