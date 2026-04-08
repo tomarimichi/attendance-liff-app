@@ -223,11 +223,19 @@ function applyDevOnlyVisibility(configEnv) {
 }
 
 
+// ================================
 // 欠席日選択ボタン
-let dayBtn = document.getElementsByClassName('day');
+// ================================
+let selectedDates = [];
 
+button.addEventListener('click', () => {
+  const date = button.dataset.date;
 
-function clickBtn(){
-    // alert()で、アラートを出力
-    alert('ボタンがクリックされました');
-}
+  if (selectedDates.includes(date)) {
+    selectedDates = selectedDates.filter(d => d !== date);
+    button.classList.remove('selected');
+  } else {
+    selectedDates.push(date);
+    button.classList.add('selected');
+  }
+});
