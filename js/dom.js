@@ -21,7 +21,7 @@ function bindDom() {
 // ================================
 function bindEvents() {
   const form = document.getElementById('absenceForm');
-  const submitBtn = document.getElementById('sendBtn');
+
 
   // ===== 送信 submit =====
   form?.addEventListener('submit',async (e) => {

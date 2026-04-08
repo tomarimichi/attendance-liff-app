@@ -176,6 +176,7 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
 
 
 async function handleSubmit(form) {
+    const submitBtn = document.getElementById('sendBtn');
     console.log("🚀 submit start",form);
     console.log("viewMasters.reasonList:", viewMasters.reasonList);
 
