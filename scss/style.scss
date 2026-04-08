@@ -489,6 +489,29 @@ $bg-loading: #e3f2fd;
   }
 }
 
+// ===============================
+// 新カレンダー
+// ===============================
+.calendar {
+  display: flex;
+  gap: 8px;
+}
+
+.day {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.selectable {
+  background: #06c755; /* LINEっぽい緑 */
+  color: white;
+}
+
+.disabled {
+  background: #ccc;
+  color: #666;
+}
+
 
 // ===============================
 // DevTool
