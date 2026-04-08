@@ -376,6 +376,7 @@ form {
 
 .calendar {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -383,6 +384,7 @@ form {
   padding: 10px;
   border-radius: 8px;
   margin: 8px;
+  width: 20%;
 }
 
 .selectable {

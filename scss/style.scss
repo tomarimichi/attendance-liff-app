@@ -476,6 +476,7 @@ $bg-loading: #e3f2fd;
 // ===============================
 .calendar {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -483,6 +484,7 @@ $bg-loading: #e3f2fd;
   padding: 10px;
   border-radius: 8px;
   margin: 8px;
+  width: 20%;
 }
 
 .selectable {
