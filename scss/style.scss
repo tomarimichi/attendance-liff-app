@@ -486,16 +486,51 @@ $bg-loading: #e3f2fd;
   border-radius: 8px;
   margin: 4px;
   width: 20%;
-}
 
-.selectable {
+  &:active{
+    transform: scale(0.98);
+  }
+  &.selected{
+    background: #1e90ff;
+    color:white;
+    transform: scale(1.05);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: 2px solid #0b5ed7;
+  }
+  
+  &.selectable {
   background: #06c755; /* LINEっぽい緑 */
   color: white;
+  }
+
+  &.disabled {
+    background: #ccc;
+    color: #999;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
 }
 
-.disabled {
-  background: #ccc;
-  color: #666;
+// ===============================
+// トースト
+// ===============================
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 

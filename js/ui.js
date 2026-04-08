@@ -191,6 +191,21 @@ function setStatus(type, message = '') {
 }
 
 // ================================
+// トースト表示エリア関数
+// ================================
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.remove('hidden');
+
+  setTimeout(() => {
+    toast.classList.add('hidden');
+  }, 2000);
+}
+
+
+
+// ================================
 // DevTool
 // ================================
 function applyDevOnlyVisibility(configEnv) {
