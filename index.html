@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用  後で消す-->
-  <meta name="last-updated" content="2026/04/08 13:43">
+  <meta name="last-updated" content="2026/04/08 14:38">
 
   <meta charset="utf-8">
 
@@ -74,18 +74,18 @@
           <!-- 欠席・遅刻日 -->
           <div class="form-field">
             <label for="absentDate" class="required">欠席・遅刻日</label>
-            <input type="date" id="absentDate" name="absentDate" required>
+            <!--input type="date" id="absentDate" name="absentDate" required-->
           </div>
 
           <!-- 欠席・遅刻日 改 -->
           <div class="calendar">
-            <button class="day selectable">4/9(木)</button>
-            <button class="day selectable selected">4/10(金)</button>
-            <button class="day disabled">4/11(土)</button>
-            <button class="day disabled">4/12(日)</button>
-            <button class="day selectable">4/13(月)</button>
-            <button class="day disabled">4/14(火)</button>
-            <button class="day disabled">4/8(水)</button>
+            <button class="day selectable" data-status="selectable">4/9(木)</button>
+            <button class="day selected" data-status="selected">4/10(金)</button>
+            <button class="day disabled" data-status="disabled">4/11(土)</button>
+            <button class="day disabled" data-status="disabled">4/12(日)</button>
+            <button class="day selectable" data-status="selectable">4/13(月)</button>
+            <button class="day disabled" data-status="disabled">4/14(火)</button>
+            <button class="day disabled" data-status="disabled">4/8(水)</button>
           </div>
 
           <!-- 欠席・遅刻理由 -->
