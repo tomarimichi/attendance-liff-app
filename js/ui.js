@@ -228,7 +228,7 @@ function applyDevOnlyVisibility(configEnv) {
 // ================================
 let selectedDates = [];
 
-button.addEventListener('click', () => {
+document.getElementsByClassName('day').addEventListener('click', () => {
   const date = button.dataset.date;
 
   if (selectedDates.includes(date)) {
