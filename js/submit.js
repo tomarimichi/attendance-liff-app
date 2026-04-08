@@ -173,3 +173,76 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
   // ここに来たら再送も失敗
   throw lastError;
 }
+
+
+async function handleSubmit(form) {
+    console.log("🚀 submit start",form);
+    console.log("viewMasters.reasonList:", viewMasters.reasonList);
+
+
+    const { params, symptomValues, departmentValues } = buildParams(form);
+    const reasonMaster = viewMasters.reasonList.find(
+      r => r.reason_code === params.reason
+    );
+
+    console.log("✅ validation passed");
+
+    const payload = {
+      ...params,
+      submissionId,
+      reasonCode: reasonMaster?.reason_code || "",
+      symptomCodes: symptomValues,
+      departmentCodes: departmentValues,
+      symptomOther: params.symptomOther,
+      departmentOther: params.departmentOther
+    }
+
+    console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
+
+    const error = validateForm(params, symptomValues, departmentValues);
+    if (error) {
+      alert(error);
+      // setStatus()
+      return;
+      }
+
+      submitBtn.disabled = true;
+
+      try{
+        console.log("before withLoading");
+        const result = await withLoading(
+          () => fetchWithTimeout((signal) => postToGAS('submit_absence',payload, {signal}), 15000),
+          { text: '送信中...', hideDelay: 300, safetyTimeout: 45000}
+        );
+        console.log('[送信結果]', result);
+
+        hideLoading();
+
+        if(result.gasSuccess && result.lwSuccess) {
+          setStatus('success','受付が完了しました。');
+          setTimeout(() => liff.closeWindow(),3000);
+          submitBtn.disabled = true;
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),3000);
+        
+        } else if (result.duplicate) {
+          setStatus('success','すでに受付済みです。');
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),2000);
+          return;
+        } else if (result.gasSuccess) {
+          setStatus('warning', '受付は完了しましたが通知に失敗しました。');
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),3000);
+
+        } else {
+          setStatus('error', '処理に失敗しました。<br>LINEを再起動してください。');
+          submitBtn.disabled = false;
+          if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
+        }
+
+      } catch (error) {
+        console.error("送信エラー", error);
+        hideLoading();
+        setStatus('error', error.message || '通信エラーが発生しました。<br>LINEで直接連絡してください');
+        submitBtn.disabled = false;
+        if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
+    }  
+}

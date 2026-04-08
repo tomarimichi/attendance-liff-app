@@ -140,3 +140,8 @@ async function testTimeout() {
   }
 }
 
+// 開発モード
+document.getElementById("toggleSend").addEventListener("change", (e) => {
+  isSendEnabled = e.target.checked;
+  sendButton.disabled = !isSendEnabled;
+});

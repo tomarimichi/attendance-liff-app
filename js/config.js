@@ -26,11 +26,10 @@ let memoryCache = {
   masters: null,
 };
 
-/* const USE_LIFF = false; // ←開発中はfalse
+// 開発モード
+let isSendEnabled = false; // デフォルトOFF
 
-if (USE_LIFF) {
-  liff.init({ liffId: LIFF_ID });
-} */
+
 
 // ============================================================
 
