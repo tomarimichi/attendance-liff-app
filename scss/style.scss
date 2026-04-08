@@ -307,24 +307,6 @@
   }
 
 
-/* ステータス表示エリア */
-/*
-.status {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 8px;
-  text-align: center;
-
-  &-message{
-    white-space: pre-line;
-  }
-
-  &.loading  { background:#eef3ff; }
-  &.success  { background:#e6f7ed; }
-  &.warning  { background:#fff4e5; }
-  &.error    { background:#ffe6e6; }
-}
-*/
 
 .hidden { display:none; }
   .hidden {
@@ -500,6 +482,7 @@ $bg-loading: #e3f2fd;
 .day {
   padding: 10px;
   border-radius: 8px;
+  margin: 8px;
 }
 
 .selectable {

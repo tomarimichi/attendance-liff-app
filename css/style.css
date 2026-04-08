@@ -262,24 +262,6 @@ form {
     transform: rotate(360deg);
   }
 }
-/* ステータス表示エリア */
-/*
-.status {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 8px;
-  text-align: center;
-
-  &-message{
-    white-space: pre-line;
-  }
-
-  &.loading  { background:#eef3ff; }
-  &.success  { background:#e6f7ed; }
-  &.warning  { background:#fff4e5; }
-  &.error    { background:#ffe6e6; }
-}
-*/
 .hidden {
   display: none;
 }
@@ -390,6 +372,27 @@ form {
 }
 .status.loading::before {
   background: #e3f2fd;
+}
+
+.calendar {
+  display: flex;
+  gap: 8px;
+}
+
+.day {
+  padding: 10px;
+  border-radius: 8px;
+  margin: 8px;
+}
+
+.selectable {
+  background: #06c755; /* LINEっぽい緑 */
+  color: white;
+}
+
+.disabled {
+  background: #ccc;
+  color: #666;
 }
 
 .dev-only.hide {

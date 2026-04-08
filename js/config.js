@@ -26,7 +26,11 @@ let memoryCache = {
   masters: null,
 };
 
+const USE_LIFF = false; // ←開発中はfalse
 
+if (USE_LIFF) {
+  liff.init({ liffId: LIFF_ID });
+}
 
 // ============================================================
 
