@@ -238,4 +238,5 @@ button.addEventListener('click', () => {
     selectedDates.push(date);
     button.classList.add('selected');
   }
+  console.log(selectedDates);
 });
