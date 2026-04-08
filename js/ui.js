@@ -223,20 +223,3 @@ function applyDevOnlyVisibility(configEnv) {
 }
 
 
-// ================================
-// 欠席日選択ボタン
-// ================================
-let selectedDates = [];
-
-document.getElementsByClassName('day').addEventListener('click', () => {
-  const date = button.dataset.date;
-
-  if (selectedDates.includes(date)) {
-    selectedDates = selectedDates.filter(d => d !== date);
-    button.classList.remove('selected');
-  } else {
-    selectedDates.push(date);
-    button.classList.add('selected');
-  }
-  console.log(selectedDates);
-});

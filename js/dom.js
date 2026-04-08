@@ -22,6 +22,36 @@ function bindDom() {
 function bindEvents() {
   const form = document.getElementById('absenceForm');
 
+  // ===== カレンダー選択 =====
+  let selectedDates = [];
+
+  const dayButtons = document.querySelectorAll('.day');
+
+  dayButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // disabledは無視
+      if (button.classList.contains('disabled')) return;
+
+      const date = button.dataset.date;
+
+      // ← ここ重要：data-dateが無いと動かない
+      if (!date) {
+        console.warn("data-dateが未設定です", button);
+        return;
+      }
+
+      if (selectedDates.includes(date)) {
+        selectedDates = selectedDates.filter(d => d !== date);
+        button.classList.remove('selected');
+      } else {
+        selectedDates.push(date);
+        button.classList.add('selected');
+      }
+
+      console.log("selectedDates:", selectedDates);
+    });
+  });
+  
   // ===== 送信 submit =====
   form?.addEventListener('submit',async (e) => {
     e.preventDefault();
