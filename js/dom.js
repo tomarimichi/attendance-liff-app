@@ -27,7 +27,7 @@ function bindEvents() {
   form?.addEventListener('button',async (e) => {
     e.preventDefault();
 
-    await clickBtn();
+    clickBtn();
   });
 
   // ===== 送信 submit =====

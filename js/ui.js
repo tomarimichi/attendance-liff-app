@@ -225,7 +225,7 @@ function applyDevOnlyVisibility(configEnv) {
 
 // 欠席日選択ボタン
 let dayBtn = document.getElementsByClassName('day');
-dayBtn.addEventListener('click',clickBtn);
+
 
 function clickBtn(){
     // alert()で、アラートを出力
