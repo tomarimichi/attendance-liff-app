@@ -10,7 +10,7 @@ const CONFIG = {
         dev: {
             LIFF_ID: "2008783538-KeEB2k47",
             GAS_ID:
-                'AKfycbzkEFFscidAu8ZGrk-_mYVMOKzz2JJWpVjyWC-GlbQ0dtwvuJuZwfc88gKGBcDigrbDbQ'
+                'AKfycbwH2FJ20FvWGkUnI0DmguxSKNIOS-ZZKK8iTF5IdQCu99_5XgNqV6XwKtmHM-8DSwxw0w'
         },
         prod: {
             LIFF_ID: '2008783538-yHgAa1tC',
@@ -26,11 +26,11 @@ let memoryCache = {
   masters: null,
 };
 
-const USE_LIFF = false; // ←開発中はfalse
+/* const USE_LIFF = false; // ←開発中はfalse
 
 if (USE_LIFF) {
   liff.init({ liffId: LIFF_ID });
-}
+} */
 
 // ============================================================
 
