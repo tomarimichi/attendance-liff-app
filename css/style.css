@@ -390,16 +390,16 @@ form {
 .day:active {
   transform: scale(0.98);
 }
-.day.selected {
+.day.selectable {
+  background: #06c755; /* LINEっぽい緑 */
+  color: white;
+}
+.day.selectable.selected {
   background: #1e90ff;
   color: white;
   transform: scale(1.05);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border: 2px solid #0b5ed7;
-}
-.day.selectable {
-  background: #06c755; /* LINEっぽい緑 */
-  color: white;
 }
 .day.disabled {
   background: #ccc;
