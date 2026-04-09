@@ -204,9 +204,7 @@ async function handleSubmit(form) {
     }
 
     const error = validateForm(params, symptomValues, departmentValues,selectedDates);
-    console.log(error)
-
-
+   
     if (error) {
       alert(error);
       // setStatus()
