@@ -53,8 +53,8 @@ function buildParams(form) {
 }
 
 /* メッセージ分岐 */
-function validateForm(params, symptomValues, departmentValues) {
-  if (selectedDates.length === 0) {
+function validateForm(params, symptomValues, departmentValues,dates) {
+  if (dates.length === 0) {
     return "日付を選択してください";
   }
 
