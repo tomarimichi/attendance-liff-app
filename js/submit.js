@@ -185,8 +185,6 @@ async function handleSubmit(form) {
     const reasonMaster = viewMasters.reasonList.find(
       r => r.reason_code === params.reason
     );
-    const selectedDates = new Set();
-
 
     console.log("✅ validation passed");
 

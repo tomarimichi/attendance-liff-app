@@ -3,6 +3,7 @@
 // ================================
 let reason, symptom, visitStatus, department;
 let symptomBlock, visitStatusBlock, departmentBlock;
+let selectedDates = [];
 
 function bindDom() {
   reason           = document.getElementById('reason');
@@ -23,7 +24,7 @@ function bindEvents() {
   const form = document.getElementById('absenceForm');
 
   // ===== カレンダー選択 =====
-  let selectedDates = [];
+
 
   const dayButtons = document.querySelectorAll('.day');
 
@@ -49,7 +50,7 @@ function bindEvents() {
       }
 
       console.log("selectedDates:", selectedDates);
-      
+
       const countEl = document.getElementById('selectedCount');
       countEl.textContent = `選択中：${selectedDates.length}日`;
     });
