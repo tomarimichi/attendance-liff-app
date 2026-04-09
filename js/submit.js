@@ -205,7 +205,7 @@ async function handleSubmit(form) {
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
-    const error = validateForm(params, symptomValues, departmentValues,datas);
+    const error = validateForm(params, symptomValues, departmentValues,dates);
 
 
 
@@ -214,7 +214,7 @@ async function handleSubmit(form) {
       // setStatus()
       return;
       }
-      
+
     return; // 開発中STOP
 
       submitBtn.disabled = true;
