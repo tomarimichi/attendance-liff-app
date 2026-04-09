@@ -190,7 +190,7 @@ async function handleSubmit(form) {
 
     const payload = {
       ...params,
-      dates: selectedDates,
+      dates: [...selectedDates].sort(),
       submissionId,
       reasonCode: reasonMaster?.reason_code || "",
       symptomCodes: symptomValues,
