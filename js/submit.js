@@ -53,8 +53,8 @@ function buildParams(form) {
 }
 
 /* メッセージ分岐 */
-function validateForm(params, symptomValues, departmentValues,dates) {
-  console.log(dates.length)
+function validateForm(params, symptomValues, departmentValues,selectedDates) {
+  console.log(selectedDates.length)
   if (dates.length === 0) {
     return "日付を選択してください";
   }
@@ -182,8 +182,8 @@ async function sendWithRetry(type, payload, retryCount = 1, timeout = 15000) {
 
 async function handleSubmit(form) {
     const submitBtn = document.getElementById('sendBtn');
-    console.log("🚀 submit start",form);
-    console.log("viewMasters.reasonList:", viewMasters.reasonList);
+    console.log("🚀 submit start");
+    /* console.log("viewMasters.reasonList:", viewMasters.reasonList); */
 
 
     const { params, symptomValues, departmentValues } = buildParams(form);
@@ -191,7 +191,7 @@ async function handleSubmit(form) {
       r => r.reason_code === params.reason
     );
 
-    const error = validateForm(params, symptomValues, departmentValues,dates);
+    const error = validateForm(params, symptomValues, departmentValues,selectedDates);
     console.log(error)
 
     console.log("✅ validation passed");
@@ -206,7 +206,7 @@ async function handleSubmit(form) {
       symptomOther: params.symptomOther,
       departmentOther: params.departmentOther
     }
-    
+
     if (error) {
       alert(error);
       // setStatus()
