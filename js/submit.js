@@ -54,6 +54,10 @@ function buildParams(form) {
 
 /* メッセージ分岐 */
 function validateForm(params, symptomValues, departmentValues) {
+  if (selectedDates.length === 0) {
+    return "日付を選択してください";
+  }
+
   if (!params.reason) {
     return '理由を選択してください';
   }
