@@ -216,7 +216,7 @@ async function handleSubmit(form) {
 
 
 
-    return; // 開発中STOP
+    // return; // 開発中STOP
 
       submitBtn.disabled = true;
 
