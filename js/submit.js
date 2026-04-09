@@ -206,10 +206,10 @@ async function handleSubmit(form) {
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
 
+    const error = validateForm(params, symptomValues, departmentValues);
     return; // 開発中STOP
 
 
-    const error = validateForm(params, symptomValues, departmentValues);
     if (error) {
       alert(error);
       // setStatus()
