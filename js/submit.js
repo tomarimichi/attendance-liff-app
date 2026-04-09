@@ -206,7 +206,7 @@ async function handleSubmit(form) {
     const error = validateForm(params, symptomValues, departmentValues,selectedDates);
    
     if (error) {
-      showToast(error);
+      alert(error);
       // setStatus()
       return;
       }
