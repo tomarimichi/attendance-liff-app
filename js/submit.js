@@ -185,11 +185,14 @@ async function handleSubmit(form) {
     const reasonMaster = viewMasters.reasonList.find(
       r => r.reason_code === params.reason
     );
+    const selectedDates = new Set();
+
 
     console.log("✅ validation passed");
 
     const payload = {
       ...params,
+      dates: selectedDates,
       submissionId,
       reasonCode: reasonMaster?.reason_code || "",
       symptomCodes: symptomValues,
@@ -199,6 +202,10 @@ async function handleSubmit(form) {
     }
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
+
+
+    return; // 開発中STOP
+
 
     const error = validateForm(params, symptomValues, departmentValues);
     if (error) {
