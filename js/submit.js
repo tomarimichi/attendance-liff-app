@@ -207,7 +207,7 @@ async function handleSubmit(form) {
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
 
     const error = validateForm(params, symptomValues, departmentValues,dates);
-
+    console.log(error)
 
 
     if (error) {
