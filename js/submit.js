@@ -191,6 +191,9 @@ async function handleSubmit(form) {
       r => r.reason_code === params.reason
     );
 
+    const error = validateForm(params, symptomValues, departmentValues,dates);
+    console.log(error)
+
     console.log("✅ validation passed");
 
     const payload = {
@@ -203,18 +206,17 @@ async function handleSubmit(form) {
       symptomOther: params.symptomOther,
       departmentOther: params.departmentOther
     }
-
-    console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
-
-    const error = validateForm(params, symptomValues, departmentValues,dates);
-    console.log(error)
-
-
+    
     if (error) {
       alert(error);
       // setStatus()
       return;
       }
+
+    console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
+
+
+
 
     return; // 開発中STOP
 
