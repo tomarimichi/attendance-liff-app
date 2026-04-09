@@ -54,6 +54,7 @@ function buildParams(form) {
 
 /* メッセージ分岐 */
 function validateForm(params, symptomValues, departmentValues,dates) {
+  console.log(dates.length)
   if (dates.length === 0) {
     return "日付を選択してください";
   }
