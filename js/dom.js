@@ -49,11 +49,11 @@ function bindEvents() {
       }
 
       console.log("selectedDates:", selectedDates);
+      
+      const countEl = document.getElementById('selectedCount');
+      countEl.textContent = `選択中：${selectedDates.length}日`;
     });
     
-    const countEl = document.getElementById('selectedCount');
-
-    countEl.textContent = `選択中：${selectedDates.length}日`;
   });
   
   // ===== 送信 submit =====
