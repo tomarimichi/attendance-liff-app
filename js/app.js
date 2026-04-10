@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("⑥ loadMasters start");
         const master = await loadMasters();
         console.log("⑦ loadMasters done", master);
+        const nbdMaster = await loadNonBusinessDays();
+        console.log("⑦ loadNonBusinessDays done", nbdMaster);
 
         if (!master) {
           console.log("⑧ master null");

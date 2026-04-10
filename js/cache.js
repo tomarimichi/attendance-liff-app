@@ -1,75 +1,4 @@
-// キャッシュ関連
-/*
-async function fetchMastersWithCache() {
-  // ① ローカルストレージ確認
-  const cached = localStorage.getItem(MASTER_CACHE_KEY);
-
-  if (cached) {
-    console.log('[fetchMasters] from localStorage');
-    return JSON.parse(cached);
-  }
-
-  // ② なければ GAS から取得
-  console.log('[fetchMasters] from GAS');
-  const json = await fetchMasters();
-
-  // fetchMasters は失敗時 null を返す設計なので
-  if (json) {
-    localStorage.setItem(
-      MASTER_CACHE_KEY,
-      JSON.stringify(json)
-    );
-  }
-
-  return json;
-}
-*/
-// 2604 改修直前
-/* async function loadMasters() {
-  // ① GAS の最新 version
-  const latestVersion = await fetchMasterVersion();
-
-  console.log('latestVersion:', latestVersion);
-  console.log('typeof latestVersion:', typeof latestVersion);
-
-
-  // ② ローカル確認
-  const localVersion = localStorage.getItem(MASTER_VERSION_KEY) || null;
-  const localMasters = localStorage.getItem(MASTER_DATA_KEY);
-
-  console.log('[loadMasters]:',{ 
-    localVersion: localStorage.getItem(MASTER_VERSION_KEY),
-    latestVersion,
-    equal: localStorage.getItem(MASTER_VERSION_KEY) === latestVersion,
-    localMastersRaw: localStorage.getItem(MASTER_DATA_KEY),
-  });
-
-
-  if (localVersion === latestVersion && localMasters) {
-    console.log('[masters] use cache', {
-        serverVersion: latestVersion,
-        localVersion: localVersion,
-        hasLocal: true
-    });
-    return JSON.parse(localMasters);
-  } else {
-    console.log('[masters] fetch from GAS', {
-        serverVersion: latestVersion,
-        localVersion: localVersion,
-        hasLocal: !!localMasters
-        });
-  }
-
-  // ③ 不一致 → 再取得
-  console.log('[masters] from GAS');
-  const masters = await fetchMasters();
-
-  localStorage.setItem(MASTER_VERSION_KEY, latestVersion);
-  localStorage.setItem(MASTER_DATA_KEY, JSON.stringify(masters));
-
-  return masters;
-} */
-
+// Master Cache
 async function loadMasters() {
   // ① メモリキャッシュ
   if (memoryCache.masters) {
@@ -131,7 +60,6 @@ async function loadMasters() {
 
   return masters;
 }
-
 
 async function fetchMasterVersion() {
   const res = await fetch(buildGasUrl("master_version"));
@@ -198,10 +126,19 @@ function normalizeMasters(data) {
   };
 }
 
-/*     reasonMap: toMap(data.reasons || [], 'reason_code'),
-    symptomMap: toMap(data.m_symptom || data.symptoms || [], 'symptom_code'),
-    departmentMap: toMap(data.m_department || data.departments || [], 'department_code'),
+// nonBusiness Cache
+async function loadNonBusinessDays() {
+  const server = await fetchVersion();
+  const localVersion = localStorage.getItem('non_business_version');
 
-    symptomCategoryMap: toMap(data.symptomCategories || [], 'category_code'),
-    departmentCategoryMap: toMap(data.departmentCategories || [], 'category_code'),
- */
+  if (server.version !== localVersion) {
+    const data = await fetchNonBusinessDays();
+
+    localStorage.setItem('non_business_days', JSON.stringify(data));
+    localStorage.setItem('non_business_version', server.version);
+
+    return data;
+  }
+
+  return JSON.parse(localStorage.getItem('non_business_days'));
+}
