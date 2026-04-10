@@ -15,11 +15,13 @@ async function loadMasters() {
   const localMasters = localStorage.getItem(MASTER_DATA_KEY);
 
   // 強制キャッシュクリア
-/*   const FORCE_REFRESH = true;
-  if (FORCE_REFRESH) {
-    localStorage.removeItem(MASTER_VERSION_KEY);
-    localStorage.removeItem(MASTER_DATA_KEY);
-  } */
+  /* 
+    const FORCE_REFRESH = true;
+    if (FORCE_REFRESH) {
+      localStorage.removeItem(MASTER_VERSION_KEY);
+      localStorage.removeItem(MASTER_DATA_KEY);
+    }
+  */
 
   if (localVersion === latestVersion && localMasters) {
     console.log('[masters] from localStorage');
@@ -128,35 +130,26 @@ function normalizeMasters(data) {
 
 // nonBusiness Cache
 async function loadNonBusinessDays() {
-  const nbdLatestVersion = await fetchVersion('NonBusiness_VERSION');
-  console.log ("[最新 version]:",nbdLatestVersion)
+  const latestVersion = await fetchNonBusinessVersion();
+  const cached = localStorage.getItem('non_business_days');
 
-  const localVersion = localStorage.getItem('non_business_version');
-  console.log(localVersion)
-
-  if (nbdLatestVersion.version !== localVersion) {
+  if (latestVersion !== localVersion || !cached) {
     const data = await fetchNonBusinessDays();
 
     localStorage.setItem('non_business_days', JSON.stringify(data));
-    localStorage.setItem('non_business_version', nbdLatestVersion.version);
+    localStorage.setItem('non_business_version', latestVersion);
 
     return data;
   }
 
-  return JSON.parse(localStorage.getItem('non_business_days'));
+  return JSON.parse(cached);
 }
 
-async function fetchVersion(type) {
+async function fetchNonBusinessVersion() {
   const res = await fetch(buildGasUrl("nbd_version"));
-  if (!res.ok) throw new Error(type,' fetch failed');
-  
-  const text = await res.text();
-  console.log("[raw response]", text);
+  if (!res.ok) throw new Error('nbd_version fetch failed');
 
-  // const json = await res.json();
-  const json = JSON.parse(text);
-
-  console.log('[',type,']', json);
+  const json = await res.json();
 
   return String(json.data.version);
 }
