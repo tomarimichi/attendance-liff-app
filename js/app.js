@@ -36,11 +36,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('displayName').value = profile.displayName;
 
         // マスター取得
-        console.log("⑥ loadMasters start");
+        console.log("⑥_a loadMasters start");
         const master = await loadMasters();
-        console.log("⑦ loadMasters done", master);
+        console.log("⑦_a loadMasters done", master);
+        console.log("⑥_b loadNonBusinessDays start");
         const nbdMaster = await loadNonBusinessDays();
-        console.log("⑦ loadNonBusinessDays done", nbdMaster);
+        console.log("⑦_b loadNonBusinessDays done", nbdMaster);
 
         if (!master) {
           console.log("⑧ master null");

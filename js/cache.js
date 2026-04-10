@@ -8,7 +8,7 @@ async function loadMasters() {
 
   // ② 最新 version
   const latestVersion = await fetchMasterVersion();
-  console.log ("[② 最新 version]:",latestVersion)
+  console.log ("[最新 version]:",latestVersion)
 
   // ③ ローカル確認
   const localVersion = localStorage.getItem(MASTER_VERSION_KEY);
@@ -128,14 +128,17 @@ function normalizeMasters(data) {
 
 // nonBusiness Cache
 async function loadNonBusinessDays() {
-  const server = await fetchVersion('NonBusiness_VERSION');
-  const localVersion = localStorage.getItem('non_business_version');
+  const nbdLatestVersion = await fetchVersion('NonBusiness_VERSION');
+  console.log ("[最新 version]:",nbdLatestVersion)
 
-  if (server.version !== localVersion) {
+  const localVersion = localStorage.getItem('non_business_version');
+  console.log(localVersion)
+
+  if (nbdLatestVersion.version !== localVersion) {
     const data = await fetchNonBusinessDays();
 
     localStorage.setItem('non_business_days', JSON.stringify(data));
-    localStorage.setItem('non_business_version', server.version);
+    localStorage.setItem('non_business_version', nbdLatestVersion.version);
 
     return data;
   }
