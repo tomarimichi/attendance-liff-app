@@ -147,7 +147,7 @@ async function loadNonBusinessDays() {
 }
 
 async function fetchVersion(type) {
-  const res = await fetch(buildGasUrl(type));
+  const res = await fetch(buildGasUrl("nbd_version"));
   if (!res.ok) throw new Error(type,' fetch failed');
   
   const text = await res.text();
