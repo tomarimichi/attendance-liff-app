@@ -131,6 +131,7 @@ function normalizeMasters(data) {
 // nonBusiness Cache
 async function loadNonBusinessDays() {
   const latestVersion = await fetchNonBusinessVersion();
+  const localVersion = localStorage.getItem('non_business_version')
   const cached = localStorage.getItem('non_business_days');
 
   if (latestVersion !== localVersion || !cached) {

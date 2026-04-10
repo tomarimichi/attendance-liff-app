@@ -42,7 +42,6 @@ const GAS_URL = `https://script.google.com/macros/s/${ENV.GAS_ID}/exec?v=${CONFI
 
 function buildGasUrl(type) {
   const url = new URL(GAS_URL);
-  console.log(url)
   if(type) {
     url.searchParams.set("type",type);
   }
