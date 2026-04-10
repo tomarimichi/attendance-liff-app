@@ -128,7 +128,7 @@ function normalizeMasters(data) {
 
 // nonBusiness Cache
 async function loadNonBusinessDays() {
-  const server = await fetchVersion();
+  const server = await fetchVersion('NonBusiness_VERSION');
   const localVersion = localStorage.getItem('non_business_version');
 
   if (server.version !== localVersion) {
@@ -141,4 +141,19 @@ async function loadNonBusinessDays() {
   }
 
   return JSON.parse(localStorage.getItem('non_business_days'));
+}
+
+async function fetchVersion(type) {
+  const res = await fetch(buildGasUrl(type));
+  if (!res.ok) throw new Error(type,' fetch failed');
+  
+  const text = await res.text();
+  console.log("[raw response]", text);
+
+  // const json = await res.json();
+  const json = JSON.parse(text);
+
+  console.log('[',type,']', json);
+
+  return String(json.data.version);
 }
