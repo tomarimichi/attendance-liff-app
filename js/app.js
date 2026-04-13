@@ -55,6 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("⑨ buildViewMasters");
         buildViewMasters(master);
 
+
+        // 欠席日カレンダー生成
+        console.log("renderCalendar start");
+        renderCalendar(nonBusinessDays)
+        console.log("renderCalendar done");
+
         // UI初期化
         console.log("⑩ initReasonSelect");
         initReasonSelect(viewMasters.reasonList);
