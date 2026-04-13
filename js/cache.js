@@ -159,3 +159,14 @@ async function fetchNonBusinessVersion() {
 
   return String(json.data.version);
 }
+
+async function fetchNonBusinessDays() {
+  const res = await fetch(buildGasUrl("non_business_days"));
+  if (!res.ok) throw new Error('non_business_days fetch failed');
+
+  const json = await res.json();
+
+  console.log('[nonBusiness raw]', json);
+
+  return json.data;
+}
