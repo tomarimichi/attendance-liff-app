@@ -133,13 +133,14 @@ async function loadNonBusinessDays() {
   const latestVersion = await fetchNonBusinessVersion();
   const localVersion = localStorage.getItem('non_business_version')
   const cached = localStorage.getItem('non_business_days');
+  console.log("[latestVersion]:",latestVersion,"\n[localVersion]:",localVersion,"\n[cached]:",cached);
 
   if (!cached) {
     console.log('[nonBusiness] no cache');
   } else if (latestVersion !== localVersion) {
     console.log('[nonBusiness] version mismatch');
   } else {
-    console.log('[nonBusiness] cache hit');
+    console.log('[nonBusiness] cache hit:', cached);
     return JSON.parse(cached);
   }
     const data = await fetchNonBusinessDays();
