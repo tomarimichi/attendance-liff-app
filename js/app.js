@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 欠席日カレンダー生成
         console.log("renderCalendar start");
-        renderCalendar(nonBusinessDays)
+        renderCalendar(nbdMaster)
         console.log("renderCalendar done");
 
         // UI初期化
