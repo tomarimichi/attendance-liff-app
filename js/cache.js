@@ -159,7 +159,7 @@ async function fetchNonBusinessVersion() {
   if (!res.ok) throw new Error('nbd_version fetch failed');
 
   const json = await res.json();
-
+  console.log('[nbd_version raw]', json);
   return String(json.data.version);
 }
 
