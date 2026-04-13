@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // マスター取得
         console.log("⑥_a loadMasters start");
         const master = await loadMasters();
-        console.log("⑦_a loadMasters done", master);
-        console.log("⑥_b loadNonBusinessDays start");
+        console.log("⑥_b loadMasters done", master);
+        console.log("⑦_a loadNonBusinessDays start");
         const nbdMaster = await loadNonBusinessDays();
         console.log("⑦_b loadNonBusinessDays done", nbdMaster);
 
