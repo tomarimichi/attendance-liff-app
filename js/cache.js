@@ -160,7 +160,9 @@ async function fetchNonBusinessVersion() {
 
   const json = await res.json();
   console.log('[nbd_version raw]', json);
-  return String(json.data.version);
+  return String(json.data);
+
+  // return String(json.data.version);
 }
 
 async function fetchNonBusinessDays() {
