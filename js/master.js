@@ -192,3 +192,85 @@ document.getElementById('department').addEventListener('change', e => {
 document.getElementById('visitStatus').addEventListener('change', e => {
   updateDepartmentVisibility(e.target.value);
 });
+
+
+// ================================
+// 欠席日カレンダー
+// ================================
+// ■ 営業日判定
+function isBusinessDay(date, nonBusinessSet) {
+  const day = date.getDay(); // 0=日,6=土
+
+  if (day === 0 || day === 6) return false;
+
+  const dateStr = formatDate(date);
+  if (nonBusinessSet.has(dateStr)) return false;
+
+  return true;
+}
+
+// ■ カレンダー生成
+function renderCalendar(nonBusinessDays) {
+  const nonBusinessSet = new Set(nonBusinessDays);
+  const today = new Date();
+
+  const days = [];
+  const businessDays = [];
+
+  // ① 7日分生成
+  for (let i = 0; i < 7; i++) {
+    const d = addDays(today, i);
+    const dateStr = formatDate(d);
+
+    const isBiz = isBusinessDay(d, nonBusinessSet);
+
+    if (isBiz) {
+      businessDays.push(dateStr);
+    }
+
+    days.push({
+      date: d,
+      dateStr,
+      isBiz
+    });
+  }
+
+  // ② 上位3営業日（本日含む）
+  const selectableSet = new Set(businessDays.slice(0, 3));
+
+  // ③ DOM反映
+  const buttons = document.querySelectorAll('.day');
+
+  days.forEach((d, i) => {
+    const btn = buttons[i];
+
+    btn.dataset.date = d.dateStr;
+    btn.textContent = formatDisplay(d.date);
+
+    if (!d.isBiz) {
+      btn.className = "day disabled";
+    } else if (selectableSet.has(d.dateStr)) {
+      btn.className = "day selectable";
+    } else {
+      btn.className = "day disabled";
+    }
+  });
+}
+
+// ■ 補助関数
+function addDays(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function formatDate(date) {
+  return date.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+
+function formatDisplay(date) {
+  const m = date.getMonth() + 1;
+  const d = date.getDate();
+  const w = ['日','月','火','水','木','金','土'][date.getDay()];
+  return `${m}/${d}(${w})`;
+}
