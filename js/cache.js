@@ -135,21 +135,23 @@ async function loadNonBusinessDays() {
   const cached = localStorage.getItem('non_business_days');
   console.log("[latestVersion]:",latestVersion,"\n[localVersion]:",localVersion,"\n[cached]:",cached);
 
-  if (!cached) {
-    console.log('[nonBusiness] no cache');
-  } else if (latestVersion !== localVersion) {
-    console.log('[nonBusiness] version mismatch');
-  } else {
-    console.log('[nonBusiness] cache hit:', cached);
-    return JSON.parse(cached);
+  if (cached && cached !== "undefined" && latestVersion === localVersion) {
+    try {
+      console.log('[nonBusiness] cache hit');
+      return JSON.parse(cached);
+    } catch (e) {
+      console.warn('[nonBusiness] cache parse error');
+    }
   }
-    const data = await fetchNonBusinessDays();
 
-    localStorage.setItem('non_business_days', JSON.stringify(data));
-    localStorage.setItem('non_business_version', latestVersion);
+  console.log('[nonBusiness] fetch from GAS');
 
-    return data;
+  const data = await fetchNonBusinessDays();
 
+  localStorage.setItem('non_business_days', JSON.stringify(data));
+  localStorage.setItem('non_business_version', latestVersion);
+
+  return data;
 }
 
 async function fetchNonBusinessVersion() {
