@@ -55,7 +55,7 @@ function buildParams(form) {
 /* メッセージ分岐 */
 function validateForm(params, symptomValues, departmentValues,selectedDates) {
   if (selectedDates.length === 0) {
-    return "日付を選択してください";
+    return "日付を選択してください\nちゃんと通ってる？";
   }
 
   if (!params.reason) {
