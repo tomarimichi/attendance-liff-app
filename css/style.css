@@ -386,6 +386,7 @@ form {
   border-radius: 8px;
   margin: 4px;
   width: 20%;
+  height: 40px;
 }
 .day:active {
   transform: scale(0.98);

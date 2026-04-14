@@ -274,3 +274,4 @@ function formatDisplay(date) {
   const w = ['日','月','火','水','木','金','土'][date.getDay()];
   return `${m}/${d}(${w})`;
 }
+
