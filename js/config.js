@@ -10,7 +10,7 @@ const CONFIG = {
         dev: {
             LIFF_ID: "2008783538-KeEB2k47",
             GAS_ID:
-                'AKfycbyiPd-Db9vRJAXFKbqtwIfiL_Ugt2NVZ_IQCVpBfzGWIBWsnT4KQKmiT1ns3xS4eDMMqg'
+                'AKfycbyUg5krQ47ykfhsAyABUwtgWTCTV20vwUjXUVlnaH4uNM4_ePyaQK6BvrExdyAQ7DUs0w'
         },
         prod: {
             LIFF_ID: '2008783538-yHgAa1tC',
