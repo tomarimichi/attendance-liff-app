@@ -55,6 +55,7 @@ function buildParams(form) {
 /* メッセージ分岐 */
 function validateForm(params,symptomValues,departmentValues,selectedDates) {
   const errors = [];
+  let reasonConfig = null;
 
   if (selectedDates.length === 0) {
     errors.push({
@@ -68,16 +69,16 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
       message: "理由を選択してください",
       target: "reason"
     });
-  }
-  
-  const reasonConfig = viewMasters.reasonList.find(
-    r => r.reason_code === params.reason
-  );
+  } else {
+    reasonConfig = viewMasters.reasonList.find(
+      r => r.reason_code === params.reason
+    );
 
-  if (!reasonConfig) {
-    errors.push({
-      message: "不正な理由が選択されています",
-    });
+    if (!reasonConfig) {
+      errors.push({
+        message: "不正な理由が選択されています",
+      });
+    }
   }
 
   if(reasonConfig?.symptom_required && symptomValues.length === 0 ) {
