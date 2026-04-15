@@ -3,7 +3,7 @@
 // ================================
 const CONFIG = {
     ENV: "dev",
-    VERSION:"0.9.5",
+    VERSION:"0.9.6",
     TIMEOUT: 30000,
 
     ENV_CONFIG: {
