@@ -539,10 +539,12 @@ $bg-loading: #e3f2fd;
 // ===============================
 // DevTool
 // ===============================
-.dev-only.hide {
-  display: none;
+.dev-only{
+  &.hide {
+    display: none;
+  }
   
-  & .isPrev {
-    display: inline;
+  &.isPrev {
+    display: inline ;
   }
 }
