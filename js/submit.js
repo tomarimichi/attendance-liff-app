@@ -135,6 +135,13 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
     });
   }
 
+  if (!params.nextDate) {
+    errors.push({
+      message: "次回通所予定日を選択してください。\n遅刻予定であれば時間も選択してください",
+      target: "nextDate"
+    });
+  }
+
   return errors;
 
 }

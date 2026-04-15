@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <!--テスト用  後で消す-->
-  <meta name="last-updated" content="2026/04/15 15:15">
+  <meta name="last-updated" content="2026/04/15 15:23">
 
   <meta charset="utf-8">
 
@@ -69,7 +69,7 @@
 
     <h3>欠席・遅刻連絡フォーム</h3>
     <div class="main-Fields">
-      <form id="absenceForm">
+      <form id="absenceForm" novalidate>
         <!-- 入力エリア -->
         <div id="formFields">
           <!-- 欠席・遅刻日 -->
@@ -93,7 +93,7 @@
           <!-- 欠席・遅刻理由 -->
           <div class="form-field">
             <label for="reason" class="required">欠席・遅刻理由</label>
-            <select id="reason" name="reason" required>
+            <select id="reason" name="reason">
             </select>
           </div>
 
