@@ -227,7 +227,7 @@ function applyVisibility(configEnv) {
   const devElements = document.querySelectorAll('.dev-only');
   const previewElements = document.querySelectorAll('.preview-only');
 
-  const hide = configEnv === 'dev';
+  const hide = configEnv !== 'dev';
   devElements.forEach(el => {
     if (hide) {
       el.classList.add('hide');
@@ -245,8 +245,8 @@ function applyVisibility(configEnv) {
   previewElements.forEach(el => {
     el.classList.toggle('hide', !isPreview);
   });
+  }
  */
-}
 
 // Preview切り替えスイッチ
 document.getElementById('previewToggle').addEventListener('click', () => {
