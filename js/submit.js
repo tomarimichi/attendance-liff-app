@@ -82,7 +82,19 @@ function validateForm(params, symptomValues, departmentValues,selectedDates) {
     symptomValues.includes('OTHER') &&
     !params.symptomOther?.trim()
   ) {
-    return '症状（その他）を入力してください';
+    const area = document.getElementById('symptomOtherArea');
+    const textarea = document.getElementById('symptomOther');
+
+    if (area) {
+      area.style.display = 'block';
+    }
+
+    setTimeout(() => {
+      textarea?.scrollIntoView({ behavior: 'smooth', block: 'center'});
+      textarea?.focus();
+    }, 0);
+
+    return '症状で「その他」を選んだ場合は、下の記入欄に具体的な内容をご入力ください';
   }
 
   if (reasonConfig.visit_required && !params.visitStatus) {
