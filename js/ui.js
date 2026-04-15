@@ -225,7 +225,7 @@ function applyDevOnlyVisibility(configEnv) {
  */
 function applyVisibility(configEnv) {
   const devElements = document.querySelectorAll('.dev-only');
-  const previewElements = document.querySelectorAll('.preview-only');
+
 
   const hide = configEnv !== 'dev';
   devElements.forEach(el => {
@@ -233,14 +233,6 @@ function applyVisibility(configEnv) {
       el.classList.add('hide');
     } else {
       el.classList.remove('hide');
-    }
-  });
-
-  previewElements.forEach(el =>{
-    if (isPreview = true) {
-      el.classList.add('isPrev');
-    } else {
-      el.classList.remove('isPrev');
     }
   });
 }
@@ -260,4 +252,12 @@ function applyVisibility(configEnv) {
 document.getElementById('previewToggle').addEventListener('click', () => {
   isPreview = !isPreview;
   console.log(`プレビュー: ${isPreview}`);
+    const previewElements = document.querySelectorAll('.preview-only');
+      previewElements.forEach(el =>{
+    if (isPreview = true) {
+      el.classList.add('isPrev');
+    } else {
+      el.classList.remove('isPrev');
+    }
+  });
 });
