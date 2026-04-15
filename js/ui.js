@@ -246,10 +246,13 @@ document.getElementById('previewToggle').addEventListener('click', () => {
   console.log(`プレビュー: ${isPreview}`);
   
   previewElements.forEach(el =>{
-    if (isPreview) {
+    el.classList.toggle('isPrev',isPreview);
+    /*
+     if (isPreview) {
       el.classList.add('isPrev');
     } else {
       el.classList.remove('isPrev');
     }
+    */
   });
 });
