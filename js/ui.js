@@ -224,11 +224,20 @@ function applyDevOnlyVisibility(configEnv) {
 }
  */
 function applyVisibility(configEnv) {
-  const devElements = document.querySelectorAll('dev-only');
-  const previewElements = document.querySelectorAll('preview-only');
+  const devElements = document.querySelectorAll('.dev-only');
+  const previewElements = document.querySelectorAll('.preview-only');
 
-  const isDev = configEnv === 'dev';
+  const hide = configEnv === 'dev';
+  devElements.forEach(el => {
+    if (hide) {
+      el.classList.add('hide');
+    } else {
+      el.classList.remove('hide');
+    }
+  });
+}
 
+/*   
   devElements.forEach(el => {
     el.classList.toggle('hide', !isDev);
   });
@@ -236,6 +245,7 @@ function applyVisibility(configEnv) {
   previewElements.forEach(el => {
     el.classList.toggle('hide', !isPreview);
   });
+ */
 }
 
 // Preview切り替えスイッチ
