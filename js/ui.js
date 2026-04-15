@@ -224,8 +224,8 @@ function applyDevOnlyVisibility(configEnv) {
 }
  */
 function applyVisibility(configEnv) {
-  const devElements = document.querySelectorAll('.dev-only');
-  const previewElements = document.querySelectorAll('.preview-only');
+  const devElements = document.querySelectorAll('dev-only');
+  const previewElements = document.querySelectorAll('preview-only');
 
   const isDev = configEnv === 'dev';
 
