@@ -237,23 +237,15 @@ function applyVisibility(configEnv) {
   });
 }
 
-/*   
-  devElements.forEach(el => {
-    el.classList.toggle('hide', !isDev);
-  });
 
-  previewElements.forEach(el => {
-    el.classList.toggle('hide', !isPreview);
-  });
-  }
- */
 
 // Preview切り替えスイッチ
 document.getElementById('previewToggle').addEventListener('click', () => {
+  const previewElements = document.querySelectorAll('.preview-only');
   isPreview = !isPreview;
   console.log(`プレビュー: ${isPreview}`);
-    const previewElements = document.querySelectorAll('.preview-only');
-      previewElements.forEach(el =>{
+  
+  previewElements.forEach(el =>{
     if (isPreview = true) {
       el.classList.add('isPrev');
     } else {
