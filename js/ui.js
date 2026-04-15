@@ -235,6 +235,14 @@ function applyVisibility(configEnv) {
       el.classList.remove('hide');
     }
   });
+
+  devElements.forEach(el =>{
+    if (isPreview = true) {
+      el.classList.add('isPrev');
+    } else {
+      el.classList.remove('isPrev');
+    }
+  });
 }
 
 /*   
