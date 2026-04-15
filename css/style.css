@@ -433,15 +433,16 @@ form {
   padding: 12px;
   margin-bottom: 16px;
 }
-
 .error-summary ul {
   margin: 0;
   padding-left: 20px;
 }
-
 .error-summary li {
   cursor: pointer;
   color: #c00;
+}
+.error-summary.hide {
+  display: none;
 }
 
 .dev-only.hide {
