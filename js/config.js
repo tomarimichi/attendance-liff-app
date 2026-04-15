@@ -2,7 +2,7 @@
 // 設定
 // ================================
 const CONFIG = {
-    ENV: "dev",
+    ENV: "prod",
     VERSION:"0.9.4",
     TIMEOUT: 30000,
 
