@@ -203,26 +203,54 @@ function showToast(message) {
   }, 2000);
 }
 
+function showErrorSummary(errors) {
+  const container = document.getElementById('errorSummary');
+
+  if (!errors.length) {
+    container.classList.add('hide');
+    container.innerHTML = '';
+    return;
+  }
+
+  container.classList.remove('hide');
+
+  const list = errors.map(err => {
+    return `<li data-target="${err.target || ''}">${err.message}</li>`;
+  }).join('');
+
+  container.innerHTML = `
+    <strong>入力内容に不備があります</strong>
+    <ul>${list}</ul>
+  `;
+
+  // クリックでジャンプ
+  container.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', () => {
+      const id = li.dataset.target;
+      if (!id) return;
+
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.focus?.();
+    });
+  });
+
+  // 最初のエラーに自動スクロール
+  const first = errors[0]?.target;
+  if (first) {
+    const el = document.getElementById(first);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el?.focus?.();
+  }
+}
 
 
 // ================================
 // DevTool
 // ================================
-/* 
-function applyDevOnlyVisibility(configEnv) {
-  const devElements = document.querySelectorAll('.dev-only');
 
-  // dev 環境なら表示、dev 以外は非表示
-  const hide = configEnv !== 'dev';
-  devElements.forEach(el => {
-    if (hide) {
-      el.classList.add('hide');
-    } else {
-      el.classList.remove('hide');
-    }
-  });
-}
- */
 function applyVisibility(configEnv) {
   const devElements = document.querySelectorAll('.dev-only');
 
@@ -247,12 +275,5 @@ document.getElementById('previewToggle').addEventListener('click', () => {
   
   previewElements.forEach(el =>{
     el.classList.toggle('isPrev',isPreview);
-    /*
-     if (isPreview) {
-      el.classList.add('isPrev');
-    } else {
-      el.classList.remove('isPrev');
-    }
-    */
   });
 });

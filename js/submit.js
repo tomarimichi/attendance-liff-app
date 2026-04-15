@@ -53,6 +53,92 @@ function buildParams(form) {
 }
 
 /* メッセージ分岐 */
+function validateForm(params,symptomValues,departmentValues,selectedDates) {
+  const errors = [];
+
+  if (selectedDates.length === 0) {
+    errors.push({
+      message: "日付を選択してください",
+      target: "datePicker"
+    });
+  }
+
+  if (!params.reason) {
+    errors.push({
+      message: "理由を選択してください",
+      target: "reason"
+    });
+  }
+  
+  const reasonConfig = viewMasters.reasonList.find(
+    r => r.reason_code === params.reason
+  );
+
+  if (!reasonConfig) {
+    errors.push({
+      message: "不正な理由が選択されています",
+    });
+  }
+
+  if(reasonConfig?.symptom_required && symptomValues.length === 0 ) {
+    errors.push({
+      message: "症状を選択してください",
+      target: "symptom"
+    });
+  }
+  // 症状（その他）
+  if (
+    symptomValues.includes('OTHER') &&
+    !params.symptomOther?.trim()
+  ) {
+    errors.push({
+      message: "症状で「その他」を選んだ場合は、下の記入欄に具体的な内容をご入力ください",
+      target: "symptomOther"
+    });
+  }
+
+  if (reasonConfig?.visit_required && !params.visitStatus) {
+    errors.push({
+      message: "通院有無を選択してください",
+      target: "visitStatus"
+    });
+  }
+
+  const visitConfig = visitStatusList.find(
+    v => v.visit_code === params.visitStatus
+  );
+
+  if (params.visitStatus && !visitConfig) {
+    errors.push({
+      message: "不正な通院有無が選択されています"
+    });
+  }
+
+  const needDepartment =
+    visitConfig?.requires_department &&
+    reasonConfig?.department_required_when_visit;
+
+  if (needDepartment && departmentValues.length === 0) {
+    errors.push({
+      message: "受診科を選択してください",
+      target: "department"
+    });
+  }
+
+  if (
+    departmentValues.includes('OTHER') &&
+    !params.departmentOther?.trim()
+  ) {
+    errors.push({
+      message: "受診科で「その他」を選んだ場合は、下の記入欄にご入力ください",
+      target: "departmentOther"
+    });
+  }
+
+  return errors;
+
+}
+/* 
 function validateForm(params, symptomValues, departmentValues,selectedDates) {
   if (selectedDates.length === 0) {
     return "日付を選択してください";
@@ -126,6 +212,7 @@ function validateForm(params, symptomValues, departmentValues,selectedDates) {
 
   return null; // エラーなし
 }
+*/
 
 // ================================
 // DOM取得関数part1
@@ -214,13 +301,21 @@ async function handleSubmit(form) {
       departmentOther: params.departmentOther
     }
 
+    /* 
     const error = validateForm(params, symptomValues, departmentValues,selectedDates);
-   
-    if (error) {
-      showToast(error);
-      // setStatus()
+      if (error) {
+        showToast(error);
+        // setStatus()
+        return;
+        }
+    */
+    const errors = validateForm(params, symptomValues, departmentValues, selectedDates);
+
+    if (errors.length > 0) {
+      showErrorSummary(errors);
       return;
-      }
+    }
+
     console.log("✅ validation passed");
 
     console.log("🚀 FINAL PAYLOAD:", JSON.stringify(payload, null, 2));
