@@ -246,7 +246,7 @@ document.getElementById('previewToggle').addEventListener('click', () => {
   console.log(`プレビュー: ${isPreview}`);
   
   previewElements.forEach(el =>{
-    if (isPreview = true) {
+    if (isPreview) {
       el.classList.add('isPrev');
     } else {
       el.classList.remove('isPrev');
