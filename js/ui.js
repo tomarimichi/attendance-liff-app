@@ -236,7 +236,7 @@ function applyVisibility(configEnv) {
     }
   });
 
-  devElements.forEach(el =>{
+  previewElements.forEach(el =>{
     if (isPreview = true) {
       el.classList.add('isPrev');
     } else {

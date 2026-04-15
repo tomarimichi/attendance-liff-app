@@ -541,4 +541,8 @@ $bg-loading: #e3f2fd;
 // ===============================
 .dev-only.hide {
   display: none;
+  
+  & .isPrev {
+    display: inline;
+  }
 }

@@ -429,4 +429,7 @@ form {
 
 .dev-only.hide {
   display: none;
+}
+.dev-only.hide .isPrev {
+  display: inline;
 }/*# sourceMappingURL=style.css.map */
