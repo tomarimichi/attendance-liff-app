@@ -63,7 +63,11 @@ function bindEvents() {
 
 
   // 🔒 開発モードガード（最優先）
-  if (!isSendEnabled) {
+  const shouldBlockSend = 
+    !isPreview && (
+      !isSendEnabled || isDev
+    );
+  if (shouldBlockSend) {
     console.warn("🚫 送信ブロック（開発モード）");
     showToast("現在送信は無効です（開発中）")
     return;
