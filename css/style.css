@@ -432,4 +432,14 @@ form {
 }
 .dev-only.isPrev {
   display: none;
+}
+
+#previewToggle {
+  margin: 8px 8px;
+  width: 40px;
+  right: 20px;
+  bottom: 100px;
+  padding: 8px;
+  position: fixed;
+  font-size: 12px;
 }/*# sourceMappingURL=style.css.map */

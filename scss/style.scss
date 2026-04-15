@@ -548,3 +548,13 @@ $bg-loading: #e3f2fd;
     display: none ;
   }
 }
+
+#previewToggle {
+  margin: 8px 8px;
+  width: 40px;
+  right: 20px;
+  bottom: 100px;
+  padding: 8px;
+  position: fixed;
+  font-size: 12px;
+}
