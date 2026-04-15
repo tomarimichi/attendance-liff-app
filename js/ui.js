@@ -208,6 +208,7 @@ function showToast(message) {
 // ================================
 // DevTool
 // ================================
+/* 
 function applyDevOnlyVisibility(configEnv) {
   const devElements = document.querySelectorAll('.dev-only');
 
@@ -221,5 +222,24 @@ function applyDevOnlyVisibility(configEnv) {
     }
   });
 }
+ */
+function applyVisibility(configEnv) {
+  const devElements = document.querySelectorAll('.dev-only');
+  const previewElements = document.querySelectorAll('.preview-only');
 
+  const isDev = configEnv === 'dev';
 
+  devElements.forEach(el => {
+    el.classList.toggle('hide', !isDev);
+  });
+
+  previewElements.forEach(el => {
+    el.classList.toggle('hide', !isPreview);
+  });
+}
+
+// Preview切り替えスイッチ
+document.getElementById('previewToggle').addEventListener('click', () => {
+  isPreview = !isPreview;
+  console.log(`プレビュー: ${isPreview}`);
+});

@@ -2,8 +2,8 @@
 // 設定
 // ================================
 const CONFIG = {
-    ENV: "prod",
-    VERSION:"0.9.4",
+    ENV: "dev",
+    VERSION:"0.9.5",
     TIMEOUT: 30000,
 
     ENV_CONFIG: {
@@ -28,6 +28,8 @@ let memoryCache = {
 
 // 開発モード
 let isSendEnabled = false; // デフォルトOFF
+let isPreview = false; // 開発モードで標準表示にしたいとき用
+
 
 
 
@@ -62,7 +64,8 @@ const submissionId = crypto.randomUUID();
 
 // ページ読み込み時に呼び出す
 document.addEventListener('DOMContentLoaded', () => {
-  applyDevOnlyVisibility(CONFIG.ENV);
+  // applyDevOnlyVisibility(CONFIG.ENV);
+  applyVisibility(CONFIG.ENV);
 });
 
 // 起動ログ
