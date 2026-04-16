@@ -33,8 +33,8 @@ function getSelectedDates() {
 }
 
 
-document.addEventListener('input', bindEvents);
-document.addEventListener('change', bindEvents);
+document.addEventListener('input', handleRealtimeValidation);
+document.addEventListener('change', handleRealtimeValidation);
 
 // ================================
 // イベント管理
@@ -125,6 +125,7 @@ function bindOtherToggleEvents() {
 
 // リアルタイム更新イベント
 function bindRealtimeValidationEvents() {
+  console.log('リアルタイムイベント登録');
   document.getElementById('reason')
     ?.addEventListener('change', handleRealtimeValidation);
 
