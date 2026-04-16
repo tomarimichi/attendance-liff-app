@@ -33,8 +33,8 @@ function getSelectedDates() {
 }
 
 
-document.addEventListener('input', handleRealtimeValidation);
-document.addEventListener('change', handleRealtimeValidation);
+document.addEventListener('input', bindEvents);
+document.addEventListener('change', bindEvents);
 
 // ================================
 // イベント管理
