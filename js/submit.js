@@ -149,7 +149,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
 
 
 function handleRealtimeValidation() {
-  console.log("start handleRealtimeValidation")
+  console.log("start handleRealtimeValidation");
   const params = getFormParams(); // 既存の取得関数
   const symptomValues = getSymptomValues();
   const departmentValues = getDepartmentValues();

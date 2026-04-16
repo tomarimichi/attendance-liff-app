@@ -18,13 +18,13 @@ function getFormParams() {
 
 function getSymptomValues() {
   return Array.from(
-    symptom.querySelectorAll('input:checked')
+    document.querySelectorAll('#symptom input:checked')
   ).map(el => el.value);
 }
 
 function getDepartmentValues() {
   return Array.from(
-    department.querySelectorAll('input:cehcked')
+    document.querySelectorAll('#department input:cehcked')
   ).map(el => el.value);
 }
 
@@ -35,6 +35,16 @@ function getSelectedDates() {
 
 document.addEventListener('input', handleRealtimeValidation);
 document.addEventListener('change', handleRealtimeValidation);
+
+document.querySelectorAll('#symptom input')
+  .forEach(el => {
+    el.addEventListener('change', handleRealtimeValidation);
+  });
+
+document.querySelectorAll('#department input')
+  .forEach(el => {
+    el.addEventListener('change', handleRealtimeValidation);
+  });
 
 // ================================
 // イベント管理
