@@ -61,7 +61,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
       [departmentValues]:${departmentValues}\n
       [selectedDates]:${selectedDates}
       `);
-      
+
   const errors = [];
   let reasonConfig = null;
 
@@ -146,7 +146,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
 
   if (!params.nextDate) {
     errors.push({
-      message: "次回通所予定日を選択してください\n遅刻予定であれば時間も選択してください",
+      message: `次回通所予定日を選択してください\n遅刻予定であれば時間も選択してください`,
       target: "nextDate"
     });
   }
@@ -157,7 +157,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
 
 
 function handleRealtimeValidation() {
-  console.log("start handleRealtimeValidation");
+  console.log("リアルタイム発火🔥");
   const params = getFormParams(); // 既存の取得関数
   const symptomValues = getSymptomValues();
   const departmentValues = getDepartmentValues();
@@ -261,14 +261,6 @@ async function handleSubmit(form) {
       departmentOther: params.departmentOther
     }
 
-    /* 
-    const error = validateForm(params, symptomValues, departmentValues,selectedDates);
-      if (error) {
-        showToast(error);
-        // setStatus()
-        return;
-        }
-    */
     const errors = validateForm(params, symptomValues, departmentValues, selectedDates);
 
     if (errors.length > 0) {
