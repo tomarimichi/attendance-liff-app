@@ -24,7 +24,7 @@ function getSymptomValues() {
 
 function getDepartmentValues() {
   return Array.from(
-    document.querySelectorAll('#department input:cehcked')
+    document.querySelectorAll('#department input:checked')
   ).map(el => el.value);
 }
 
