@@ -54,6 +54,7 @@ function buildParams(form) {
 
 /* メッセージ分岐 */
 function validateForm(params,symptomValues,departmentValues,selectedDates) {
+  console.error(params,symptomValues,departmentValues,selectedDates);
   const errors = [];
   let reasonConfig = null;
 
