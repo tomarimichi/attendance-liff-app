@@ -5,41 +5,59 @@ let reason, symptom, visitStatus, department;
 let symptomBlock, visitStatusBlock, departmentBlock;
 let selectedDates = [];
 
-function bindDom() {
-  reason           = document.getElementById('reason');
-  symptom          = document.getElementById('symptom');
-  visitStatus      = document.getElementById('visitStatus');
-  department       = document.getElementById('department');
 
-  symptomBlock     = document.getElementById('symptomBlock');
-  visitStatusBlock = document.getElementById('visitStatusBlock');
-  departmentBlock  = document.getElementById('departmentBlock');
+
+function getFormParams() {
+  return {
+    reason: reason?.value,
+    symptomOther: document.getElementById('symptomOther')?.value,
+    departmentOther: document.getElementById('departmentOther')?.value,
+    visitStatus: visitStatus?.value
+  };
 }
 
+function getSymptomValues() {
+  return Array.from(
+    symptom.querySelectorAll('input:checked')
+  ).map(el => el.value);
+}
+
+function getDepartmentValues() {
+  return Array.from(
+    department.querySelectorAll('input:cehcked')
+  ).map(el => el.value);
+}
+
+function getSelectedDates() {
+  return selectedDates;
+}
+
+
+document.addEventListener('input', handleRealtimeValidation);
+document.addEventListener('change', handleRealtimeValidation);
 
 // ================================
 // イベント管理
 // ================================
 function bindEvents() {
-  const form = document.getElementById('absenceForm');
+  bindCalendarEvents();
+  bindFormSubmit();
+  bindVisibilityEvents();
+  bindOtherToggleEvents();
+  bindRealtimeValidationEvents(); // ←追加
+}
 
-  // ===== カレンダー選択 =====
 
-
+// カレンダーイベント
+function bindCalendarEvents() {
   const dayButtons = document.querySelectorAll('.day');
 
   dayButtons.forEach(button => {
     button.addEventListener('click', () => {
-      // disabledは無視
       if (button.classList.contains('disabled')) return;
 
       const date = button.dataset.date;
-
-      // ← ここ重要：data-dateが無いと動かない
-      if (!date) {
-        console.warn("data-dateが未設定です", button);
-        return;
-      }
+      if (!date) return;
 
       if (selectedDates.includes(date)) {
         selectedDates = selectedDates.filter(d => d !== date);
@@ -49,72 +67,83 @@ function bindEvents() {
         button.classList.add('selected');
       }
 
-      console.log("selectedDates:", selectedDates);
-
-      const countEl = document.getElementById('selectedCount');
-      countEl.textContent = `選択中：${selectedDates.length}日`;
+      document.getElementById('selectedCount').textContent =
+        `選択中：${selectedDates.length}日`;
     });
-    
   });
-  
-  // ===== 送信 submit =====
-  form?.addEventListener('submit',async (e) => {
+}
+
+// submitイベント
+function bindFormSubmit() {
+  const form = document.getElementById('absenceForm');
+
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const shouldBlockSend =
+      !isPreview && (!isSendEnabled || isDev);
 
-  // 🔒 開発モードガード（最優先）
-  const shouldBlockSend = 
-    !isPreview && (
-      !isSendEnabled || isDev
-    );
-  if (shouldBlockSend) {
-    console.warn("🚫 送信ブロック（開発モード）");
-    showToast("現在送信は無効です（開発中）")
-    return;
-  }
+    if (shouldBlockSend) {
+      showToast("現在送信は無効です（開発中）");
+      return;
+    }
 
     await handleSubmit(form);
   });
-
-
-  const reason = document.getElementById('reason');
-  console.log('[bindEvents] reason found:', !!reason);
-
-  reason?.addEventListener('change', () => {
-    console.log('[event] reason changed', reason.value);
-    updateVisibility();
-  });
-
-  const visitStatus = document.getElementById('visitStatus');
-  visitStatus?.addEventListener('change', () => {
-    console.log('[event] visitStatus changed', visitStatus.value);
-    updateVisibility();
-  });
-
-  // 症状「その他」制御
-  const symptomSelect = document.getElementById('symptom');
-  if (symptomSelect) {
-    symptomSelect.addEventListener('change', e => {
-      const otherArea = document.getElementById('symptomOtherArea');
-      if (!otherArea) return;
-
-      otherArea.style.display =
-        isOtherSelected(symptomSelect) ? 'block' : 'none';
-    });
-  }
-
-  // 受診科「その他」制御
-  const departmentSelect = document.getElementById('department');
-  if (departmentSelect) {
-    departmentSelect.addEventListener('change', e => {
-      const otherArea = document.getElementById('departmentOtherArea');
-      if (!otherArea) return;
-
-      otherArea.style.display =
-        isOtherSelected(departmentSelect) ? 'block' : 'none';
-    });
-  }  
 }
+
+// 表示制御イベント
+function bindVisibilityEvents() {
+  document.getElementById('reason')
+    ?.addEventListener('change', updateVisibility);
+
+  document.getElementById('visitStatus')
+    ?.addEventListener('change', updateVisibility);
+}
+
+// Other表示イベント
+function bindOtherToggleEvents() {
+  const symptom = document.getElementById('symptom');
+  const department = document.getElementById('department');
+
+  symptom?.addEventListener('change', () => {
+    const area = document.getElementById('symptomOtherArea');
+    if (area) {
+      area.style.display =
+        isOtherSelected(symptom) ? 'block' : 'none';
+    }
+  });
+
+  department?.addEventListener('change', () => {
+    const area = document.getElementById('departmentOtherArea');
+    if (area) {
+      area.style.display =
+        isOtherSelected(department) ? 'block' : 'none';
+    }
+  });
+}
+
+// リアルタイム更新イベント
+function bindRealtimeValidationEvents() {
+  document.getElementById('reason')
+    ?.addEventListener('change', handleRealtimeValidation);
+
+  document.getElementById('visitStatus')
+    ?.addEventListener('change', handleRealtimeValidation);
+
+  document.getElementById('symptom')
+    ?.addEventListener('change', handleRealtimeValidation);
+
+  document.getElementById('department')
+    ?.addEventListener('change', handleRealtimeValidation);
+
+  document.getElementById('symptomOther')
+    ?.addEventListener('input', handleRealtimeValidation);
+
+  document.getElementById('departmentOther')
+    ?.addEventListener('input', handleRealtimeValidation);
+}
+
 
 function isOtherSelected(selectEl) {
   return Array.from(selectEl.selectedOptions)

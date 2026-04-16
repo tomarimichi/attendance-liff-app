@@ -146,81 +146,24 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
   return errors;
 
 }
-/* 
-function validateForm(params, symptomValues, departmentValues,selectedDates) {
-  if (selectedDates.length === 0) {
-    return "日付を選択してください";
-  }
 
-  if (!params.reason) {
-    return '理由を選択してください';
-  }
 
-  const reasonConfig = viewMasters.reasonList.find(
-    r => r.reason_code === params.reason
+function handleRealtimeValidation() {
+  const params = getFormParams(); // 既存の取得関数
+  const symptomValues = getSymptomValues();
+  const departmentValues = getDepartmentValues();
+  const selectedDates = getSelectedDates();
+
+  const errors = validateForm(
+    params,
+    symptomValues,
+    departmentValues,
+    selectedDates
   );
 
-  if(!reasonConfig) {
-    return '不正な理由が選択されています';
-  }
-
-  if (reasonConfig.symptom_required && symptomValues.length === 0) {
-    return '症状を選択してください';
-  }
-
-  // 文言改善
-    // 症状(その他)を入力してください
-    // 　↓
-    // 理由を書かないといけない旨の文面に変更
-  if (
-    symptomValues.includes('OTHER') &&
-    !params.symptomOther?.trim()
-  ) {
-    const area = document.getElementById('symptomOtherArea');
-    const textarea = document.getElementById('symptomOther');
-
-    if (area) {
-      area.style.display = 'block';
-    }
-
-    setTimeout(() => {
-      textarea?.scrollIntoView({ behavior: 'smooth', block: 'center'});
-      textarea?.focus();
-    }, 0);
-
-    return '症状で「その他」を選んだ場合は、下の記入欄に具体的な内容をご入力ください';
-  }
-
-  if (reasonConfig.visit_required && !params.visitStatus) {
-    return '通院有無を選択してください';
-  }
-
-  const visitConfig = visitStatusList.find(
-    v => v.visit_code === params.visitStatus
-  );
-
-  if (params.visitStatus && !visitConfig) {
-    return '不正な通院有無が選択されています';
-  }
-
-  const needDepartment =
-    visitConfig?.requires_department &&
-    reasonConfig.department_required_when_visit;
-
-  if (needDepartment && departmentValues.length === 0) {
-    return '受診科を選択してください';
-  }
-
-  if (
-    departmentValues.includes('OTHER') &&
-    !params.departmentOther?.trim()
-  ) {
-    return '受診科（その他）を入力してください';
-  }
-
-  return null; // エラーなし
+  showErrorSummary(errors);
 }
-*/
+
 
 // ================================
 // DOM取得関数part1
