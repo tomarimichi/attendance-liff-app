@@ -108,7 +108,6 @@ function bindFormSubmit() {
 
 // 表示制御イベント
 function bindVisibilityEvents() {
-  console.log("[bindVisibilityEvents start]")
   document.getElementById('reason')
     ?.addEventListener('change', () => {
       updateVisibility();
