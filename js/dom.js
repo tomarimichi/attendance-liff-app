@@ -90,6 +90,8 @@ function bindFormSubmit() {
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    hasSubmitted = true;
+
     const shouldBlockSend =
       !isPreview && (!isSendEnabled || isDev);
 

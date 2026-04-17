@@ -275,3 +275,6 @@ function formatDisplay(date) {
   return `${m}/${d}(${w})`;
 }
 
+
+// グローバル変数
+let hasSubmitted = false;
