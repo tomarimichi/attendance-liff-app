@@ -12,7 +12,8 @@ function getFormParams() {
     reason: reason?.value,
     symptomOther: document.getElementById('symptomOther')?.value,
     departmentOther: document.getElementById('departmentOther')?.value,
-    visitStatus: visitStatus?.value
+    visitStatus: visitStatus?.value,
+    nextDate: document.getElementById('nextDate')?.value
   };
 }
 
@@ -46,6 +47,7 @@ document.querySelectorAll('#department input')
     el.addEventListener('change', handleRealtimeValidation);
   });
 
+  
 // ================================
 // イベント管理
 // ================================
@@ -121,6 +123,10 @@ function bindVisibilityEvents() {
       handleRealtimeValidation();
       console.log("[bindVisibilityEvents]:visitStatus");
     });
+
+  document.getElementById('nextDate')
+    ?.addEventListener('change',handleRealtimeValidation);
+
 }
 
 // Other表示イベント
