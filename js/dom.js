@@ -109,13 +109,16 @@ function bindFormSubmit() {
 // 表示制御イベント
 function bindVisibilityEvents() {
   document.getElementById('reason')
-    ?.addEventListener('change', updateVisibility);
+    ?.addEventListener('change', () => {
+      updateVisibility();
+      handleRealtimeValidation();
+    });
 
   document.getElementById('visitStatus')
-    ?.addEventListener('change', updateVisibility);
-
-  handleRealtimeValidation();
-
+    ?.addEventListener('change', () => {
+      updateVisibility();
+      handleRealtimeValidation();
+    });
 }
 
 // Other表示イベント
