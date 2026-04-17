@@ -222,7 +222,7 @@ function showErrorSummary(errors) {
     <strong>入力内容に不備があります</strong>
     <ul>${list}</ul>
   `;
-
+/* 
   // クリックでジャンプ
   container.querySelectorAll('li').forEach(li => {
     li.addEventListener('click', () => {
@@ -244,6 +244,7 @@ function showErrorSummary(errors) {
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     el?.focus?.();
   }
+   */
 }
 
 

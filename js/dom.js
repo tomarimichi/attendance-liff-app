@@ -79,6 +79,8 @@ function bindCalendarEvents() {
 
       document.getElementById('selectedCount').textContent =
         `選択中：${selectedDates.length}日`;
+      
+      handleRealtimeValidation();
     });
   });
 }
