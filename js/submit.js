@@ -157,6 +157,8 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
 
 
 function handleRealtimeValidation() {
+  if (!hasSubmitted) return;
+  
   console.log("リアルタイム発火🔥");
   const params = getFormParams(); // 既存の取得関数
   const symptomValues = getSymptomValues();
@@ -169,6 +171,7 @@ function handleRealtimeValidation() {
     departmentValues,
     selectedDates
   );
+
 
   showErrorSummary(errors);
 }
