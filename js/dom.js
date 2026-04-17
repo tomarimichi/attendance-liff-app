@@ -113,6 +113,9 @@ function bindVisibilityEvents() {
 
   document.getElementById('visitStatus')
     ?.addEventListener('change', updateVisibility);
+
+  handleRealtimeValidation();
+
 }
 
 // Other表示イベント
