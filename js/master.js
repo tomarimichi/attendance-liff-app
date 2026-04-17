@@ -276,5 +276,3 @@ function formatDisplay(date) {
 }
 
 
-// グローバル変数
-let hasSubmitted = false;

@@ -158,24 +158,27 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
 
 function handleRealtimeValidation() {
   if (!hasSubmitted) return;
-  
-  console.log("リアルタイム発火🔥");
-  const params = getFormParams(); // 既存の取得関数
-  const symptomValues = getSymptomValues();
-  const departmentValues = getDepartmentValues();
-  const selectedDates = getSelectedDates();
 
-  const errors = validateForm(
-    params,
-    symptomValues,
-    departmentValues,
-    selectedDates
-  );
+  clearTimeout(debounceTimer);
+
+  debounceTimer = setTimeout(() => {
+    console.log("リアルタイム発火🔥");
+    const params = getFormParams(); // 既存の取得関数
+    const symptomValues = getSymptomValues();
+    const departmentValues = getDepartmentValues();
+    const selectedDates = getSelectedDates();
+
+    const errors = validateForm(
+      params,
+      symptomValues,
+      departmentValues,
+      selectedDates
+    );
 
 
-  showErrorSummary(errors);
+    showErrorSummary(errors);
+  }, 100);
 }
-
 
 // ================================
 // DOM取得関数part1
@@ -320,3 +323,4 @@ async function handleSubmit(form) {
         if (liff.isInClient()) setTimeout(() => liff.closeWindow(),5000);
     }  
 }
+
