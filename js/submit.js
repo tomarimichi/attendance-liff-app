@@ -54,6 +54,7 @@ function buildParams(form) {
 
 /* メッセージ分岐 */
 function validateForm(params,symptomValues,departmentValues,selectedDates) {
+  /*
   console.error(`
     validateForm:\n
       [params]: ${params}\n
@@ -61,7 +62,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
       [departmentValues]:${departmentValues}\n
       [selectedDates]:${selectedDates}
       `);
-
+  */
   const errors = [];
   let reasonConfig = null;
 
@@ -145,6 +146,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
   }
 
   if (!params.nextDate) {
+    console.log("selectedDates in validate:", selectedDates);
     errors.push({
       message: `次回通所予定日を選択してください\n遅刻予定であれば時間も選択してください`,
       target: "nextDate"
@@ -174,6 +176,7 @@ function handleRealtimeValidation() {
       departmentValues,
       selectedDates
     );
+
 
 
     showErrorSummary(errors);
