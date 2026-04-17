@@ -9,10 +9,10 @@ let selectedDates = [];
 
 function getFormParams() {
   return {
-    reason: reason?.value,
+    reason: document.getElementById('reason')?.value,
     symptomOther: document.getElementById('symptomOther')?.value,
     departmentOther: document.getElementById('departmentOther')?.value,
-    visitStatus: visitStatus?.value,
+    visitStatus: document.getElementById('visitStatus')?.value,
     nextDate: document.getElementById('nextDate')?.value
   };
 }
