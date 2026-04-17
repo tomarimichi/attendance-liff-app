@@ -176,7 +176,7 @@ function handleRealtimeValidation() {
       departmentValues,
       selectedDates
     );
-    console.error(params.data);
+    console.error("[handleRealtimeValidation]params.reason:",params.reason);
 
 
     showErrorSummary(errors);
