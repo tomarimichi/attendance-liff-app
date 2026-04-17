@@ -108,16 +108,19 @@ function bindFormSubmit() {
 
 // 表示制御イベント
 function bindVisibilityEvents() {
+  console.log("[bindVisibilityEvents start]")
   document.getElementById('reason')
     ?.addEventListener('change', () => {
       updateVisibility();
       handleRealtimeValidation();
+      console.log("[bindVisibilityEvents]:reason");
     });
 
   document.getElementById('visitStatus')
     ?.addEventListener('change', () => {
       updateVisibility();
       handleRealtimeValidation();
+      console.log("[bindVisibilityEvents]:visitStatus");
     });
 }
 
