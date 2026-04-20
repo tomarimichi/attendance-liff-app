@@ -98,6 +98,7 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
   }
   // 症状（その他）
   if (
+    params.reasonCode === "ILLNESS" &&
     symptomValues.includes('OTHER') &&
     !params.symptomOther?.trim()
   ) {
