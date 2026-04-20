@@ -136,8 +136,18 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
     });
   }
 
+  const isOtherSelectedInDePart = departmentValues.includes('OTHER');
+
+  const isIllnesswithVisit = 
+    params.reason === 'ILLNESS' &&
+    ['PLAN','DONE'].includes(params.visitStatus);
+
+  const isVisitReason = 
+    params.reason === 'VISIT';
+
   if (
-    departmentValues.includes('OTHER') &&
+    isOtherSelectedInDePart &&
+    (isIllnesswithVisit || isVisitReason) &&
     !params.departmentOther?.trim()
   ) {
     errors.push({
@@ -177,8 +187,6 @@ function handleRealtimeValidation() {
       departmentValues,
       selectedDates
     );
-    console.error("[handleRV]params.reason:",params.reason);
-    console.error("[handleRV]params.nextDate:",params.nextDate);
 
 
     showErrorSummary(errors);
