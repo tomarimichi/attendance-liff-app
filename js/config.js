@@ -42,6 +42,8 @@ let memoryCache = {
 let isSendEnabled = false; // デフォルトOFF
 let isPreview = false; // 開発モードで標準表示にしたいとき用
 
+let isDev = CONFIG.ENV === "dev" // 
+
 // コンフィグデータ整形
   const ENV = CONFIG.ENV_CONFIG[CONFIG.ENV]
     if(!ENV){
