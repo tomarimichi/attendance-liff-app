@@ -99,6 +99,7 @@ function bindFormSubmit() {
     const shouldBlockSend =
       !isPreview && (!isSendEnabled || isDev);
 
+      console.log('[shouldBlockSend]:',shouldBlockSend)
     if (shouldBlockSend) {
       showToast("現在送信は無効です（開発中）");
       return;
