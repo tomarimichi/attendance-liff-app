@@ -222,29 +222,6 @@ function showErrorSummary(errors) {
     <strong>入力内容に不備があります</strong>
     <ul>${list}</ul>
   `;
-/* 
-  // クリックでジャンプ
-  container.querySelectorAll('li').forEach(li => {
-    li.addEventListener('click', () => {
-      const id = li.dataset.target;
-      if (!id) return;
-
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      el.focus?.();
-    });
-  });
-
-  // 最初のエラーに自動スクロール
-  const first = errors[0]?.target;
-  if (first) {
-    const el = document.getElementById(first);
-    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    el?.focus?.();
-  }
-   */
 }
 
 
