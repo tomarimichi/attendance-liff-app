@@ -2,7 +2,7 @@
 // 設定
 // ================================
 const CONFIG = {
-    ENV: "dev",
+    ENV: "prod",
     VERSION:"0.9.6",
     TIMEOUT: 30000,
 
@@ -15,7 +15,7 @@ const CONFIG = {
         prod: {
             LIFF_ID: '2008783538-yHgAa1tC',
             GAS_ID:
-                'AKfycbzi53d7FkMFJlb2nIJTdMQOCkwrfIDWHN8Xcf9Dz6TnDRklAnbt1NMVIk-vp3o1zqLT'
+                'AKfycbxLvhhK6rocTtTlbKa95YcFd6vzJywclhnSBg-_OyKaGFiOzzo1bOBbj1DIrl1Yavzi'
         }
     }
 }
