@@ -100,7 +100,7 @@ function bindFormSubmit() {
     const canSend =
       isPreview || !isDev || isSendEnabled;
       console.log('[canSend]:',canSend)
-      console.log(`[isPreview]:${isPreview}\n[isSendEnabled]:${isSendEnabled}\n[isDev]:${isDev}`)
+      console.log(`[isPreview]:${isPreview}\n[isSendEnabled]:${isSendEnabled}\n[isDev]:${!isDev}`)
 
     if (!canSend) {
       showToast("現在送信は無効です（開発中）");
