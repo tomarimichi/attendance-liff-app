@@ -146,6 +146,7 @@ function shouldShowDepartmentOther(params, departmentValues) {
 // 表示更新関数
 // ================================
 function updateSymptomOtherVisibility() {
+  console.log(`[updateSympOV start]`)
   const area = document.getElementById('symptomOtherArea');
   if (!area) return;
 
