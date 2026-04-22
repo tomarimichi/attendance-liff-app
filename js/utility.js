@@ -133,12 +133,33 @@ function updateDepartmentOtherVisibility() {
   if (!area) return;
 
   const params = getFormParams(); // ←今使ってるやつでOK
-  const departmentValues = getSelectedValues('department');
+  const departmentValues = getSelectedValues('department') || [];
 
   area.style.display =
     shouldShowDepartmentOther(params, departmentValues)
       ? 'block'
       : 'none';
+}
+
+function getSelectedValues(name) {
+  const elements = document.querySelectorAll(`[name="${name}"]`);
+  const values = [];
+
+  elements.forEach(el => {
+    if ((el.type === 'checkbox' || el.type === 'radio') && el.checked) {
+      values.push(el.value);
+    } else if (el.tagName === 'SELECT') {
+      if (el.multiple) {
+        Array.from(el.selectedOptions).forEach(opt => {
+          values.push(opt.value);
+        });
+      } else {
+        values.push(el.value);
+      }
+    }
+  });
+
+  return values;
 }
 
 // -------------------------------------------
