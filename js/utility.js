@@ -103,16 +103,42 @@ function sanitizeBeforeSubmit(data) {
   sanitized.reasonCode === 'ILLNESS' &&
   ['PLAN', 'DONE'].includes(sanitized.visitStatus);
 
-if (!(isVisit || isIllnessWithVisit)) {
-  sanitized.departmentCodes = [];
-  sanitized.departmentOther = '';
-}
+  if (!(isVisit || isIllnessWithVisit)) {
+    sanitized.departmentCodes = [];
+    sanitized.departmentOther = '';
+  }
 
 
   return sanitized;
 }
 
+// その他表示用判定関数
+function shouldShowDepartmentOther(params, departmentValues) {
+  const isOtherSelected = departmentValues.includes('OTHER');
 
+  const isIllnessWithVisit =
+    params.reason === 'ILLNESS' &&
+    ['PLAN', 'DONE'].includes(params.visitStatus);
+
+  const isVisitReason =
+    params.reason === 'VISIT';
+
+  return isOtherSelected && (isIllnessWithVisit || isVisitReason);
+}
+
+// 表示更新関数
+function updateDepartmentOtherVisibility() {
+  const area = document.getElementById('departmentOtherArea');
+  if (!area) return;
+
+  const params = getFormParams(); // ←今使ってるやつでOK
+  const departmentValues = getSelectedValues('department');
+
+  area.style.display =
+    shouldShowDepartmentOther(params, departmentValues)
+      ? 'block'
+      : 'none';
+}
 
 // -------------------------------------------
 // タイムアウトテスト用送信関数

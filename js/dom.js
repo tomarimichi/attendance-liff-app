@@ -106,16 +106,7 @@ function bindFormSubmit() {
       showToast("現在送信は無効です（開発中）");
       return;
     }
-  /* 
-    const shouldBlockSend =
-      !isPreview && (!isSendEnabled || isDev);
 
-
-    if (shouldBlockSend) {
-      showToast("現在送信は無効です（開発中）");
-      return;
-    }
-  */
     await handleSubmit(form);
   });
 }

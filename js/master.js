@@ -184,8 +184,6 @@ document.getElementById('department').addEventListener('change', e => {
   const otherArea = document.getElementById('departmentOtherArea');
   if (!otherArea) return;
 
-  otherArea.style.display =
-    e.target.value === 'OTHER' ? 'block' : 'none';
 });
 
 
