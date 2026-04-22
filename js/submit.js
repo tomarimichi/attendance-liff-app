@@ -97,9 +97,9 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
     });
   }
   // 症状（その他）
-  const isRequired = shouldShowSymptomOther(params, symptomValues);
+  const isSymptomRequired = shouldShowSymptomOther(params, symptomValues);
   if (
-    isRequired &&
+    isSymptomRequired &&
     !params.symptomOther?.trim()
   ) {
     errors.push({
@@ -156,9 +156,9 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
   const isVisitReason = 
     params.reason === 'VISIT';
 
-  const isRequired = shouldShowDepartmentOther(params,departmentValues);
+  const isDepartmentRequired = shouldShowDepartmentOther(params,departmentValues);
   if (
-    isRequired &&
+    isDepartmentRequired &&
     !params.departmentOther?.trim()
     /*
       isOtherSelectedInDePart &&
