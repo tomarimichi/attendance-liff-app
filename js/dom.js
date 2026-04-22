@@ -55,8 +55,11 @@ function bindEvents() {
   bindCalendarEvents();
   bindFormSubmit();
   bindVisibilityEvents();
-  bindOtherToggleEvents();
-  bindRealtimeValidationEvents(); // ←追加
+  //bindOtherToggleEvents();
+  bindDepartmentOtherEvents();
+  bindRealtimeValidationEvents();
+
+  updateDepartmentOtherVisibility();
 }
 
 
@@ -132,6 +135,7 @@ function bindVisibilityEvents() {
 
 }
 
+/* 
 // Other表示イベント
 function bindOtherToggleEvents() {
   const symptom = document.getElementById('symptom');
@@ -153,6 +157,7 @@ function bindOtherToggleEvents() {
     }
   });
 }
+*/
 
 // リアルタイム更新イベント
 function bindRealtimeValidationEvents() {
@@ -183,3 +188,13 @@ function isOtherSelected(selectEl) {
 }
 
 
+function bindDepartmentOtherEvents() {
+  document.getElementById('department')
+    ?.addEventListener('change', updateDepartmentOtherVisibility);
+
+  document.getElementById('reason')
+    ?.addEventListener('change', updateDepartmentOtherVisibility);
+
+  document.getElementById('visitStatus')
+    ?.addEventListener('change', updateDepartmentOtherVisibility);
+}

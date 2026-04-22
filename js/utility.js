@@ -4,7 +4,7 @@ function showError() {
 
 
 // ===========================
-// 表示関連
+// ローディング
 // ===========================
 let loadingTimer = null;
 
@@ -93,7 +93,7 @@ async function fetchWithTimeout(fetchFunc, timeout = 15000) {
 
 
 
-
+/* 
 // サニタイズ
 function sanitizeBeforeSubmit(data) {
   const sanitized = { ...data };
@@ -111,6 +111,7 @@ function sanitizeBeforeSubmit(data) {
 
   return sanitized;
 }
+*/
 
 // その他表示用判定関数
 function shouldShowDepartmentOther(params, departmentValues) {

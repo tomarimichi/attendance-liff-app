@@ -180,12 +180,13 @@ document.getElementById('reason').addEventListener('change', e => {
   updateSymptomVisibility(e.target.value);
 });
 
+/* 
 document.getElementById('department').addEventListener('change', e => {
   const otherArea = document.getElementById('departmentOtherArea');
   if (!otherArea) return;
 
 });
-
+ */
 
 document.getElementById('visitStatus').addEventListener('change', e => {
   updateDepartmentVisibility(e.target.value);

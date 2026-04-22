@@ -145,10 +145,15 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
   const isVisitReason = 
     params.reason === 'VISIT';
 
+  const isRequired = shouldShowDepartmentOther(params,departmentValues);
   if (
+    isRequired &&
+    !params.departmentOther?.trim()
+    /*
     isOtherSelectedInDePart &&
     (isIllnesswithVisit || isVisitReason) &&
     !params.departmentOther?.trim()
+    */
   ) {
     errors.push({
       message: "受診科で「その他」を選んだ場合は、下の記入欄にご入力ください",
