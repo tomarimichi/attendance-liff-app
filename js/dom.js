@@ -59,6 +59,8 @@ function bindEvents() {
   bindDepartmentOtherEvents();
   bindRealtimeValidationEvents();
 
+  bindSymptomOtherEvents();
+  updateSymptomOtherVisibility();
   updateDepartmentOtherVisibility();
 }
 

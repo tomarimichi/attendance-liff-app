@@ -166,7 +166,7 @@ function updateDepartmentVisibility(visitStatus) {
 }
 
 
-
+/* 
 document.getElementById('symptom').addEventListener('change', e => {
   const otherArea = document.getElementById('symptomOtherArea');
   if (!otherArea) return;
@@ -174,7 +174,7 @@ document.getElementById('symptom').addEventListener('change', e => {
   otherArea.style.display =
     e.target.value === 'OTHER' ? 'block' : 'none';
 });
-
+*/
 
 document.getElementById('reason').addEventListener('change', e => {
   updateSymptomVisibility(e.target.value);

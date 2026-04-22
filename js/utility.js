@@ -113,7 +113,21 @@ function sanitizeBeforeSubmit(data) {
 }
 */
 
+
+// ================================
 // その他表示用判定関数
+// ================================
+// 症状
+function shouldShowSymptomOther(params, symptomValues) {
+  const isOtherSelected = symptomValues.includes('OTHER');
+
+  // 体調不良のときだけ有効
+  const isIllness = params.reason === 'ILLNESS';
+
+  return isOtherSelected && isIllness;
+}
+
+// 受診科
 function shouldShowDepartmentOther(params, departmentValues) {
   const isOtherSelected = departmentValues.includes('OTHER');
 
@@ -127,7 +141,23 @@ function shouldShowDepartmentOther(params, departmentValues) {
   return isOtherSelected && (isIllnessWithVisit || isVisitReason);
 }
 
+
+// ================================
 // 表示更新関数
+// ================================
+function updateSymptomOtherVisibility() {
+  const area = document.getElementById('symptomOtherArea');
+  if (!area) return;
+
+  const params = getFormParams();
+  const symptomValues = getSelectedValues('symptom');
+
+  const shouldShow = shouldShowSymptomOther(params, symptomValues);
+
+  area.style.display = shouldShow ? 'block' : 'none';
+}
+
+// 受診科
 function updateDepartmentOtherVisibility() {
   const area = document.getElementById('departmentOtherArea');
   if (!area) return;
@@ -160,6 +190,15 @@ function getSelectedValues(name) {
   });
 
   return values;
+}
+
+// イベント集約
+function bindSymptomOtherEvents() {
+  document.getElementById('symptom')
+    ?.addEventListener('change', updateSymptomOtherVisibility);
+
+  document.getElementById('reason')
+    ?.addEventListener('change', updateSymptomOtherVisibility);
 }
 
 // -------------------------------------------

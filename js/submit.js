@@ -97,9 +97,9 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
     });
   }
   // 症状（その他）
+  const isRequired = shouldShowSymptomOther(params, symptomValues);
   if (
-    params.reasonCode === "ILLNESS" &&
-    symptomValues.includes('OTHER') &&
+    isRequired &&
     !params.symptomOther?.trim()
   ) {
     errors.push({
@@ -107,7 +107,18 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
       target: "symptomOther"
     });
   }
-
+  /*   
+    if (
+      params.reasonCode === "ILLNESS" &&
+      symptomValues.includes('OTHER') &&
+      !params.symptomOther?.trim()
+    ) {
+      errors.push({
+        message: "症状で「その他」を選んだ場合は、下の記入欄に具体的な内容をご入力ください",
+        target: "symptomOther"
+      });
+    }
+  */
   if (reasonConfig?.visit_required && !params.visitStatus) {
     errors.push({
       message: "通院有無を選択してください",
@@ -150,15 +161,15 @@ function validateForm(params,symptomValues,departmentValues,selectedDates) {
     isRequired &&
     !params.departmentOther?.trim()
     /*
-    isOtherSelectedInDePart &&
-    (isIllnesswithVisit || isVisitReason) &&
-    !params.departmentOther?.trim()
+      isOtherSelectedInDePart &&
+      (isIllnesswithVisit || isVisitReason) &&
+      !params.departmentOther?.trim()
     */
   ) {
-    errors.push({
-      message: "受診科で「その他」を選んだ場合は、下の記入欄にご入力ください",
-      target: "departmentOther"
-    });
+  errors.push({
+    message: "受診科で「その他」を選んだ場合は、下の記入欄にご入力ください",
+    target: "departmentOther"
+  });
   }
 
   if (!params.nextDate) {
