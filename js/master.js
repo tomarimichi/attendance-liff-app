@@ -264,7 +264,12 @@ function addDays(date, days) {
 }
 
 function formatDate(date) {
-  return date.toISOString().split('T')[0]; // YYYY-MM-DD
+  const y = date.getfullYear();
+  const m = String(date.getMonth()+1).padStart(2,`0`);
+  const d = String(date.getDate()).padStart(2,`0`);
+  
+  return `${y}-${m}-${d}`;
+  // return date.toISOString().split('T')[0]; // YYYY-MM-DD
 }
 
 function formatDisplay(date) {
